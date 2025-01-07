@@ -75,7 +75,7 @@ First and foremost, you should use a QuPath project dedicated to the training of
 6. In `Advanced settings`, check `Reweight samples` to help make sure a classification is not over-represented.
 7. Modify the different parameters :
     + `Classifier` : typically, `RTrees` or `ANN_MLP`. This can be changed dynamically afterwards to see which works best for you.
-    + `Resolution` : this is the pixel size used. This is a trade-off between accuracy and speed. If your objects are only composed of a few pixels, you'll the full resolution, for big objects reducing the resolution will be faster.
+    + `Resolution` : this is the pixel size used. This is a trade-off between accuracy and speed. If your objects are only composed of a few pixels, you'll want the full resolution, for big objects reducing the resolution will be faster.
     + `Features` : this is the core of the process -- where you choose the filters. In `Edit`, you'll need to choose :
         - The fluorescence channels
         - The scales, eg. the size of the filters applied to the image. The bigger, the coarser the filter is. Again, this will depend on the size of the objects you want to segment.
