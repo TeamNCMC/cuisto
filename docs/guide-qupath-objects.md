@@ -69,7 +69,7 @@ First and foremost, you should use a QuPath project dedicated to the training of
 
 1. You should choose some images from different animals, with different imaging conditions (staining efficiency and LED intensity) in different regions (eg. with different objects' shape, size, sparsity...). The goal is to get the most diversity of objects you could encounter in your experiments. 10 images is more than enough !
 2. Import those images to the new, dedicated QuPath project.
-3. Create the classifications you'll need, "Cells: marker+" for example. The "Ignore*" classification is used for the background.
+3. Create the classifications you'll need, "Cells: marker+" for example. The "Ignore*" classification is used for the background. 
 4. Head to `Classify > Pixel classification > Train pixel classifier`, and turn on `Live prediction`.
 5. Load all your images in `Load training`.
 6. In `Advanced settings`, check `Reweight samples` to help make sure a classification is not over-represented.
