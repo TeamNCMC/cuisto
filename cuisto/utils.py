@@ -131,14 +131,7 @@ def get_blacklist(file: str, atlas: BrainGlobeAtlas) -> list:
 
     # add regions and their descendants
     for region in content["WITH_CHILDS"]["members"]:
-        blacklist.extend(
-            [
-                atlas.structures[id]["acronym"]
-                for id in atlas.structures.tree.expand_tree(
-                    atlas.structures[region]["id"]
-                )
-            ]
-        )
+        blacklist.extend(get_child_regions(atlas, region))
 
     # add regions specified exactly (no descendants)
     blacklist.extend(content["EXACT"]["members"])
@@ -196,6 +189,29 @@ def get_leaves_list(atlas: BrainGlobeAtlas) -> list:
             leaves_list.append(region["acronym"])
 
     return leaves_list
+
+
+def get_child_regions(atlas: BrainGlobeAtlas, parent_region: str) -> list:
+    """
+    Get list of regions that are child of `parent_region`.
+
+    Parameters
+    ----------
+    atlas : BrainGlobeAtlas
+        Atlas to extract regions from.
+
+    Returns
+    -------
+    child_list : list
+        List of regions.
+
+    """
+    return [
+        atlas.structures[id]["acronym"]
+        for id in atlas.structures.tree.expand_tree(
+            atlas.structures[parent_region]["id"]
+        )
+    ]
 
 
 def ccf_to_stereo(
