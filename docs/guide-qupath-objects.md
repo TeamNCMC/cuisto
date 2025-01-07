@@ -108,7 +108,7 @@ You will first need to export those with the `exportPixelClassifierProbabilities
 
 Then the segmentation script can :
 
-+ find punctal objects as polygons (with a shape) or points (punctal) than can be counted.
++ find punctual objects as polygons (with a shape) or points (punctual) that can be counted.
 + trace fibers with skeletonization to create lines whose lengths can be measured.
 
 Several parameters have to be specified by the user,  see the segmentation script [API reference](api-script-segment.md). This script will generate [GeoJson](tips-formats.md#json-and-geojson-files) files that can be imported back to QuPath with the `importGeojsonFiles.groovy` script.
