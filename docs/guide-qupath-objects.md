@@ -56,7 +56,7 @@ Briefly, this uses a watershed algorithm to find bright spots and can perform a 
     In `scripts/qupath-utils/segmentation`, there is `watershedDetectionFilters.groovy` which uses this feature from a script. It further allows you to filter out detected cells based on shape measurements as well as fluorescence itensity in several channels and cell compartments.
 
 ### Pixel classifier
-Another very powerful and versatile way to segment cells if through machine learning. Note the term "machine" and not "deep" as it relies on statistics theory from the 1980s. QuPath provides an user-friendly interface to that, similar to what [ilastik](https://www.ilastik.org/) provides.
+Another very powerful and versatile way to segment cells is through machine learning. Note the term "machine" and not "deep" as it relies on statistics theory from the 1980s. QuPath provides an user-friendly interface to that, similar to what [ilastik](https://www.ilastik.org/) provides.
 
 The general idea is to train a model to classify every pixel as a signal or as background. You can find good resources on how to procede in the [official documentation](https://qupath.readthedocs.io/en/stable/docs/tutorials/pixel_classification.html) and some additionnal tips and tutorials on Michael Neslon's blog ([here](https://www.imagescientist.com/mpx-pixelclassifier) and [here](https://www.imagescientist.com/brightfield-4-pixel-classifier)).
 
