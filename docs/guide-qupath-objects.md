@@ -48,7 +48,7 @@ Then, choose the following options :
 ## Detect objects
 ### Built-in cell detection
 
-QuPath has a built-in cell detection feature, available in `Analyze > Cell detection`. You hava a full tutorial in the [official documentation](https://qupath.readthedocs.io/en/stable/docs/tutorials/cell_detection.html).
+QuPath has a built-in cell detection feature, available in `Analyze > Cell detection`. You have a full tutorial in the [official documentation](https://qupath.readthedocs.io/en/stable/docs/tutorials/cell_detection.html).
 
 Briefly, this uses a watershed algorithm to find bright spots and can perform a cell expansion to estimate the full cell shape based on the detected nuclei. Therefore, this works best to segment nuclei but one can expect good performance for cells as well, depending on the imaging and staining conditions.
 
