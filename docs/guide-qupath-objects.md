@@ -48,7 +48,7 @@ Then, choose the following options :
 ## Detect objects
 ### Built-in cell detection
 
-QuPath has a built-in cell detection feature, available in `Analyze > Cell detection`. You hava a full tutorial in the [official documentation](https://qupath.readthedocs.io/en/stable/docs/tutorials/cell_detection.html).
+QuPath has a built-in cell detection feature, available in `Analyze > Cell detection`. You have a full tutorial in the [official documentation](https://qupath.readthedocs.io/en/stable/docs/tutorials/cell_detection.html).
 
 Briefly, this uses a watershed algorithm to find bright spots and can perform a cell expansion to estimate the full cell shape based on the detected nuclei. Therefore, this works best to segment nuclei but one can expect good performance for cells as well, depending on the imaging and staining conditions.
 
@@ -56,7 +56,7 @@ Briefly, this uses a watershed algorithm to find bright spots and can perform a 
     In `scripts/qupath-utils/segmentation`, there is `watershedDetectionFilters.groovy` which uses this feature from a script. It further allows you to filter out detected cells based on shape measurements as well as fluorescence itensity in several channels and cell compartments.
 
 ### Pixel classifier
-Another very powerful and versatile way to segment cells if through machine learning. Note the term "machine" and not "deep" as it relies on statistics theory from the 1980s. QuPath provides an user-friendly interface to that, similar to what [ilastik](https://www.ilastik.org/) provides.
+Another very powerful and versatile way to segment cells is through machine learning. Note the term "machine" and not "deep" as it relies on statistics theory from the 1980s. QuPath provides an user-friendly interface to that, similar to what [ilastik](https://www.ilastik.org/) provides.
 
 The general idea is to train a model to classify every pixel as a signal or as background. You can find good resources on how to procede in the [official documentation](https://qupath.readthedocs.io/en/stable/docs/tutorials/pixel_classification.html) and some additionnal tips and tutorials on Michael Neslon's blog ([here](https://www.imagescientist.com/mpx-pixelclassifier) and [here](https://www.imagescientist.com/brightfield-4-pixel-classifier)).
 
@@ -69,13 +69,13 @@ First and foremost, you should use a QuPath project dedicated to the training of
 
 1. You should choose some images from different animals, with different imaging conditions (staining efficiency and LED intensity) in different regions (eg. with different objects' shape, size, sparsity...). The goal is to get the most diversity of objects you could encounter in your experiments. 10 images is more than enough !
 2. Import those images to the new, dedicated QuPath project.
-3. Create the classifications you'll need, "Cells: marker+" for example. The "Ignore*" classification is used for the background.
+3. Create the classifications you'll need, "Cells: marker+" for example. The "Ignore*" classification is used for the background. 
 4. Head to `Classify > Pixel classification > Train pixel classifier`, and turn on `Live prediction`.
 5. Load all your images in `Load training`.
 6. In `Advanced settings`, check `Reweight samples` to help make sure a classification is not over-represented.
 7. Modify the different parameters :
     + `Classifier` : typically, `RTrees` or `ANN_MLP`. This can be changed dynamically afterwards to see which works best for you.
-    + `Resolution` : this is the pixel size used. This is a trade-off between accuracy and speed. If your objects are only composed of a few pixels, you'll the full resolution, for big objects reducing the resolution will be faster.
+    + `Resolution` : this is the pixel size used. This is a trade-off between accuracy and speed. If your objects are only composed of a few pixels, you'll want the full resolution, for big objects reducing the resolution will be faster.
     + `Features` : this is the core of the process -- where you choose the filters. In `Edit`, you'll need to choose :
         - The fluorescence channels
         - The scales, eg. the size of the filters applied to the image. The bigger, the coarser the filter is. Again, this will depend on the size of the objects you want to segment.
@@ -108,7 +108,7 @@ You will first need to export those with the `exportPixelClassifierProbabilities
 
 Then the segmentation script can :
 
-+ find punctal objects as polygons (with a shape) or points (punctal) than can be counted.
++ find punctual objects as polygons (with a shape) or points (punctual) that can be counted.
 + trace fibers with skeletonization to create lines whose lengths can be measured.
 
 Several parameters have to be specified by the user,  see the segmentation script [API reference](api-script-segment.md). This script will generate [GeoJson](tips-formats.md#json-and-geojson-files) files that can be imported back to QuPath with the `importGeojsonFiles.groovy` script.
