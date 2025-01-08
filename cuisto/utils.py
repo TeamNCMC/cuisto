@@ -105,17 +105,18 @@ def get_mapping_fusion(fusion_file: str) -> dict:
     )
 
 
-def get_blacklist(file: str, atlas: BrainGlobeAtlas) -> list:
+def get_blacklist(file: str, atlas: BrainGlobeAtlas | None) -> list:
     """
     Build a list of regions to exclude from file.
 
-    File must be a TOML with [WITH_CHILDS] and [EXACT] sections.
+    File must be a TOML with [WITH_CHILDS] and [EXACT] sections. If `atlas` is None,
+    return an empty list.
 
     Parameters
     ----------
     file : str
         Full path the atlas_blacklist.toml file.
-    atlas : BrainGlobeAtlas
+    atlas : BrainGlobeAtlas or None
         Atlas to extract regions from.
 
     Returns
@@ -124,6 +125,10 @@ def get_blacklist(file: str, atlas: BrainGlobeAtlas) -> list:
         Full list of acronyms to discard.
 
     """
+    # if no atlas provided, return empty list
+    if atlas is None:
+        return []
+
     with open(file, "rb") as fid:
         content = tomllib.load(fid)
 
@@ -165,16 +170,16 @@ def merge_regions(df: pd.DataFrame, col: str, fusion_file: str) -> pd.DataFrame:
     return df
 
 
-def get_leaves_list(atlas: BrainGlobeAtlas) -> list:
+def get_leaves_list(atlas: BrainGlobeAtlas | None) -> list:
     """
     Get the list of leaf brain regions.
 
     Leaf brain regions are defined as regions without childs, eg. regions that are at
-    the bottom of the hiearchy.
+    the bottom of the hiearchy. If no atlas is provided, returns an empty list.
 
     Parameters
     ----------
-    atlas : BrainGlobeAtlas
+    atlas : BrainGlobeAtlas or None
         Atlas to extract regions from.
 
     Returns
@@ -184,6 +189,10 @@ def get_leaves_list(atlas: BrainGlobeAtlas) -> list:
 
     """
     leaves_list = []
+
+    if atlas is None:
+        return leaves_list
+
     for region in atlas.structures_list:
         if atlas.structures.tree[region["id"]].is_leaf():
             leaves_list.append(region["acronym"])
@@ -191,13 +200,15 @@ def get_leaves_list(atlas: BrainGlobeAtlas) -> list:
     return leaves_list
 
 
-def get_child_regions(atlas: BrainGlobeAtlas, parent_region: str) -> list:
+def get_child_regions(atlas: BrainGlobeAtlas | None, parent_region: str) -> list:
     """
     Get list of regions that are child of `parent_region`.
 
+    If no atlas is provided, returns an empty list.
+
     Parameters
     ----------
-    atlas : BrainGlobeAtlas
+    atlas : BrainGlobeAtlas or None
         Atlas to extract regions from.
 
     Returns
@@ -206,6 +217,9 @@ def get_child_regions(atlas: BrainGlobeAtlas, parent_region: str) -> list:
         List of regions.
 
     """
+    if atlas is None:
+        return []
+
     return [
         atlas.structures[id]["acronym"]
         for id in atlas.structures.tree.expand_tree(
@@ -385,7 +399,7 @@ def add_channel(
 
 
 def add_brain_region(
-    df: pd.DataFrame, atlas: BrainGlobeAtlas, col="Parent"
+    df: pd.DataFrame, atlas: BrainGlobeAtlas | None, col="Parent"
 ) -> pd.DataFrame:
     """
     Add brain region to a DataFrame with `Atlas_X`, `Atlas_Y` and `Atlas_Z` columns.
@@ -394,12 +408,13 @@ def add_brain_region(
     structure_from_coords() method, instead it manually converts the coordinates in
     stack indices, then get the corresponding annotation id and query the corresponding
     acronym -- because brainglobe-atlasapi is not vectorized at all.
+    If no altas is provided (None), the `col` column is set to an empty string.
 
     Parameters
     ----------
     df : pd.DataFrame
         DataFrame with atlas coordinates in microns.
-    atlas : BrainGlobeAtlas
+    atlas : BrainGlobeAtlas or None
     col : str, optional
         Column in which to put the regions acronyms. Default is "Parent".
 
@@ -410,6 +425,11 @@ def add_brain_region(
 
     """
     df_in = df.copy()
+
+    if atlas is None:
+        # no atlas provided set required col as empty string
+        df[col] = ""
+        return df
 
     res = atlas.resolution  # microns <-> pixels conversion
     lims = atlas.shape_um  # out of brain
