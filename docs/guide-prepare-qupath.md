@@ -40,7 +40,7 @@ While you're free to add any measurements as long as they follow [the requiremen
 
 It is then up to you to select which metrics among those to compute and display and name them, via the [configuration file](main-configuration-files.md#configtoml).
 
-For punctal detections (eg. objects whose only the centroid is considered), only the atlas coordinates are used, to compute and display spatial distributions of objects across the brain (using their classifications to give each distributions different hues).  
+For punctual detections (eg. objects whose only the centroid is considered), only the atlas coordinates are used, to compute and display spatial distributions of objects across the brain (using their classifications to give each distributions different hues).  
 For fibers-like objects, it requires to export the lines detections atlas coordinates as JSON files, with the `exportFibersAtlasCoordinates.groovy` script (this is done automatically when using the [pipeline](guide-pipeline.md)).
 
 ### Adding measurements
