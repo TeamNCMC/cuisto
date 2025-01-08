@@ -17,7 +17,7 @@ Three main scripts and function are used within the pipeline :
     - add atlas coordinates to detections
     - add hemisphere to detections' parents
     - add regions measurements 
-        * count for punctal objects
+        * count for punctual objects
         * cumulated length for lines objects
     - export detections measurements
         * as CSV for punctual objects
