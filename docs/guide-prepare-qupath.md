@@ -6,7 +6,7 @@
 `cuisto` assumes a specific way of storing regions and objects information in the TSV files exported from QuPath. Note that only one primary classification is supported, but you can have any number of derived classifications.
 
 ### Detections
-Detections are the objects of interest. Their informations must respect the following :
+Detections are the objects of interest. Their information must respect the following :
 
 + Atlas coordinates should be in millimetres (mm) and stored as `Atlas_X`, `Atlas_Y`, `Atlas_Z`. They correspond, respectively, to the anterio-posterior (rostro-caudal) axis, the inferio-superior (dorso-ventral) axis and the left-right (medio-lateral) axis.
 + They must have a derived classification, in the form `Primary: second`. Primary would be an object type (cells, fibers, ...), the second one would be a biological marker or a detection channel (fluorescence channel name), for instance : `Cells: some marker`, or `Fibers: EGFP`.
