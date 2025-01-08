@@ -1,6 +1,6 @@
 # Prepare QuPath data
 
-`cuisto` uses some QuPath classifications concepts, make sure to be familiar with them with the [official documentation](https://qupath.readthedocs.io/en/stable/docs/concepts/classifications.html#classifications-derived-classifications). Notably, we use the concept of primary classification and derived classification : an object classfied as `First: second` is of classification `First` and of derived classification `second`.
+`cuisto` uses some QuPath classifications concepts, make sure to be familiar with them with the [official documentation](https://qupath.readthedocs.io/en/stable/docs/concepts/classifications.html#classifications-derived-classifications). Notably, we use the concept of primary classification and derived classification : an object classified as `First: second` is of classification `First` and of derived classification `second`.
 
 ## QuPath requirements
 `cuisto` assumes a specific way of storing regions and objects information in the TSV files exported from QuPath. Note that only one primary classification is supported, but you can have any number of derived classifications.
