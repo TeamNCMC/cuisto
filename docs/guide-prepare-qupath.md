@@ -63,7 +63,7 @@ Once you imported atlas regions registered with ABBA, detected objects in your i
 + Head to `Measure > Export measurements`
 + Select relevant images
 + Choose the `Output file` (specify in the file name if it is a detections or annotations file)
-+ Chose either `Detections` or `Annoations` in `Export type`
++ Choose either `Detections` or `Annoations` in `Export type`
 + Click `Export`
 
 Do this for both Detections and Annotations, you can then use those files with `cuisto` (see the [Examples](main-using-notebooks.md)).
