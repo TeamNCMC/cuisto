@@ -20,9 +20,9 @@ Steps 1-3 below need to be performed only once. If Anaconda or conda is already 
 4. Activate the environment :
     ```bash
     conda activate cuisto-env
-    ```bash
-5. Install `cuisto` :
     ```
+5. Install `cuisto` :
+    ```bash
     pip install cuisto
     ```
 6. (Optional) Download the latest release from [here](https://github.com/TeamNCMC/cuisto/releases/latest) (choose "Source code (zip)) and unzip it on your computer. You can copy the `scripts/` folder to get access to the QuPath and Python scripts. You can check the notebooks in `docs/demo_notebooks` as well !

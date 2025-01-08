@@ -58,10 +58,11 @@ def process_animal(
     )
     # add hemisphere
     df_annotations = utils.add_hemisphere(df_annotations, cfg.hemispheres["names"])
-    # remove objects in non-leaf regions
-    df_annotations = utils.filter_df_regions(
-        df_annotations, cfg.atlas["leaveslist"], mode="keep", col="Name"
-    )
+    # remove objects in non-leaf regions if any
+    if len(cfg.atlas["leaveslist"]) > 0:
+        df_annotations = utils.filter_df_regions(
+            df_annotations, cfg.atlas["leaveslist"], mode="keep", col="Name"
+        )
     # merge regions
     df_annotations = utils.merge_regions(
         df_annotations, col="Name", fusion_file=cfg.files["fusion"]
@@ -238,7 +239,7 @@ def process_animals(
             )
         else:
             df_detections = pd.DataFrame()
-        
+
         # get results
         df_reg, dfs_dis, df_coo = process_animal(
             animal,

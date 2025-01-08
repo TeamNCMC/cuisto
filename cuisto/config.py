@@ -37,7 +37,11 @@ class Config:
                 setattr(self, key, cfg[key])
 
         self.config_file = config_file
-        self.bg_atlas = BrainGlobeAtlas(self.atlas["name"], check_latest=False)
+        if self.atlas["name"]:
+            self.bg_atlas = BrainGlobeAtlas(self.atlas["name"], check_latest=False)
+        else:
+            self.bg_atlas = None
+
         self.get_blacklist()
         self.get_leaves_list()
 
