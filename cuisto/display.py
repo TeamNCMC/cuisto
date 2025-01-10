@@ -211,7 +211,7 @@ def nice_bar_plot(
     nx : None or int, optional
         Number of `x` to show in the plot. Default is None (no limit).
     ordering : None or list[str] or "max", optional
-        Sorted list of acronyms. Data will be sorted follwowing this order, if "max",
+        Sorted list of acronyms. Data will be sorted following this order, if "max",
         sorted by descending values, if None, not sorted (default).
     names_list : list or None, optional
         List of names to display. If None (default), takes the most prominent overall
