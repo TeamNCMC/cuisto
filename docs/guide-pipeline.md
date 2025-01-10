@@ -1,6 +1,8 @@
 # Pipeline
 While you can use QuPath and `cuisto` functionalities as you see fit, there exists a pipeline version of those. It requires a specific structure to store files (so that the different scripts know where to look for data). It also requires that you have detections stored as [geojson](tips-formats.md#json-and-geojson-files) files, which can be achieved using a pixel classifier and further segmentation (see [here](guide-qupath-objects.md#probability-map-segmentation)) for example.
 
+In the event you can't or don't want to follow the pipeline depicted below, but still want to be able to batch-process animals, check the [last section](#batch-process-animals).
+
 ## Purpose
 This is especially useful to perform quantification for several animals at once, where you'll only need to specify the root directory and the animals identifiers that should be pooled together, instead of having to manually specify each detections and annotations files.
 
@@ -104,3 +106,13 @@ cuisto.display.plot_2D_distributions(df_coordinates, cfg)
 
 !!! tip
     You can see a live example in [this demo notebook](demo_notebooks/fibers_length_multi.ipynb).
+
+## Batch-process animals
+It is still possible to process several subjects at once without using the directory structure specified [above](#directory-structure). The `cuisto.process.process_animals()` (plural) method is merely a wrapper around `cuisto.process.process_animal()` (singular). The former fetch the data from the expected locations, the latter is where the analysis actually happens. Therefore, it is possible to fetch your data yourself and feed it to `process_animal()`.
+
+For example, say you used the QuPath `Measure > Export measurements` for each of your animals. For each individual, this builds a single file with all your images. Let's collect those individual files in a single directory called "results", and name the files in a consistent manner that allows you to identify "Annotations" and "Detections", as well as the animal identifier, for instance "animal0_annotations.tsv".
+
+!!! important
+    The [configuration file](main-configuration-files.md#configtoml) is mandatory, even for single-animal analysis.
+
+The script `batch_process_animals.py` located in `examples` will mimick `process_animals()` functionnality.

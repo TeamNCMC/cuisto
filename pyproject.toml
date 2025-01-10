@@ -20,7 +20,7 @@ dependencies = [
   "ipympl",
   "ipywidgets",
   "matplotlib>=3.9.0",
-  "notebook",
+  "notebook>=7",
   "numpy>=2",
   "orjson>=3.10.3",
   "pandas[performance]>2.2.2",
