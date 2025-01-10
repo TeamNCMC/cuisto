@@ -1,6 +1,6 @@
 # The configuration files
 
-There are three configuration files : `altas_blacklist`, `atlas_fusion` and a modality-specific file, that we'll call `config` in this document. The former two are related to the atlas you're using, the latter is what is used by `cuisto` to know what and how to compute and display things. There is a fourth, optional, file, used to provide some information on a specific experiment, `info`.
+There are three configuration files : `altas_blacklist`, `atlas_fusion` and a modality-specific file, that we'll call `config` in this document. The former two are related to the atlas you're using, the latter is what is used by `cuisto` to know what and how to compute and display things. There is a fourth, optional, file used to provide some information on a specific experiment, `info`.
 
 The configuration files are in the TOML file format, that are basically text files formatted in a way that is easy to parse in Python. See [here](tips-formats.md#toml-toml-files) for a basic explanation of the syntax.
 
