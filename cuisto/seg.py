@@ -157,7 +157,7 @@ def get_collection_from_skel(
     ----------
     skeleton : skan.Skeleton
     properties : dict
-        QuPatj objects' properties.
+        QuPath objects' properties.
     rescale_factor : float
         Rescale output coordinates by this factor.
     offset : float
