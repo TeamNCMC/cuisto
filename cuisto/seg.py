@@ -97,7 +97,7 @@ def pad_image(img: np.ndarray, finalsize: tuple | list) -> np.ndarray:
 
 def erode_mask(mask: np.ndarray, edge_dist: float) -> np.ndarray:
     """
-    Erode the mask outline so that is is `edge_dist` smaller from the border.
+    Erode the mask outline so that `edge_dist` is smaller from the border.
 
     This allows discarding the edges.
 
