@@ -191,7 +191,7 @@ def get_distribution(
 
     A global distribution using only `col` is computed, then it computes a distribution
     distinguishing values in the `hue` column. For the latter, it is possible to use a
-    subset of the data ony, based on another column using `hue_filter`. This another
+    subset of the data only, based on another column using `hue_filter`. This another
     column is determined with `hue`, if the latter is "hemisphere", then `hue_filter` is
     used in the "channel" color and vice-versa.
     `per_commonnorm` controls how they are normalized, either as a whole (True) or
