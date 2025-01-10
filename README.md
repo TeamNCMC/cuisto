@@ -31,6 +31,12 @@ The `cuisto` will be then available in Python from anywhere as long as the `cuis
 
 For more complete installation instructions, see the [documentation](https://teamncmc.github.io/cuisto/main-getting-started.html#slow-start).
 
+## Update
+To update, simply activate your environment (`conda activate cuisto-env`) and run :
+```bash
+pip install cuisto --upgrade
+```
+
 ## Using notebooks
 Some Jupyter notebooks are available in the "docs/demo_notebooks" folder. You can open them in an IDE (such as [vscode](https://code.visualstudio.com/), select the "cuisto-env" environment as kernel in the top right) or in the Jupyter web interface (`jupyter notebook` in the terminal, with the "cuisto-env" environment activated).
 

@@ -238,7 +238,7 @@ def save_dfs(out_dir: str, filename, dfs: dict):
     if ext in [".h5", ".hdf", ".hdf5"]:
         path = os.path.join(out_dir, filename)
         for identifier, df in dfs.items():
-            df.to_hdf(path, key=identifier)
+            df.to_hdf(path, key=identifier, mode="w")
     elif ext == ".xlsx":
         for identifier, df in dfs.items():
             df.to_excel(path, sheet_name=identifier)

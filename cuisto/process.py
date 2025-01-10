@@ -18,6 +18,7 @@ def process_animal(
     df_detections: pd.DataFrame,
     cfg,
     compute_distributions: bool = True,
+    leaf_regions_only: bool = True,
 ) -> tuple[pd.DataFrame, list[pd.DataFrame], pd.DataFrame]:
     """
     Quantify objects for one animal.
@@ -34,8 +35,11 @@ def process_animal(
     cfg : cuisto.Config
         The configuration loaded from TOML configuration file.
     compute_distributions : bool, optional
-        If False, do not compute the 1D distributions and return an empty list.Default
+        If False, do not compute the 1D distributions and return an empty list. Default
         is True.
+    leaf_regions_only : bool, optional
+        If True and a Brainglobe atlas is specified, bar plot per regions will keep only
+        leaf regions, eg. regions with no child -- if there are any. Default is True.
 
     Returns
     -------
@@ -59,7 +63,7 @@ def process_animal(
     # add hemisphere
     df_annotations = utils.add_hemisphere(df_annotations, cfg.hemispheres["names"])
     # remove objects in non-leaf regions if any
-    if len(cfg.atlas["leaveslist"]) > 0:
+    if leaf_regions_only & (len(cfg.atlas["leaveslist"]) > 0):
         df_annotations = utils.filter_df_regions(
             df_annotations, cfg.atlas["leaveslist"], mode="keep", col="Name"
         )
@@ -73,7 +77,7 @@ def process_animal(
         df_detections = utils.filter_df_classifications(
             df_detections, cfg.object_type, mode="keep", col="Classification"
         )
-        # remove objects from blacklisted regions and "Root"
+        # remove objects from blacklisted regions
         df_detections = utils.filter_df_regions(
             df_detections, cfg.atlas["blacklist"], mode="remove", col="Parent"
         )
@@ -176,6 +180,7 @@ def process_animals(
     cfg,
     out_fmt: str | None = None,
     compute_distributions: bool = True,
+    **kwargs,
 ) -> tuple[pd.DataFrame]:
     """
     Get data from all animals and plot.
@@ -193,7 +198,7 @@ def process_animals(
     compute_distributions : bool, optional
         If False, do not compute the 1D distributions and return an empty list.Default
         is True.
-
+    kwargs : passed to cuisto.process.process_animal().
 
     Returns
     -------
@@ -247,6 +252,7 @@ def process_animals(
             df_detections,
             cfg,
             compute_distributions=compute_distributions,
+            **kwargs,
         )
 
         # collect results

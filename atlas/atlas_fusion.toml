@@ -8,9 +8,14 @@
 #   members = ["MY-mot", "MY-sat"]  # existing Allen Brain acronyms that should belong to the new region
 #
 # Then, regions labelled "MY-mot" and "MY-sat" will be labelled "MY" and will join regions already labelled "MY".
-# What's in [] does not matter but must be unique and is used to group.
+# What's in [] does not matter but must be unique and is used to group each blocks.
 # The new "name" and "acronym" can be existing Allen Brain regions or a new (meaningful) one.
-# Note that it is case sensitive.
+# Notes :
+# - It is case sensitive.
+# - If a Brainglobe atlas is specified in the configuration file, by default, cuisto will remove any
+# non-leaf regions (eg. any regions that have child region in the atlas ontology) *before* the merging
+# defined here. This means that if members are non-leaf regions, they will be discarded before the merge
+# and NOT be included in the new custom region.
 
 [PHY]
 name = "Perihypoglossal nuclei"
