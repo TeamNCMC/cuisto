@@ -28,7 +28,7 @@ ABBA can leverage the [elastix toolbox](https://elastix.dev/) for automatic 2D i
 2. Download the zip archive and extract it somewhere relevant.  
 3. In Fiji, in the search box, type "set and check" and launch the "Set and Check Wrappers" command. Set the paths to "elastix.exe" and "transformix.exe" you just downloaded.
 
-ABBA should be installed and functional ! You can check the [official documentation](https://abba-documentation.readthedocs.io/en/latest/index.html) for usage instructions and some tips [here](tips-abba.md).
+ABBA should be installed and functional ! You can check the [official documentation](https://abba-documentation.readthedocs.io/en/latest/index.html) for usage instructions and an opiniated guide [here](guide-register-abba.md).
 
 ## ABBA Python
 [Brainglobe](https://brainglobe.info/) is an initiative aiming at providing interoperable, model-agnostic Python-based tools for neuroanatomy. They package various published volumetric anatomical atlases of different species (check the [list](https://brainglobe.info/documentation/brainglobe-atlasapi/usage/atlas-details.html#available-atlases)), including the Allen Mouse brain atlas (CCFv3, [ref.](https://doi.org/10.1016/j.cell.2020.04.007)) and a 3D version of the Allen mouse spinal cord atlas ([ref](https://doi.org/10.1016/j.crmeth.2021.100074)).

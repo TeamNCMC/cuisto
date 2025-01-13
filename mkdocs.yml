@@ -39,7 +39,6 @@ nav:
   - Tips:
     - tips-formats.md
     - tips-qupath.md
-    - tips-abba.md
     - tips-brain-contours.md
   - main-configuration-files.md
   - Examples:
