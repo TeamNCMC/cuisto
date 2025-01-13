@@ -117,8 +117,8 @@ def cat_json_dir(
     """
     Scans a directory for json files and concatenate them in a single DataFrame.
 
-    The json files must be generated with 'pipelineImportExport.groovy" from a QuPath
-    project.
+    The json files must be generated with 'pipelineImportExport.groovy" or 
+    'exportFibersAtlasCoordinates.groovy' from a QuPath project.
 
     Parameters
     ----------

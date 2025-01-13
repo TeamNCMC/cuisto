@@ -49,7 +49,7 @@ Those information are used to perform the quantification in each Annotation with
 While you're free to add any measurements as long as they follow [the requirements](#qupath-requirements), keep in mind that for atlas regions quantification, `cuisto` will only compute, pool and average the following metrics :
 
 - the base measurement itself
-    - if "µm" is contained in the measurement name, it will also be converted to mm (\(\div\)1000)
+    - if the measurement name finishes with "µm", it will also be converted to mm (\(\div\)1000)
 - the base measurement divided by the region area in µm² (density in something/µm²)
 - the base measurement divided by the region area in mm² (density in something/mm²)
 - the squared base measurement divided by the region area in µm² (could be an index, in weird units...)

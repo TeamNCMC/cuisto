@@ -27,7 +27,7 @@ Steps 1-3 below need to be performed only once. If Anaconda or conda is already 
     ```
 6. (Optional) Download the latest release from [here](https://github.com/TeamNCMC/cuisto/releases/latest) (choose "Source code (zip)) and unzip it on your computer. You can copy the `scripts/` folder to get access to the QuPath and Python scripts. You can check the notebooks in `docs/demo_notebooks` as well !
 
-The `cuisto` will be then available in Python from anywhere as long as the `cuisto-env` conda environment is activated. You can get started by looking and using the [Jupyter notebooks](#using-notebooks).
+The `cuisto` package will be then available in Python from anywhere as long as the `cuisto-env` conda environment is activated. You can get started by looking and using the [Jupyter notebooks](#using-notebooks).
 
 For more complete installation instructions, see the [documentation](https://teamncmc.github.io/cuisto/main-getting-started.html#slow-start).
 

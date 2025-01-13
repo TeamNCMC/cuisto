@@ -46,7 +46,7 @@ Then, choose the following options :
 : Might be useful to check if the images are read correctly (mostly for CZI files).
 
 ## Detect objects
-To use be able to use `cuisto` directly after exporting QuPath data, there is a number of requirements and limitations regarding the QuPath Annotations and Detections names and classifications. However, the guides below should create objects with properly formatted data. See more about the requirements on [this page](guide-prepare-qupath.md).
+To be able to use `cuisto` directly after exporting QuPath data, there is a number of requirements and limitations regarding the QuPath Annotations and Detections names and classifications. However, the guides below should create objects with properly formatted data. See more about the requirements on [this page](guide-prepare-qupath.md).
 
 ### Built-in cell detection
 
@@ -55,14 +55,14 @@ QuPath has a built-in cell detection feature, available in `Analyze > Cell detec
 Briefly, this uses a watershed algorithm to find bright spots and can perform a cell expansion to estimate the full cell shape based on the detected nuclei. Therefore, this works best to segment nuclei but one can expect good performance for cells as well, depending on the imaging and staining conditions.
 
 !!! tip
-    In `scripts/qupath-utils/segmentation`, there is `watershedDetectionFilters.groovy` which uses this feature from a script. It further allows you to filter out detected cells based on shape measurements as well as fluorescence itensity in several channels and cell compartments.
+    In `scripts/qupath-utils/segmentation`, there is `watershedDetectionFilters.groovy` which uses this feature from a script. It further allows you to filter out detected cells based on shape measurements as well as fluorescence intensity in several channels and cell compartments.
 
 ### Pixel classifier
 Another very powerful and versatile way to segment cells is through machine learning. Note the term "machine" and not "deep" as it relies on statistics theory from the 1980s. QuPath provides an user-friendly interface to do that, similar to what [ilastik](https://www.ilastik.org/) provides.
 
 The general idea is to train a model to classify every pixel as a signal or as background. You can find good resources on how to procede in the [official documentation](https://qupath.readthedocs.io/en/stable/docs/tutorials/pixel_classification.html) and some additionnal tips and tutorials on Michael Neslon's blog ([here](https://www.imagescientist.com/mpx-pixelclassifier) and [here](https://www.imagescientist.com/brightfield-4-pixel-classifier)).
 
-Specifically, you will manually annotate some pixels of objects of interest and background. Then, you will apply some image processing filters (gaussian blur, laplacian...) to reveal specific features in your images (shapes, textures...). Finally, the pixel classifier will fit a model on those pixel values, so that it will be able to predict if a pixel, given the values with the different filters you applied, belongs to an object of interest or to the background. Even better, the pixels are *classified* in arbitrary classes *you* define : it supports any number of classes. In other word, one can train a model to classify pixels in a "background", "marker1", "marker2", "marker3"... classes, depending on their fluorescence color and intensity.
+Specifically, you will manually annotate some pixels of objects of interest and background. Then, you will apply some image processing filters (gaussian blur, laplacian...) to reveal specific features in your images (shapes, textures...). Finally, the pixel classifier will fit a model on those pixel values, so that it will be able to predict if a pixel, given the values with the different filters you applied, belongs to an object of interest or to the background. Even better, the pixels are *classified* in arbitrary classes *you* define : it supports any number of classes. In other word, one can train a model to classify pixels in "background", "marker1", "marker2", "marker3"... classes, depending on their fluorescence color and intensity.
 
 This is done in an intuitive GUI with live predictions to get an instant feedback on the effects of the filters and manual annotations.
 
@@ -77,7 +77,7 @@ First and foremost, you should use a QuPath project dedicated to the training of
 6. In `Advanced settings`, check `Reweight samples` to help make sure a classification is not over-represented.
 7. Modify the different parameters :
     + `Classifier` : typically, `RTrees` or `ANN_MLP`. This can be changed dynamically afterwards to see which works best for you.
-    + `Resolution` : this is the pixel size used. This is a trade-off between accuracy and speed. If your objects are only composed of a few pixels, you'll want the full resolution, for big objects reducing the resolution will be faster.
+    + `Resolution` : this is the pixel size used. This is a trade-off between accuracy and speed. If your objects are only composed of a few pixels, full resolution will be needed, for big objects decreasing the resolution (bigger pixel size) will be faster.
     + `Features` : this is the core of the process -- where you choose the filters. In `Edit`, you'll need to choose :
         - The fluorescence channels
         - The scales, eg. the size of the filters applied to the image. The bigger, the coarser the filter is. Again, this will depend on the size of the objects you want to segment.
@@ -85,7 +85,7 @@ First and foremost, you should use a QuPath project dedicated to the training of
     + `Output` :
         - `Classification` : QuPath will directly classify the pixels. Use that to [create objects directly from the pixel classifier](#built-in-create-objects) within QuPath.
         - `Probability` : this will output an image where each pixel is its probability to belong to each of the classifications. This is useful to [create objects externally](#probability-map-segmentation).
-8. In the bottom-right corner of the pixel classifier window, you can select to display each filters individually. Then in the QuPath main window, hitting ++c++ will switch the view to appreciate what the filter looks like. Identify the ones that makes your objects the most distinct from the background as possible. Switch back to `Show classification` once you begin to make annotations.
+8. In the bottom-right corner of the pixel classifier window, you can select to display each filters individually. Then in the QuPath main window, hitting ++c++ will switch the view to appreciate what the filter looks like. Identify the ones that make your objects the most distinct from the background as possible. Switch back to `Show classification` once you begin to make annotations.
 9. Begin to annotate ! Use the Polyline annotation tool (++v++) to classify **some** pixels belonging to an object and **some** pixels belonging to the background across your images.
     
     !!! tip
@@ -98,8 +98,16 @@ First and foremost, you should use a QuPath project dedicated to the training of
 
 11. Once you're done, give your classifier a name in the text box in the bottom and save it. It will be stored as a [JSON](tips-formats.md#json-and-geojson-files) file in the `classifiers` folder of the QuPath project. This file can be imported in your other QuPath projects.
 
+To import the classifier in the actual QuPath project, head to the `Classify > Pixel classification > Load pixel classifier` menu, three-dotted menu and `Import from file`. Upon import, several actions are available : create objects, measure or classify. Alternatively, the prediction image (where each pixel is the probability for that pixel to belong to each of the classifications) can be segmented externally.
+
 #### Built-in create objects
-Once you imported your model JSON file (`Classify > Pixel classification > Load pixel classifier`, three-dotted menu and `Import from file`), you can create objects out of it, measure the surface occupied by classified pixels in each annotation or classify existing detections based on the prediction at their centroid.
+The `Create objects` action will ask what where the objects should be created. If ABBA is being used, selecting "All annotations" will create objects in *each* annotation, which is not advised : because of the hierarchy, some annotations are *Parent* annotations, thus objects will be created multiple times (eg. detections will be created in "RN", "MBMot", "MB", "grey", "root" *and* "Root"). When using regions organized in a hierarchy, use "Full image" instead. Then some options are to be selected, including :
+
+- New object type : typically detections
+- Minimum object size : objects smaller than this will be discarded,
+- Minimum hole size : holes within a single object smaller than this will be filled,
+- Split objects : multiple detections will be split into multiple objects, otherwise all detections will be a single object (checking this is recommended),
+- Delete existing objects : this will delete *everything*, including annotations.
 
 !!! tip
     In `scripts/qupath-utils/segmentation`, there is a `createDetectionsFromPixelClassifier.groovy` script to batch-process your project.
@@ -127,7 +135,7 @@ Those measurements can then be used in `cuisto`, using "area µm^2" as the "base
 ##### Classify
 This classifies existing detections based on the prediction at their centroid. A pixel classifier classifies every single pixel in your image into the classes it was trained on. Any object has a centroid, eg. a center of mass, which corresponds to a given pixel. The "Classify" button will classify a detection as the classification based on the classification predicted by the classifier of the pixel located at the detection centroid.
 
-A typical use-case would be to create detections, for examples "cells stained in the DsRed channel", with a first pixel classifier (or any other means). Then, I would like to classify those cells as "positive" if they have a staining revealed in the EGFP channel, and as "negative" otherwise. To do this, I would train a second pixel classifier that simply would classify pixels to "Cells: positive" if they have a significant amount of green fluorescence, and "Cells: negative" otherwise. Note that in this case, it does not matter if the pixels do not actually belong to a cell, as it will only be used to classify *existing* detections - we do not use the Ignore\* class. Subsequently, I would import the second pixel classifier and use the "Classify" button.
+A typical use-case would be to create detections, for examples "cells stained in the DsRed channel", with a first pixel classifier (or any other means). Then, the detected cells need to be classified : I  want to classify them as "positive" if they have a staining revealed in the EGFP channel, and as "negative" otherwise. To do this, I would train a second pixel classifier that simply classifies pixels to "Cells: positive" if they have a significant amount of green fluorescence, and "Cells: negative" otherwise. Note that in this case, it does not matter if the pixels do not actually belong to a cell, as it will only be used to classify *existing* detections - we do not use the Ignore\* class. Subsequently, I would import the second pixel classifier and use the "Classify" button.
 
 !!! info inline end
     Similar results could be achieved with an *object classifier* instead of a pixel classifier but will not be covered here. You can check the [QuPath tutorial](https://qupath.readthedocs.io/en/stable/docs/tutorials/cell_classification.html#calculate-additional-features) to see how to procede.

@@ -111,7 +111,7 @@ To do so :
 5. Add as many landmarks as needed, when you're done, find the Fiji window called "Big Warp registration" that opened at the beginning and click `OK`.
 
 !!! tip "Important remarks and tips"
-    + A landmark is a location where you said "this location correspond to this one". Therefore, BigWarp is not allowed to move this particular location. Everywhere else, it is free to transform the image without any restrictions, including the borders. Thus, it is a good idea to **delimit the coarse contour of the brain with landmarks** to constrain the registration.
+    + A landmark is a location where you said "this location correspond to this one". Therefore, BigWarp is not allowed to move this particular location. Everywhere else, it is free to transform the image without any restrictions, including the borders. Thus, it is a good idea to **delimit the coarse contour of the brain with landmarks** to constrain the deformations.
     + ++left-button++ without holding ++ctrl++ will place a landmark in the fixed image only, without pair, and BigWarp won't like it. To **delete landmarks**, head to the "Landmarks" window that lists all of them. They highlight in the viewer upon selection. Hit ++del++ to delete one. Alternatively, click on it on the viewer and hit ++del++.
 
 #### From a previous registration

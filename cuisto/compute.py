@@ -18,11 +18,19 @@ def get_regions_metrics(
     metrics_names: dict,
 ) -> pd.DataFrame:
     """
-    Get a new DataFrame with cumulated axons segments length in each brain regions.
+    Derive metrics from `meas_base_name`.
 
-    This is the quantification per brain regions for fibers-like objects, eg. axons. The
-    returned DataFrame has columns "cum. length µm", "cum. length mm", "density µm^-1",
-    "density mm^-1", "coverage index".
+    The measurements columns of `df_annotations` must be properly formatted, eg :
+    object_type: channel meas_base_name
+
+    Derived metrics include :
+    - raw measurement
+    - areal density
+    - relative raw measurement
+    - relative density
+
+    Supports objects that are counted (polygons or points) and objects whose length is
+    measured (fibers-like).
 
     Parameters
     ----------
@@ -34,7 +42,9 @@ def get_regions_metrics(
     channel_names : dict
         Map between original channel names to something else.
     meas_base_name : str
+        Base measurement name in the input DataFrame used to derive metrics.
     metrics_names : dict
+        Maps hardcoded measurement names to display names.
 
     Returns
     -------
@@ -86,7 +96,7 @@ def get_regions_metrics(
     df_regions["Area mm^2"] = df_regions["Area µm^2"] / 1e6
 
     # prepare metrics
-    if "µm" in meas_base_name:
+    if meas_base_name.endswith("µm"):
         # fibers : convert to mm
         cols_to_convert = pd.Index([col for col in cols_colors if "µm" in col])
         df_regions[cols_to_convert.str.replace("µm", "mm")] = (
