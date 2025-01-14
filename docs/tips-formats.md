@@ -22,7 +22,7 @@ Metadata, while often overlooked, are of paramount importance in microscopy data
 - Dimensions,
 - Magnification...
 
-Pixel size is *the* parameter that is absolutely necessary. Channel names and colors are more a quality of life feature, to make sure not to mix your difference fluorescence channels. CZI files or exported OME-TIFF files include this out of the box so you don't really need to pay attention.
+Pixel size is *the* parameter that is absolutely necessary. Channel names and colors are more a quality of life feature, to make sure not to mix your different fluorescence channels. CZI files or exported OME-TIFF files include this out of the box so you don't really need to pay attention.
 
 ## Bio-formats
 [Bio-formats](https://www.openmicroscopy.org/bio-formats/) is an initiative of the Open Microscopy Environment (OME) consortium, aiming at being able to read proprietary microscopy image data *and* metadata. It is used in QuPath, Fiji and ABBA.
@@ -30,7 +30,7 @@ Pixel size is *the* parameter that is absolutely necessary. Channel names and co
 [This page](https://bio-formats.readthedocs.io/en/latest/supported-formats.html) summarizes the level of support of numerous file formats. You can see that Zeiss CZI files and Leica LIF are quite well supported, and *should* therefore work out of the box in QuPath.
 
 ## Zeiss CZI files
-QuPath and ABBA supports any Bio-formats supported, tiled, pyramidal images.
+QuPath and ABBA support any Bio-formats supported, tiled, pyramidal images.
 
 If you're in luck, adding the pyramidal CZI file to your [QuPath project](https://qupath.readthedocs.io/en/stable/docs/tutorials/projects.html) will just work. If it doesn't, you'll notice immediately : the tiles will be shuffled and you'll see only a part of the image instead of the whole one. Unfortunately I was not able to determine why this happens and did not find a way to even predict if a file will or will not work.
 
