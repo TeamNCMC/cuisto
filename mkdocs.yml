@@ -40,6 +40,7 @@ nav:
     - tips-formats.md
     - tips-qupath.md
     - tips-brain-contours.md
+    - tips-preprocessing.md
   - main-configuration-files.md
   - Examples:
     - main-using-notebooks.md
