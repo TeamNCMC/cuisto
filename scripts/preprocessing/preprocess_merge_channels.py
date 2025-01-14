@@ -1,16 +1,17 @@
 """
 Script for preprocessing.
-Merge channels found in wdir/Stack_RIP/ch*_cleaned, and create pyramidal OME-TIFF.
+To be used after preprocess_split_channels.py and manual review of brain masks.
+
+This script merges channels found in input_dir/ch*_cleaned, and create pyramidal
+OME-TIFF ready to be used in QuPath.
+
 Specify options at the top of file.
-`CHANNELS` must be ordered as the channels in the Stack_RIP directory.
+`CHANNELS` must be ordered as the channels in the input_dir directory.
 
-Double check channel names and colors.
-
-Credits to Christoph Gohlke, see
-https://forum.image.sc/t/creating-a-multi-channel-pyramid-ome-tiff-with-tiffwriter-in-python/76424/4
+Double check channel names and colors, and run the script.
 
 author : Guillaume Le Goc (g.legoc@posteo.org)
-version : 2024.11.19
+version : 2025.1.14
 
 """
 
@@ -24,13 +25,18 @@ from skimage import transform
 from tqdm import tqdm
 
 # --- Parameters
-EXPID = "animal0"
+# where to find chXX_cleaned folders
+INPUT_DIRECTORY = r"E:\projects\histo\data\GN121\images"
+# where to save merged images
+OUTPUT_DIRECTORY = os.path.join(INPUT_DIRECTORY, "merged_cleaned")
 
 # channels settings : dict mapping channel name to an RGB color. The order must be the
-# same as the channels order in the Stack_RIP directory.
+# same as the channels order in the input directory.
 CHANNELS = {
     "CFP": (0, 0, 255),
     "EGFP": (0, 255, 0),
+    "DsRed": (255, 0, 0),
+    "Cy5": (255, 0, 255),
 }
 
 # pyramidal ome-tiff settings
@@ -41,10 +47,8 @@ NTHREADS = 18  # number of threads for writing image
 
 IN_EXT = "tiff"
 
-# working directory
-WDIR = "path/to/data"
 
-
+# --- Functions
 def rgb_to_int(rgb):
     """Convert RGB color tuple to integer for OME-TIFF specs.
     Alpha channel is set to 0.
@@ -188,9 +192,10 @@ def im_downscale(img, downfactor, **kwargs):
 
 
 def process_directory(
-    expid: str,
-    levels: tuple,
+    input_directory: str,
+    output_directory: str,
     channels: dict,
+    levels: tuple,
 ):
     """
     Merge TIFF stacks representing different channels and create pyramidal OME-TIFF.
@@ -208,22 +213,16 @@ def process_directory(
 
     """
     # --- Preparation
-    wdir = os.path.abspath(WDIR)
-
-    # build directories names
-    inpdir = os.path.join(wdir, expid, "images")
-    outdir = os.path.join(wdir, expid, "images", "merged_cleaned_pyramid")
-
     # create directory if it does not exist
-    if not os.path.isdir(outdir):
-        os.makedirs(outdir)
+    if not os.path.isdir(output_directory):
+        os.makedirs(output_directory)
 
     # list channel directories
     chandirslist = [
-        os.path.join(inpdir, directory)
-        for directory in os.listdir(inpdir)
+        os.path.join(input_directory, directory)
+        for directory in os.listdir(input_directory)
         if (
-            os.path.isdir(os.path.join(wdir, expid, "images", directory))
+            os.path.isdir(os.path.join(input_directory, directory))
             and directory.startswith("ch")
             and directory.endswith("cleaned")
         )
@@ -256,7 +255,9 @@ def process_directory(
     pbar = tqdm(imgslist)
     for imgfile in pbar:
         # build output image name
-        imgout = os.path.join(outdir, os.path.splitext(imgfile)[0] + ".ome.tiff")
+        imgout = os.path.join(
+            output_directory, os.path.splitext(imgfile)[0] + ".ome.tiff"
+        )
 
         if os.path.isfile(imgout):
             continue
@@ -308,7 +309,8 @@ def process_directory(
 # --- Call
 if __name__ == "__main__":
     process_directory(
-        EXPID,
-        LEVELS,
+        INPUT_DIRECTORY,
+        OUTPUT_DIRECTORY,
         CHANNELS,
+        LEVELS,
     )
