@@ -19,7 +19,7 @@ To exclude objects near the edges of an ROI, specify the path to masks stored as
 with the same names as probabilities images (without their suffix).
 
 author : Guillaume Le Goc (g.legoc@posteo.org) @ NeuroPSI
-version : 2024.12.10
+version : 2025.1.15
 
 """
 
@@ -345,6 +345,11 @@ def process_directory(
         if filename.endswith(img_suffix)
     ]
 
+    if len(images_list) == 0:
+        raise FileNotFoundError(
+            f"No file found in {images_dir}. Check 'IMAGES_DIR' and 'IMG_SUFFIX'."
+        )
+
     # write parameters
     parameters = parameters_as_dict(
         images_dir, masks_dir, segtype, channel_suffix, proba_threshold, edge_dist
@@ -462,7 +467,7 @@ if __name__ == "__main__":
 
     pbar = tqdm(channels_params)
     for param in pbar:
-        pbar.set_description(f"Segmenting {param["name"]}")
+        pbar.set_description(f"Segmenting {param['name']}")
         process_directory(
             IMAGES_DIR,
             img_suffix=IMG_SUFFIX,
