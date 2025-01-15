@@ -12,7 +12,7 @@ After [ABBA](https://abba-documentation.readthedocs.io/en/latest/) registration 
 + compute averages and sem across animals,
 + displaying all the above.
 
-This documentation contains `cuisto` installation instructions, ABBA installation instructions, guides to prepare images for the pipeline, detect objects with QuPath, register 2D slices on a 3D atlas with ABBA, along with examples.
+This documentation contains `cuisto` [installation instructions](main-getting-started.md), ABBA [installation instructions](guide-install-abba.md), guides to [prepare images](guide-create-pyramids.md) for the pipeline, [detect objects](guide-qupath-objects.md) with QuPath, [register 2D slices on a 3D atlas](guide-register-abba.md) with ABBA, along with [examples](main-using-notebooks.md).
 
 In theory, `cuisto` should work with any measurements table with the [required columns](guide-prepare-qupath.md#qupath-requirements), but has been designed with ABBA and QuPath in mind.
 
