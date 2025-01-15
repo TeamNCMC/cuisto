@@ -1,7 +1,7 @@
 # Getting started
 
 ## Quick start
-1. Install QuPath, ABBA and conda.
+1. Install [QuPath](https://qupath.github.io), [ABBA](https://teamncmc.github.io/cuisto/guide-install-abba.html) and [conda](https://conda-forge.org/download/).
 2. Create an environment :
 ```
 conda create -c conda-forge -n cuisto-env python=3.12
