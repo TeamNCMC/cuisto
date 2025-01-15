@@ -63,7 +63,7 @@ pyramidalize_directory("/path/to/your/images/", qupath_path="C:\Users\glegoc\App
     7. Go back to Parameters to choose the output directory and file prefix. "_s1", "_s2"... will be appended to the prefix.
     8. Back on the top, click the "Apply" button.
 
-The OME-TIFF files should be ready to be pyramidalized with the `create_pyramids.py` script.
+The OME-TIFF files should be ready to be pyramidalized with the `pyramid-creator` script.
 
 ## Usage
 See the instructions on the dedicated project page over at [Github](https://github.com/TeamNCMC/pyramid-creator#pyramid_creator).

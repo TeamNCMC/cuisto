@@ -10,7 +10,7 @@ After [ABBA](https://abba-documentation.readthedocs.io/en/latest/) registration 
 + compute metrics, such as objects density in each brain regions,
 + compute objects distributions in three three axes (rostro-caudal, dorso-ventral and medio-lateral),
 + compute averages and sem across animals,
-+ displaying all the above.
++ display all the above.
 
 This documentation contains `cuisto` [installation instructions](main-getting-started.md), ABBA [installation instructions](guide-install-abba.md), guides to [prepare images](guide-create-pyramids.md) for the pipeline, [detect objects](guide-qupath-objects.md) with QuPath, [register 2D slices on a 3D atlas](guide-register-abba.md) with ABBA, along with [examples](main-using-notebooks.md).
 
