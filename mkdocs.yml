@@ -38,6 +38,7 @@ nav:
     - guide-pipeline.md
   - Tips:
     - tips-formats.md
+    - tips-abba.md
     - tips-qupath.md
     - tips-brain-contours.md
     - tips-preprocessing.md

@@ -6,6 +6,19 @@ The configuration files are in the TOML file format, that are basically text fil
 
 Most lines of each template file are commented to explain what each parameter do.
 
+## config.toml
+??? abstract "Click to see an example file"
+    ```toml title="config_template.toml"
+    --8<-- "configs/config_template.toml"
+    ```
+This file is used to configure `cuisto` behavior. It specifies what to compute, how, and display parameters such as colors associated to each classifications, hemisphere names, distributions bins limits...
+
+!!! warning
+    When editing your config.toml file, you're allowed to modify the *keys* **only** in the `[channels]` section.
+
+??? example "Click for a more readable parameters explanation"
+    --8<-- "docs/api-config-config.md"
+
 ## atlas_blacklist.toml
 ??? abstract "Click to see an example file"
     ```toml title="atlas_blacklist.toml"
@@ -29,19 +42,6 @@ Keys `name`, `acronym` and `members` should belong to a `[section]`.
 + `name` should be a human-readable name for your new region.
 + `acronym` is how the region will be refered to. It can be a new acronym, or an existing one.
 + `members` is a list of acronyms of atlas regions that should be part of the new one.
-
-## config.toml
-??? abstract "Click to see an example file"
-    ```toml title="config_template.toml"
-    --8<-- "configs/config_template.toml"
-    ```
-This file is used to configure `cuisto` behavior. It specifies what to compute, how, and display parameters such as colors associated to each classifications, hemisphere names, distributions bins limits...
-
-!!! warning
-    When editing your config.toml file, you're allowed to modify the *keys* **only** in the `[channels]` section.
-
-??? example "Click for a more readable parameters explanation"
-    --8<-- "docs/api-config-config.md"
 
 ## info.toml
 ??? abstract "Click to see an example file"

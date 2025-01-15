@@ -86,7 +86,7 @@ def process_animal(
             df_detections,
             cfg.hemispheres["names"],
             cfg.atlas["midline"],
-            col="Atlas_Z",
+            col=cfg.Zname,
             atlas_type=cfg.atlas["type"],
         )
         # add detection channel
@@ -104,9 +104,9 @@ def process_animal(
                 df_detections["Atlas_DV"],
                 df_detections["Atlas_ML"],
             ) = utils.ccf_to_stereo(
-                df_detections["Atlas_X"],
-                df_detections["Atlas_Y"],
-                df_detections["Atlas_Z"],
+                df_detections[cfg.Xname],
+                df_detections[cfg.Yname],
+                df_detections[cfg.Zname],
             )
         else:
             (
@@ -114,9 +114,9 @@ def process_animal(
                 df_detections["Atlas_DV"],
                 df_detections["Atlas_ML"],
             ) = (
-                df_detections["Atlas_X"],
-                df_detections["Atlas_Y"],
-                df_detections["Atlas_Z"],
+                df_detections[cfg.Xname],
+                df_detections[cfg.Yname],
+                df_detections[cfg.Zname],
             )
 
     # - Computations
@@ -270,7 +270,7 @@ def process_animals(
     # -- Saving
     if out_fmt:
         outdir = os.path.join(wdir, "quantification")
-        outfile = f"{cfg.object_type.lower()}_{cfg.atlas["type"]}_{'-'.join(animals)}.{out_fmt}"
+        outfile = f"{cfg.object_type.lower()}_{cfg.atlas['type']}_{'-'.join(animals)}.{out_fmt}"
         dfs = dict(
             df_regions=df_regions,
             df_coordinates=df_coordinates,
