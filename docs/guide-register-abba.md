@@ -2,6 +2,10 @@
 
 The [ABBA documentation](https://abba-documentation.readthedocs.io/en/latest/) is quite extensive and contains guided tutorials and a video tutorial. You should therefore check it out ! Nevertheless, you will find below some quick reminders.
 
+!!! tip
+
+    Using either the regular Fiji version of ABBA or the [Python version](guide-install-abba.md#abba-python) (to have access to Brainglobe atlases) will lead to the same interface, depicted below. Nevertheless, keep in mind what kind of atlas (packaged with ABBA or Brainglobe atlas) as it needs to be configured, see more information on [this page](tips-abba.md#abba-and-brainglobe-atlases).
+
 ## Import a QuPath project
 Always use ABBA with a QuPath project, if you import the images directly it will not be possible to export the results back to QuPath. In the toolbar, head to `Import > Import QuPath Project`.
 

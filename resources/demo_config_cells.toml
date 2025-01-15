@@ -12,7 +12,7 @@
 #   - matplotlib colors : https://matplotlib.org/stable/gallery/color/color_demo.html
 #
 # Configuration file part of the python cuisto package.
-# version : 2.1
+# version : 2.2
 ########################################################################################
 
 object_type = "Cells"  # name of QuPath base classification (eg. without the ": subclass" part)
@@ -20,7 +20,7 @@ segmentation_tag = ""  # type of segmentation, matches directory name, used only
 
 [atlas]  # information related to the atlas used
 name = "allen_mouse_10um"  # brainglobe-atlasapi atlas name
-type = "brain"  # brain or cord (eg. registration done in ABBA or abba_python)
+type = "abba"  # abba or brainglobe : registration done with regular ABBA (except allen_mouse_10um_java) or abba_python)
 midline = 5700  # midline Z coordinates (left/right limit) in microns
 outline_structures = ["root", "CB", "MY", "P"]  # structures to show an outline of in heatmaps
 

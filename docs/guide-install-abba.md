@@ -3,6 +3,9 @@ You can head to [the ABBA documentation](https://abba-documentation.readthedocs.
 
 You will find below installation instructions for the regular [ABBA Fiji plugin](#abba-fiji), which proposes only the mouse and rat brain atlases. To be able to use the [Brainglobe atlases](https://brainglobe.info/documentation/brainglobe-atlasapi/usage/atlas-details.html#available-atlases), you will need the [Python version](#abba-python). The two can be installed alongside each other.
 
+!!! danger "Important"
+    Please have a look at this [few considerations](tips-abba.md#abba-and-brainglobe-atlases) related to coordinates systems in ABBA and Brainglobe atlases and their consequences on downstream analysis.
+
 ## ABBA Fiji
 ### Install Fiji
 Install the "batteries-included" distribution of ImageJ, Fiji, from the [official website](https://fiji.sc/).  

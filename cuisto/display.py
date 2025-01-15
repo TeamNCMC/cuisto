@@ -796,12 +796,12 @@ def plot_2D_distributions(df: pd.DataFrame, cfg):
     cbar_kws = dict(label="count")
 
     # determine which axes are going to be inverted
-    if cfg.atlas["type"] == "brain":
+    if cfg.atlas["type"] in ("abba", "brain"):
         cor_invertx = True
         cor_inverty = False
         top_invertx = True
         top_inverty = False
-    elif cfg.atlas["type"] == "cord":
+    elif cfg.atlas["type"] in ("brainglobe", "cord"):
         cor_invertx = False
         cor_inverty = False
         top_invertx = True
@@ -812,8 +812,8 @@ def plot_2D_distributions(df: pd.DataFrame, cfg):
     outline_kws["view"] = "sagittal"
     nice_joint_plot(
         df,
-        x="Atlas_X",
-        y="Atlas_Y",
+        x=cfg.Xname,
+        y=cfg.Yname,
         xlabel="Rostro-caudal (mm)",
         ylabel="Dorso-ventral (mm)",
         outline_kws=outline_kws,
@@ -825,8 +825,8 @@ def plot_2D_distributions(df: pd.DataFrame, cfg):
     outline_kws["view"] = "coronal"
     nice_joint_plot(
         df,
-        x="Atlas_Z",
-        y="Atlas_Y",
+        x=cfg.Zname,
+        y=cfg.Yname,
         xlabel="Medio-lateral (mm)",
         ylabel="Dorso-ventral (mm)",
         invertx=cor_invertx,
@@ -841,8 +841,8 @@ def plot_2D_distributions(df: pd.DataFrame, cfg):
     outline_kws["view"] = "top"
     nice_joint_plot(
         df,
-        x="Atlas_X",
-        y="Atlas_Z",
+        x=cfg.Xname,
+        y=cfg.Zname,
         xlabel="Rostro-caudal (mm)",
         ylabel="Medio-lateral (mm)",
         invertx=top_invertx,
@@ -864,8 +864,8 @@ def plot_2D_distributions(df: pd.DataFrame, cfg):
         _ = nice_heatmap(
             df,
             animals,
-            x="Atlas_X",
-            y="Atlas_Y",
+            x=cfg.Xname,
+            y=cfg.Yname,
             xlabel="Rostro-caudal (mm)",
             ylabel="Dorso-ventral (mm)",
             invertx=True,
@@ -879,8 +879,8 @@ def plot_2D_distributions(df: pd.DataFrame, cfg):
         _ = nice_heatmap(
             df,
             animals,
-            x="Atlas_Z",
-            y="Atlas_Y",
+            x=cfg.Zname,
+            y=cfg.Yname,
             xlabel="Medio-lateral (mm)",
             ylabel="Dorso-ventral (mm)",
             inverty=True,

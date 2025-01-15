@@ -23,7 +23,7 @@
  */
 
 // --- Parameters
-def atlasType = 'brain'  // type of registration, "brain" or "cord"
+def atlasType = 'abba'  // type of atlas used for registration, "abba" or "brainglobe"
 def folderPrefix = 'id_' // output folder name, "segmentation" will be appended
 def segTag = 'cells'  // type of segmentation
 
@@ -55,15 +55,12 @@ if (!baseDirCheck.exists()) {
 // fill atlas details based on registration type
 def mirrorLeftRight
 def midline
-def swapXZFlag
-if (atlasType == 'brain') {
-    mirrorLeftRight = true  // mirror hemisphere. CCFv3 is mirrored, spinal cord is not
+if (atlasType == 'abba') {
+    mirrorLeftRight = true  // mirror hemisphere
     midline = 5.70  // left/right medio-lateral limit in CCFv3 in mm
-    swapXZFlag = false  // X and Z are not swapped with regular ABBA in Fiji
 } else if (atlasType == 'cord') {
-    mirrorLeftRight = false
+    mirrorLeftRight = false  // do not mirror hemisphere
     midline = 1.61  // left/right medio-lateral limit in spinal cord in mm
-    swapXZFlag = true  // X and Z are swapped with ABBA from python
 } else {
     throw new Exception("atlasType not supported, choose either 'brain' or 'cord'.")
 }
@@ -217,15 +214,9 @@ if (transformFlag && segTag !in fiberLikeSeg) {
         MeasurementList ml = detection.getMeasurementList()
         atlasCoordinates.setPosition([detection.getROI().getCentroidX(), detection.getROI().getCentroidY(), 0] as double[])
         pixelToAtlasTransform.apply(atlasCoordinates, atlasCoordinates)
-        if (swapXZFlag) {
-            ml.put('Atlas_X', atlasCoordinates.getDoublePosition(2) * 1000)  // convert to microns
-            ml.put('Atlas_Y', atlasCoordinates.getDoublePosition(1) * 1000)
-            ml.put('Atlas_Z', atlasCoordinates.getDoublePosition(0) * 1000)
-        } else {
-            ml.put('Atlas_X', atlasCoordinates.getDoublePosition(0) * 1000)  // convert to microns
-            ml.put('Atlas_Y', atlasCoordinates.getDoublePosition(1) * 1000)
-            ml.put('Atlas_Z', atlasCoordinates.getDoublePosition(2) * 1000)
-        }
+        ml.put('Atlas_X', atlasCoordinates.getDoublePosition(0) * 1000)  // convert to microns
+        ml.put('Atlas_Y', atlasCoordinates.getDoublePosition(1) * 1000)
+        ml.put('Atlas_Z', atlasCoordinates.getDoublePosition(2) * 1000)
     })
     println(' Done.')
 }
@@ -307,15 +298,9 @@ if (transformFlag && segTag in fiberLikeSeg) {
             pixelToAtlasTransform.apply(originalPixel, atlasPixel)  // transform pixel coordinates
 
             // collect results
-            if (swapXZFlag) {
-                xAtlas[i] = atlasPixel.getDoublePosition(2) * 1000
-                yAtlas[i] = atlasPixel.getDoublePosition(1) * 1000
-                zAtlas[i] = atlasPixel.getDoublePosition(0) * 1000
-            } else {
-                xAtlas[i] = atlasPixel.getDoublePosition(0) * 1000
-                yAtlas[i] = atlasPixel.getDoublePosition(1) * 1000
-                zAtlas[i] = atlasPixel.getDoublePosition(2) * 1000
-            }
+            xAtlas[i] = atlasPixel.getDoublePosition(0) * 1000
+            yAtlas[i] = atlasPixel.getDoublePosition(1) * 1000
+            zAtlas[i] = atlasPixel.getDoublePosition(2) * 1000
 
             // get hemisphere
             if (mirrorLeftRight) {
