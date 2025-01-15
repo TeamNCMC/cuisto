@@ -17,6 +17,9 @@ if (!file.exists()) {
     fileName = buildFilePath(roiDirPath, imageName + ".roi.zip")
     file = new File(fileName)
 }
+if (!file.exists()) {
+    throw new Exception("File ${fileName} does not exist.")
+}
 
 // Get annotations that are already there
 def annotationsBeforeImport = getAnnotationObjects()
@@ -42,5 +45,4 @@ newAnnotations.forEach{
 }
 
 // Update hierarchy
-resolveHierarchy()
-fireHierarchyUpdate()
+insertObjects(getDetectionObjects())
