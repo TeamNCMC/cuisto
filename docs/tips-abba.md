@@ -83,3 +83,14 @@ Configure like so :
 In any event, when importing atlas regions into QuPath with the ABBA extension from the scripts located in `scripts/qupath-utils/atlas`, set `mirrorLeftRight` to `true`. This ensures the regions (annotations) are correctly classified with the correct hemisphere (eg. the left hemisphere is the left part of what you see on the screen).
 
 The `type` parameter is read to handle axes names ("Atlas_X" and "Atlas_Z"), determine how to extract detections hemisphere and how to plot spatial distributions.
+
+Here is a summary table :
+
+| **\\**                                    | IJ + Allen Brain Atlas V3p1 | IJ + allen_mouse_10um_java | python + allen_mouse_10um | python + allen_mouse_10um_java |
+|------------------------------------------|-----------------------------|----------------------------|---------------------------|--------------------------------|
+| **First coordinates X**                  | AP                          | ML                         | ML                        | ML                             |
+| **Third coordinates Z**                  | ML                          | AP                         | AP                        | AP                             |
+| **Side when atlas medio-lateral < 5700** | right                       | left                       | left                      | left                           |
+| **Annotations side on left**             | right                       | right                      | right                     | right                          |
+| **`mirrorLeftRight` for Annotations**      | true                         | true                        | true                       | true                            |
+| **cuisto configuration atlas type**      | "abba"                        | "brainglobe"                 | "brainglobe"                | "brainglobe"                     |
