@@ -457,6 +457,27 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="guide-use-cuisto.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using cuisto
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1145,7 +1166,7 @@
 <h1 id="brain-contours">Brain contours<a class="headerlink" href="#brain-contours" title="Permanent link">#</a></h1>
 <p>With <code>cuisto</code>, it is possible to plot 2D heatmaps on brain contours.</p>
 <p>All the detections are projected in a single plane, thus it is up to you to select a relevant data range. It is primarily intended to give a quick, qualitative overview of the spreading of your data.</p>
-<p>To do so, it requires the brain regions outlines, stored in a hdf5 file. This can be generated with <a href="https://brainglobe.info/documentation/brainglobe-atlasapi/index.html#brainglobe-atlas-api-brainglobe-atlasapi"><code>brainglobe-atlasapi</code></a>. The <code>generate_atlas_outlines.py</code> located in <a href="https://github.com/TeamNCMC/cuisto/tree/main/scripts/atlas"><code>scripts/atlas</code></a> will show you how to make such a file, that the <code>cuisto.display</code> module can use.</p>
+<p>To do so, it requires the brain regions outlines, stored in a hdf5 file. This can be generated with <a href="https://brainglobe.info/documentation/brainglobe-atlasapi/index.html#brainglobe-atlas-api-brainglobe-atlasapi"><code>brainglobe-atlasapi</code></a>. The <code>generate_atlas_outlines.py</code> located in <a href="https://github.com/TeamNCMC/cuisto/tree/main/scripts/atlas"><code>scripts/atlas</code></a> will show you how to make such a file, that the <a href="api-display.html"><code>cuisto.display</code></a> module can use.</p>
 <p>Alternatively it is possible to directly plot density maps without <code>cuisto</code>, using <a href="https://brainglobe.info/documentation/brainglobe-heatmap/index.html#brainglobe-heatmap"><code>brainglobe-heatmap</code></a>. An example is shown <a href="demo_notebooks/density_map.html">here</a>.</p>
 
 
