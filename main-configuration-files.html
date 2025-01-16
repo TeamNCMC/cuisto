@@ -670,6 +670,72 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="config.toml">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atlas-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      [atlas] section
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channels-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      [channels] section
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hemispheres-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      [hemispheres] section
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distributions-and-regions-sections" class="md-nav__link">
+    <span class="md-ellipsis">
+      [distributions] and [regions] sections
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[distributions] and [regions] sections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#distributions-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      [distributions] section
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regions-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      [regions] section
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1200,6 +1266,72 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="config.toml">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atlas-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      [atlas] section
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channels-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      [channels] section
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hemispheres-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      [hemispheres] section
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distributions-and-regions-sections" class="md-nav__link">
+    <span class="md-ellipsis">
+      [distributions] and [regions] sections
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[distributions] and [regions] sections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#distributions-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      [distributions] section
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regions-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      [regions] section
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1346,10 +1478,58 @@
 </span></code></pre></div>
 </details>
 <p>This file is used to configure <code>cuisto</code> behavior. It specifies what to compute, how, and display parameters such as colors associated to each classifications, hemisphere names, distributions bins limits...</p>
+<p>Keep in mind the <a href="guide-prepare-qupath.html#qupath-requirements">QuPath requirements</a> : </p>
+<ul>
+<li>Only one <code>object type</code>, any number of <code>markers</code> (channels).</li>
+<li>Annotations have a <em>Name</em> <code>region name</code>, and a <em>Classification</em> <code>Hemisphere: region name</code> where "Hemisphere" is either "Left" or "Right".</li>
+<li>Annotations measurements are in the form <code>object type: marker measurement name</code>.</li>
+<li>Detections have <em>Classifications</em> in the form <code>object type: marker</code>.</li>
+<li>Detections have atlas coordinates as measurements called "Atlas_X", "Atlas_Y", "Atlas_Z". "Atlas_Y" always corresponds to the dorso-ventral axis. For ABBA atlas (eg. "Allen Brain Atlas V3p1" in ABBA used from Fiji), "Atlas_X" and "Atlas_Z" are the rostro-caudal and medio-lateral axis, respectively. For Brainglobe altases (eg. "allen_mouse_10um" or any other Brainglobe atlas in ABBA used from Python), "Atlas_X" and "Atlas_Z" are the medio-lateral and rostro-caudal axis, respectively.</li>
+</ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>When editing your config.toml file, you're allowed to modify the <em>keys</em> <strong>only</strong> in the <code>[channels]</code> section.</p>
 </div>
+<p>The template file is thoroughly commented to explain what each line does. Nevertheless, additional information for some of the parameters is provided below.</p>
+<details class="tips">
+<summary>Tips</summary>
+<p>"marker" and "channel" are used interchangeably but in the configuration file, "channel" is used.</p>
+<h3 id="atlas-section"><code>[atlas]</code> section<a class="headerlink" href="#atlas-section" title="Permanent link">#</a></h3>
+<ul>
+<li><code>name</code> corresponds to the exact name of the Brainglobe atlas that was used for registration (check the full list <a href="https://brainglobe.info/documentation/brainglobe-atlasapi/usage/atlas-details.html#available-atlases">here</a>). If the regular "Allen Brain Atlas V3p1" atlas was used in ABBA-Fiji, choose "allen_mouse_10um". It can be left empty to use <code>cuisto</code> with custom Annotations, in that case, atlas-related features will be disabled (see for instance the <a href="#atlas_fusiontoml">fusion configuration file</a>).</li>
+<li><code>type</code> depends on the type of atlas used, see more information on <a href="tips-abba.html#cuisto-configuration">this page</a>.</li>
+</ul>
+<h3 id="channels-section"><code>[channels]</code> section<a class="headerlink" href="#channels-section" title="Permanent link">#</a></h3>
+<p>This configures channels names, eg. biological markers and detection channels. This is the only place you can change the keys.</p>
+<ul>
+<li><code>[channels.names]</code> maps the names of the markers in QuPath (<code>marker</code>) to a name displayed in the graphs.</li>
+<li><code>[channels.colors]</code> maps the names of the markers in QuPath (<code>marker</code>) to a color displayed in the graphs.</li>
+</ul>
+<h3 id="hemispheres-section"><code>[hemispheres]</code> section<a class="headerlink" href="#hemispheres-section" title="Permanent link">#</a></h3>
+<p>Same as the <code>[channels]</code> section, but the "Left" and "Right" keys are hardcoded an cannot be modified.</p>
+<h3 id="distributions-and-regions-sections"><code>[distributions]</code> and <code>[regions]</code> sections<a class="headerlink" href="#distributions-and-regions-sections" title="Permanent link">#</a></h3>
+<p>Those two sections configure how to compute and plot normalized spatial distributions (pdf) and metrics by regions derived from the base measurement in QuPath (typically count or cumulated length).<br />
+They rely on the concept of hue used in <a href="https://seaborn.pydata.org/tutorial/color_palettes.html#vary-hue-to-distinguish-categories">seaborn</a>, the Python library used to plot the results. In most plots, there are two axes, 'X' and 'Y', that could be for instance 'Region names' and 'Object count'. A third dimension can be shown using different colors, or <em>hue</em>, that can either color data given their <code>channel</code> (or marker) or <code>hemisphere</code>.</p>
+<ul>
+<li><code>hue</code> may only be "channel" or "hemisphere".</li>
+<li><code>hue_filter</code> applies either to "channel" or "hemisphere", given <code>hue</code> :<ul>
+<li>if <code>hue = "channel"</code> : <code>hue_filter</code> can be a hemisphere name (as written in <code>[hemispheres.names]</code>) or "both" to use data pooled from both hemispheres. Only the selected data will be used.</li>
+<li>if <code>hue = "hemisphere"</code> : <code>hue_filter</code> can be a channel name (as written in <code>[channels.names]</code>), "all" to use data pooled from all channels or a list of channel names. Only the selected data will be used.</li>
+</ul>
+</li>
+</ul>
+<h4 id="distributions-section"><code>[distributions]</code> section<a class="headerlink" href="#distributions-section" title="Permanent link">#</a></h4>
+<ul>
+<li><code>common_norm</code> : whether to use a global normalization for all <code>hue</code>. This results in the sum of the areas under each individual curves being equal to 1. Alternatively, each curve is normalized independently.</li>
+</ul>
+<h4 id="regions-section"><code>[regions]</code> section<a class="headerlink" href="#regions-section" title="Permanent link">#</a></h4>
+<ul>
+<li><code>base_measurement</code> : matches exactly the name of the measurement in QuPath Annotations (<code>measurement name</code> above) from which metrics are derived.</li>
+<li><code>[regions.metrics]</code> : the keys cannot be changed, but the names that appear on the graph can. Given the units in which <code>base_measurement</code> is expressed, the derived metric (for instance <code>base_measurement</code> / area) can have different name and units.</li>
+<li><code>nregions</code> : only the regions with the highest metrics will be displayed.</li>
+<li><code>order</code> : "max" or "ontology". "ontology" requires an atlas, the regions are sorted given the ontology (for example the Allen brain sorts regions in the rostro-caudal direction). "max" sorts the regions by descending values. Choose the later to be able to override the order with the <code>names_list</code> argument of the <a href="api-display.html#cuisto.display.plot_regions"><code>cuisto.display.plot_regions()</code></a> method.</li>
+</ul>
+</details>
 <details class="example">
 <summary>Click for a more readable parameters explanation</summary>
 <p><code>object_type</code> : name of QuPath base classification (eg. without the ": subclass" part)
@@ -1436,6 +1616,7 @@
 <code>outlines</code><br />
 <code>infos</code>  </p>
 </details>
+<p>You can check supplementary configuration file examples in the <a href="https://github.com/TeamNCMC/cuisto/tree/main/resources"><code>resources</code></a> folder, that are ones used in the <a href="main-using-notebooks.html">examples</a>.</p>
 <h2 id="atlas_blacklisttoml">atlas_blacklist.toml<a class="headerlink" href="#atlas_blacklisttoml" title="Permanent link">#</a></h2>
 <details class="abstract">
 <summary>Click to see an example file</summary>
@@ -1517,7 +1698,7 @@
 </span><span id="__span-2-43"><a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a><span class="n">members</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;IRN&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;LIN&quot;</span><span class="p">]</span>
 </span></code></pre></div>
 </details>
-<p>This file is used to group regions together, to customize the atlas' hierarchy. It is particularly useful to group smalls brain regions that are impossible to register precisely.
+<p>This file is used to group regions together, to customize the atlas hierarchy. It is particularly useful to group smalls brain regions that are impossible to register precisely.
 Keys <code>name</code>, <code>acronym</code> and <code>members</code> should belong to a <code>[section]</code>.</p>
 <ul>
 <li><code>[section]</code> is just for organizing, the name does not matter but should be unique.</li>
@@ -1525,6 +1706,7 @@ Keys <code>name</code>, <code>acronym</code> and <code>members</code> should bel
 <li><code>acronym</code> is how the region will be refered to. It can be a new acronym, or an existing one.</li>
 <li><code>members</code> is a list of acronyms of atlas regions that should be part of the new one.</li>
 </ul>
+<p>Note that the fusion will happen <em>after</em> filtering out the data. By default, when using an atlas, <code>cuisto</code> will remove any annotations that are <em>not</em> leaf regions, eg. only regions without children will be kept for analysis. This is because in most of the atlases, leaf regions pave all the image : parent regions exist merely to group leaf regions in coarser ensemble. Merging regions happens after this filter, thus, even if the new regions have names that are not in the original atlas ontology, they will be kept.</p>
 <h2 id="infotoml">info.toml<a class="headerlink" href="#infotoml" title="Permanent link">#</a></h2>
 <details class="abstract">
 <summary>Click to see an example file</summary>
@@ -1583,7 +1765,7 @@ Keys <code>name</code>, <code>acronym</code> and <code>members</code> should bel
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 15, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 16, 2025</span>
   </span>
 
     

@@ -13,10 +13,6 @@
       
       
       
-        <link rel="prev" href="tips-qupath.html">
-      
-      
-        <link rel="next" href="tips-preprocessing.html">
       
       
       <link rel="icon" href="assets/images/favicon.png">
@@ -24,7 +20,7 @@
     
     
       
-        <title>Brain contours - cuisto</title>
+        <title>Using cuisto - cuisto</title>
       
     
     
@@ -84,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#brain-contours" class="md-skip">
+        <a href="#using-cuisto" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Brain contours
+              Using cuisto
             
           </span>
         </div>
@@ -468,19 +464,17 @@
       
   
   
-    
   
   
-  
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -494,7 +488,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             Tips
@@ -568,19 +562,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="tips-brain-contours.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="tips-brain-contours.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -589,7 +574,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -1123,6 +1107,56 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites checklist
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1142,11 +1176,28 @@
   
 
 
-<h1 id="brain-contours">Brain contours<a class="headerlink" href="#brain-contours" title="Permanent link">#</a></h1>
-<p>With <code>cuisto</code>, it is possible to plot 2D heatmaps on brain contours.</p>
-<p>All the detections are projected in a single plane, thus it is up to you to select a relevant data range. It is primarily intended to give a quick, qualitative overview of the spreading of your data.</p>
-<p>To do so, it requires the brain regions outlines, stored in a hdf5 file. This can be generated with <a href="https://brainglobe.info/documentation/brainglobe-atlasapi/index.html#brainglobe-atlas-api-brainglobe-atlasapi"><code>brainglobe-atlasapi</code></a>. The <code>generate_atlas_outlines.py</code> located in <a href="https://github.com/TeamNCMC/cuisto/tree/main/scripts/atlas"><code>scripts/atlas</code></a> will show you how to make such a file, that the <code>cuisto.display</code> module can use.</p>
-<p>Alternatively it is possible to directly plot density maps without <code>cuisto</code>, using <a href="https://brainglobe.info/documentation/brainglobe-heatmap/index.html#brainglobe-heatmap"><code>brainglobe-heatmap</code></a>. An example is shown <a href="demo_notebooks/density_map.html">here</a>.</p>
+<h1 id="using-cuisto">Using <code>cuisto</code><a class="headerlink" href="#using-cuisto" title="Permanent link">#</a></h1>
+<h2 id="prerequisites-checklist">Prerequisites checklist<a class="headerlink" href="#prerequisites-checklist" title="Permanent link">#</a></h2>
+<p>Prior to use <code>cuisto</code>, check that you have :</p>
+<ul>
+<li>[x][installed](main-getting-started.md#installation) <code>cuisto</code></li>
+<li>[x] set up a <a href="guide-qupath-objects.html#qupath-project">QuPath project</a></li>
+<li>[x][detected objects of interest](guide-qupath-objects.md#detect-objects) as Detections in the QuPath project</li>
+<li>[x] made sure Detections are <a href="guide-prepare-qupath.html#detections">properly formatted</a> : their classification is in the form <code>object type: marker</code></li>
+<li>[x][added atlas coordinates](guide-prepare-qupath.md#detections) to Detections as measurements called "Atlas_X", "Atlas_Y" and "Atlas_Z" in millimeters (mm) (to plot spatial distributions only)</li>
+<li>[x][Annotations](guide-prepare-qupath.md#annotations) (regions of interest), either with <a href="guide-register-abba.html#export-registration-back-to-qupath">ABBA</a> or <a href="https://qupath.readthedocs.io/en/stable/docs/starting/annotating.html">custom ones</a></li>
+<li>[x] made sure Annotations are <a href="guide-prepare-qupath.html#detections#annotations">properly formatted</a>, including a classification formatted as <code>Hemisphere: Name</code></li>
+<li>[x][added measurements](guide-prepare-qupath.md#adding-measurements) to the Annotations. The measurements are <a href="guide-prepare-qupath.html#annotations">properly formatted</a> : their name is in the form <code>object type: marker measurement name</code></li>
+<li>[x][exported](guide-prepare-qupath.md#qupath-export) the Annotations and Detections measurements as tables, either as individual files (one file per subject) or following the <a href="guide-pipeline.html#directory-structure">directory structure</a> if using the <a href="guide-pipeline.html">pipeline mode</a></li>
+</ul>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">#</a></h2>
+<h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">#</a></h3>
+<p>Retrieve a copy of the <code>config_template.toml</code> file located in the <code>configs</code> folder, as well as atlas-related configuration files in the <code>atlas</code> folder. Edit them according to your need.</p>
+<p>More details about those files are given in the <a href="main-configuration-files.html">configuration section</a>.</p>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">#</a></h3>
+<p>If the quantification process was done following the full <a href="guide-pipeline.html#usage">pipeline guideline</a> (including following the <a href="guide-pipeline.html#directory-structure">directory structure</a>), check <a href="guide-pipeline.html#__codelineno-1-1">this code snippet</a> or check the demo notebook showcasing a minimal example <a href="demo_notebooks/fibers_length_multi.html">here</a>.</p>
+<p>Alternatively, if you have only one data table exported from QuPath (thus one animal), check the <a href="demo_notebooks/cells_distributions.html">cells quantification</a> or the <a href="demo_notebooks/fibers_coverage.html">fibers coverage</a> examples.</p>
+<p>In the event you have several QuPath project that should be pooled together to average metrics across animals but did not follow the expected <a href="guide-pipeline.html#directory-structure">directory structure</a>, <a href="guide-prepare-qupath.html#qupath-export">export</a> the annotations measurements tables (and the detections if spatial distributions are of interest) from QuPath. Then, check the <a href="guide-pipeline.html#batch-process-animals">Batch-process animals section</a> and the example script <code>batch_process_animal.py</code> located in the <a href="https://github.com/TeamNCMC/cuisto/tree/main/examples"><code>examples</code></a> folder.</p>
 
 
 
@@ -1179,7 +1230,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 19, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 16, 2025</span>
   </span>
 
     
@@ -1210,44 +1261,6 @@
       
         <footer class="md-footer">
   
-    
-      
-      <nav class="md-footer__inner md-grid" aria-label="Footer" >
-        
-          
-          <a href="tips-qupath.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: QuPath">
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-            </div>
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              <div class="md-ellipsis">
-                QuPath
-              </div>
-            </div>
-          </a>
-        
-        
-          
-          <a href="tips-preprocessing.html" class="md-footer__link md-footer__link--next" aria-label="Next: Image pre-processing">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                Image pre-processing
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
     
   
   <div class="md-footer-meta md-typeset">

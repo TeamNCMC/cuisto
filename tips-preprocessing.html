@@ -1286,7 +1286,7 @@
 <p>Preparing slides before image acquisition can be a tedious task : it happens that some slices are flipped (either upside-down or left/right), put too close from each other (resulting in a part of a different slice being visible in an image), too close from the slide edge...
 In such cases, one might need to clean the image so that only the actual slice is visible in the image.</p>
 <h2 id="pre-processing-scripts">Pre-processing scripts<a class="headerlink" href="#pre-processing-scripts" title="Permanent link">#</a></h2>
-<p>Two scripts are provided in <code>scripts/preprocessing</code> to this end. They require first to export the images from the microscope software to standard image files with metadata (eg. <a href="tips-formats.html#metadata">OME-TIFF</a> files).</p>
+<p>Two scripts are provided in <a href="https://github.com/TeamNCMC/cuisto/tree/main/scripts/preprocessing"><code>scripts/preprocessing</code></a> to this end. They require first to export the images from the microscope software to standard image files with metadata (eg. <a href="tips-formats.html#metadata">OME-TIFF</a> files).</p>
 <p>The process is then :</p>
 <ol>
 <li>Split each channel in single-channel images,</li>
@@ -1305,7 +1305,7 @@ In such cases, one might need to clean the image so that only the actual slice i
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">#</a></h2>
 <p>First and foremost, export the images from the microscope software to OME-TIFF. For Zeiss ZEN, have a look at <a href="guide-create-pyramids.html#export-czi-to-ome-tiff">this guide</a>. Say the images were exported to a directory called <code>~/input_directory/</code>.</p>
 <h3 id="split-channels-and-find-brain-mask">Split channels and find brain mask<a class="headerlink" href="#split-channels-and-find-brain-mask" title="Permanent link">#</a></h3>
-<p>Copy the script <code>preprocess_split_channels.py</code> located in <code>scripts/preprocessing</code> on your computer. Read the options at the top of the script and edit according to your need.</p>
+<p>Copy the script <code>preprocess_split_channels.py</code> located in <a href="https://github.com/TeamNCMC/cuisto/tree/main/scripts/preprocessing"><code>scripts/preprocessing</code></a> on your computer. Read the options at the top of the script and edit according to your need.</p>
 <p>Especially, the <code>TASKS</code> dictionary specifies what actions are to be performed.</p>
 <p>The process is the following :</p>
 <ol>
@@ -1406,7 +1406,7 @@ In a nutshell :</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 15, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 16, 2025</span>
   </span>
 
     
