@@ -149,6 +149,6 @@ From your project with an image open, the basic usage is to head to `Extensions 
 Choose to `Split Left and Right Regions` to make the two hemispheres independent, and choose the "acronym" to name the regions. The registered regions should be imported as Annotations in the image.
 
 !!! tip
-    With ABBA in regular Fiji using the CCFv3 Allen mouse brain atlas, the left and right regions are flipped, because ABBA considers the slices as backward facing. The `importAbba.groovy` script located in `scripts/qupath-utils-atlas` allows you to flip left/right regions names. This is OK because the Allen brain is symmetrical by construction.
+    In QuPath, the left and right regions are flipped, because ABBA considers the slices as facing downward. The `importAbba.groovy` script located in [`scripts/qupath-utils-atlas`](https://github.com/TeamNCMC/cuisto/tree/main/scripts/qupath-utils/atlas) allows you to flip left/right regions names. This is OK because the Allen brain is symmetrical by construction.
 
-For more complex use, check the Groovy scripts in `scripts/qupath-utils/atlas`. ABBA registration is used throughout the guides, to either work with brain regions (and count objects for instance) or to get the detections' coordinates in the atlas space.
+For batch-processing, check the Groovy scripts in [`scripts/qupath-utils/atlas`](https://github.com/TeamNCMC/cuisto/tree/main/scripts/qupath-utils/atlas). ABBA registration is used throughout the guides, to either work with brain regions (and count objects for instance) or to get the detections' coordinates in the atlas space. Remember to check a few considerations about coordinates systems conventions on [this page](tips-abba.md#abba-and-brainglobe-atlases).

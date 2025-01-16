@@ -18,7 +18,7 @@ If you want to build the doc locally :
 ```
 pip install cuisto[doc]
 ```
-5. Check the [Examples section](https://teamncmc.github.io/cuisto/main-using-notebooks.html) !
+5. Check the [Usage section](guide-use-cuisto.md#using-cuisto) and the [examples](main-using-notebooks.md).
 
 ## Slow start
 !!! tip

@@ -93,4 +93,4 @@ Here is a summary table :
 | **Side when atlas medio-lateral < 5700** | right                       | left                       | left                      | left                           |
 | **Annotations side on left**             | right                       | right                      | right                     | right                          |
 | **`mirrorLeftRight` for Annotations**      | true                         | true                        | true                       | true                            |
-| **cuisto configuration atlas type**      | "abba"                        | "brainglobe"                 | "brainglobe"                | "brainglobe"                     |
+| **`cuisto` configuration atlas type**      | "abba"                        | "brainglobe"                 | "brainglobe"                | "brainglobe"                     |

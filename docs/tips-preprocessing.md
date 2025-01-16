@@ -4,7 +4,7 @@ Preparing slides before image acquisition can be a tedious task : it happens tha
 In such cases, one might need to clean the image so that only the actual slice is visible in the image.
 
 ## Pre-processing scripts
-Two scripts are provided in `scripts/preprocessing` to this end. They require first to export the images from the microscope software to standard image files with metadata (eg. [OME-TIFF](tips-formats.md#metadata) files).
+Two scripts are provided in [`scripts/preprocessing`](https://github.com/TeamNCMC/cuisto/tree/main/scripts/preprocessing) to this end. They require first to export the images from the microscope software to standard image files with metadata (eg. [OME-TIFF](tips-formats.md#metadata) files).
 
 The process is then :
 
@@ -25,7 +25,7 @@ The first script, `preprocess_split_channels.py` handles steps 1-6, `preprocess_
 First and foremost, export the images from the microscope software to OME-TIFF. For Zeiss ZEN, have a look at [this guide](guide-create-pyramids.md#export-czi-to-ome-tiff). Say the images were exported to a directory called `~/input_directory/`.
 
 ### Split channels and find brain mask
-Copy the script `preprocess_split_channels.py` located in `scripts/preprocessing` on your computer. Read the options at the top of the script and edit according to your need.
+Copy the script `preprocess_split_channels.py` located in [`scripts/preprocessing`](https://github.com/TeamNCMC/cuisto/tree/main/scripts/preprocessing) on your computer. Read the options at the top of the script and edit according to your need.
 
 Especially, the `TASKS` dictionary specifies what actions are to be performed.
 

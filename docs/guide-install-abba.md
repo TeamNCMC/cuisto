@@ -49,7 +49,7 @@ conda create -c conda-forge -n abba_python python=3.10 openjdk=11 maven pyimagej
 ```
 3. Install the latest functional version of abba_python with pip :
 ```
-pip install abba-python==0.9.6.dev0
+pip install abba-python==0.9.11.dev0
 ```
 4. Restart the terminal and activate the new environment :
 ```
@@ -98,6 +98,6 @@ To import registered regions in your QuPath project and be able to convert objec
 
 1. In QuPath, head to `Edit > Preferences`. In the `Extension` tab, set your `QuPath user directory` to a local directory (usually `C:\Users\USERNAME\QuPath\v0.X.Y`).
 2. Create a folder named `extensions` in your QuPath user directory.
-2. Download the latest ABBA extension for QuPath from [GitHub](https://github.com/BIOP/qupath-extension-abba/releases) (choose the file `qupath-extension-abba-x.y.z.zip`).
-3. Uncompress the archive and copy all .jar files into the `extensions` folder in your QuPath user directory.
-4. Restart QuPath. Now, in `Extensions`, you should have an `ABBA` entry.
+3. Download the latest ABBA extension for QuPath from [GitHub](https://github.com/BIOP/qupath-extension-abba/releases) (choose the file `qupath-extension-abba-x.y.z.zip`).
+4. Uncompress the archive and copy all .jar files into the `extensions` folder in your QuPath user directory.
+5. Restart QuPath. Now, in `Extensions`, you should have an `ABBA` entry.
