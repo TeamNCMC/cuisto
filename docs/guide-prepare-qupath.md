@@ -21,7 +21,7 @@ They usually are created importing the registration with the ABBA plugin from th
 + The *Classification* must be in the form `Hemisphere: Name`, where `Hemisphere` must be either "Left" or "Right". Even in the case where "Left" and "Right" do not make sense for you, "Left" and "Right" are used internally by `cuisto` to be able to distinguish the two hemispheres. Note that those can be renamed in the display parameters of the [configuration file](main-configuration-files.md#configtoml). `Name` must correspond to the actual Annotation *Name*.
 
 !!! tip
-    There are some Groovy scripts in [`scripts/qupath-utils/tools`]((https://github.com/TeamNCMC/cuisto/tree/main/scripts/qupath-utils/tools)) showing how to manipulate Annotations' *Name* and *Classification* to make them suitable for `cuisto` when using custom Annotations (eg. not from ABBA).
+    There are some Groovy scripts in [`scripts/qupath-utils/tools`](https://github.com/TeamNCMC/cuisto/tree/main/scripts/qupath-utils/tools) showing how to manipulate Annotations' *Name* and *Classification* to make them suitable for `cuisto` when using custom Annotations (eg. not from ABBA).
 
 + Measurements names should be formatted as :  
 `object type: marker measurement name`. `measurement name` is the bit you will report in the [configuration file](main-configuration-files.md#configtoml) as `base_measurement` under the `[regions]` section.

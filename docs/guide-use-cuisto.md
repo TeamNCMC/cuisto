@@ -9,7 +9,7 @@ Prior to use `cuisto`, check that you have :
 - [x] made sure Detections are [properly formatted](guide-prepare-qupath.md#detections) : their classification is in the form `object type: marker`
 - [x] [added atlas coordinates](guide-prepare-qupath.md#detections) to Detections as measurements called "Atlas_X", "Atlas_Y" and "Atlas_Z" in millimeters (mm) (to plot spatial distributions only)
 - [x] [Annotations](guide-prepare-qupath.md#annotations) (regions of interest), either with [ABBA](guide-register-abba.md#export-registration-back-to-qupath) or [custom ones](https://qupath.readthedocs.io/en/stable/docs/starting/annotating.html)
-- [x] made sure Annotations are [properly formatted](guide-prepare-qupath.md#detections#annotations), including a classification formatted as `Hemisphere: Name`
+- [x] made sure Annotations are [properly formatted](guide-prepare-qupath.md#annotations), including a classification formatted as `Hemisphere: Name`
 - [x] [added measurements](guide-prepare-qupath.md#adding-measurements) to the Annotations. The measurements are [properly formatted](guide-prepare-qupath.md#annotations) : their name is in the form `object type: marker measurement name`
 - [x] [exported](guide-prepare-qupath.md#qupath-export) the Annotations and Detections measurements as tables, either as individual files (one file per subject) or following the [directory structure](guide-pipeline.md#directory-structure) if using the [pipeline mode](guide-pipeline.md)
 
