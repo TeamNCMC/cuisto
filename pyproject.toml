@@ -44,6 +44,10 @@ doc = [
   "mkdocs-jupyter",
   "mkdocs-git-revision-date-localized-plugin",
 ]
+dev = [
+  "pytest",
+  "pytest-cov"
+]
 
 [project.urls]
 "Source Code" = "https://github.com/TeamNCMC/cuisto"
