@@ -47,7 +47,7 @@ You can generate brain structures outlines coordinates in three projections (cor
 
 ## Build the doc
 To build and look at the documentation offline :
-In [step 5. above](#install), replace the `pip install .` command with :
+Download the repository, extract it and from the command line in the `cuisto-main` folder, run :
 ```bash
 pip install .[doc]
 ```
