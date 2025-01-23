@@ -60,9 +60,18 @@ Briefly, this uses a watershed algorithm to find bright spots and can perform a 
 ### Manual counting 
 If you whish to do the counting manually, you have to follow a certain (Qu)path..
 
-First you have to select the point tool and start clicking on every cell you want to count. It will create an unique annotation composed of every points you've created. This detail is important because, in order to make you're quantification work on Cuisto, you must have one detection per cell and not one anntotation gathering all your cells. But don't worry too much ! There is a way to solve this tremendous issue. After manually clicking on everey of your cells, you must classify your Annotation by clicking on "set selected". After that, you must split your Annotation by clicking left on it on the Analysis panel and click on edit single > split. Now you've got one annotation per cells. One less problem ! Then, you must convert you're annotations toward detections. To do so, there is a script in "qupath-utils\tools\convertDetectionsClassification.groovy" that will nicely do it for you ! I advise to first count every cells on your whole project, then split every annotations on your whole project and finally use the script by selecting "Run for project". You'll win some seconds and time is $. Once you're done, remember to use the cuisto script "qupath-utils\atlas\addAtlasCoordinatesWithStereo.groovy" to get the atlas coordinates on each detections, which is necessary if you want to create a distribution graph with cuisto and, above all, don't forget to click Objects > Annotation > Resolve hierarchy to include all your detections in the Annotation from Abba registration. 
+First you have to select the point tool and start clicking on every cell you want to count. It will create an unique annotation composed of every points you've created. This detail is important because, in order to make you're quantification work on Cuisto, you must have one Detection per cell and not one Annotation gathering all your cells. But don't worry too much ! There is a way to solve this tremendous issue. 
 
-!!! Crackodu91 tip
+After manually clicking on every of your cells, you must classify your Annotation by clicking on "set selected". After that, you must split your Annotation by clicking left on it on the Analysis panel and click on edit single > split. Now you've got one Annotation per cells. One less problem !  Then, you must convert you're Annotations toward Detections. To do so, there is a script in "qupath-utils\tools\convertAnnotationsToDetections.groovy" that will nicely do it for you ! 
+
+I advise to first count every cells on your whole project, then split every Annotations on your whole project and finally use the script by selecting "Run for project". You'll win some seconds and time is $. 
+
+Once you're done, remember to use the cuisto script   
+"qupath-utils\atlas\addAtlasCoordinatesWithStereo.groovy" to get the atlas coordinates on each Detections, which is necessary if you want to create a distribution graph with cuisto. 
+
+Above all, don't forget to click Objects > Annotation > Resolve hierarchy to include all your Detections in the Annotation from Abba registration. 
+
+!!! tip
     If you're struggling finding the command you need, remember that you can use the command list using [Ctrl + L] that may help you find the command you need by just writting it down! 
 
 ### Pixel classifier
