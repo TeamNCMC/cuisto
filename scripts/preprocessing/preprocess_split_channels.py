@@ -1,30 +1,37 @@
 """
-Script for preprocessing. Does the following :
-* Move images from ZEN_EXPORT to images/merged_original, renaming files consistently,
-* Split channels in different subdirectories,
-* Find the brain mask, save at it as an image, and apply it to channel used for
-  detection,
+Script for image preprocessing.
+
+Used in the event one needs to clean out the image around the brain contour (in case of
+debris or artifacts outside the actual slice). It is also able to mirror images in case
+the slice was flipped before acquisition (upside down and/or left/right).
+
+Does the following, with "wdir" the folder with exported images
+('..' denotes 'one level up') :
+* Move images from specified directory to wdir/../images/merged_original, renaming files
+* Split channels in different subdirectories (wdir/../images/chXX),
+* Find the brain mask, save at it as an image (wdir/../images/masks)
+* Apply it to channel used for detection (wdir/../images/chXX_cleaned),
 * Apply those masks to other channels.
 
 After checking the previews, if not satisfied with one brain mask, delete it, manually
-clean the corresponding image in the reference channel directory with ImageJ, set
-`reformat_tf` and `split_tf` to False and run the script again.
+edit the corresponding image in the reference channel directory with ImageJ, set
+`reformat` and `split` in `tasks` to False and run the script again.
 
-Once satisfied with all brain masks, run merge_channels_pyramidal.py to merge cleaned
+Once satisfied with all brain masks, run preprocess_merge_channels.py to merge cleaned
 channel as pyramidal OME-TIFF, ready to be imported into QuPath.
 
 ! Double check ALL parameters, especially number of channels and images to mirror !
 
 author : Guillaume Le Goc (g.legoc@posteo.org)
-version : 2024.11.19
+version : 2025.1.14
 
 """
 
 import os
 import re
-import sys
 import warnings
 import xml.etree.ElementTree as ET
+from pathlib import Path
 
 import numpy as np
 import tifffile
@@ -35,38 +42,37 @@ from tqdm import tqdm
 # --- Parameters
 
 # definitions
-EXPID = "animal0"
-CHAN_DETECTION = 1  # index of the channel to use for brain contour detection (1-based)
-NCHANNELS = 2  # number of channels
+INPUT_DIR = r"E:\projects\histo\data\GN121\export"
+NCHANNELS = 4  # number of channels
+OUT_PREFIX = "gn121_"  # image prefix
+
+# what to do
+TASKS = dict(
+    reformat=False,  # move files, reformatting their names
+    split=False,  # split channels, if True and done already, clean only ref channel
+    clean=True,  # find brain mask and clean images from target channel
+    preview=True,  # create downsampled preview image with masks for control
+    overwrite_cleaned=False,  # apply masks even if the cleaned image already exists
+)
+
+# list of images to mirror (id in original order, as seen in Zen).
+# Empty for none, "all" for all, 1-based. Remember range(i, j) stops at j-1
+MIRROR_LR = [36]
+MIRROR_UD = [36]
+
+# naming convention
+# IN -- assumes original images named XXX{IN_PREFIX}N.{IN_EXT} with N the scene number
+IN_PREFIX = "_s"  # prefix before the image number after ZEN export
+IN_EXT = "ome.tiff"  # files extension after ZEN export
+# OUT -- images will be renamed {OUT_PREFIX}N.{OUT_EXT}, N is padded with trailing 0s
+OUT_EXT = "ome.tiff"  # output extension for original files
+OUT_NDIG = 3  # number of digits in output files names
+
+CHAN_EXT = "tiff"  # output extension when splitting channels
 
 # output image sizes, override maximum size, (nrows, ncolumns). "auto" to find
 # automatically based on the whole set of processed images, or None to NOT resize images
 FINALSIZE = None
-
-# what to do
-# whether to move files, reformatting their names
-reformat_tf = False
-# whether to split channels -- if True and already done, clean only ref channel
-split_tf = False
-# whether to find brain mask and clean images from target channel
-clean_tf = True
-# whether to create downsampled image with masks for control
-preview_tf = True
-#  whether to apply masks even if the cleaned image already exists
-overwrite_cleaned_tf = False
-
-# list of images to mirror (id in original order, as seen in Zen).
-# Empty for none, "all" for all, 1-based. Remember range(i, j) stops at j-1
-img_to_mirror_lr = []
-img_to_mirror_ud = []
-
-# naming convention
-IN_PREFIX = "_s"  # prefix before the image number after ZEN export
-IN_EXT = "ome.tiff"  # files extension after ZEN export
-OUT_PREFIX = ""  # optional prefix, usually empty string -- goes after animal id
-OUT_EXT = "ome.tiff"  # output extension for original files
-CHAN_EXT = "tiff"  # output extension when splitting channels
-OUT_NDIG = 3  # number of digits in output files names
 
 # tiff save options
 COMPRESSION = "LZW"  # Tiff compression for split channels, recommended None or LZW
@@ -74,7 +80,8 @@ NTHREADS = 18  # number of threads for writing image
 IJDESC = {"unit": "um"}  # ImageJ image description
 
 # brain detection parameters
-detection_parameters = {
+DETECTION_CHANNEL = 1  # channel index to use for brain contour detection (1-based)
+DETECTION_PARAMETERS = {
     "bkg": 0,  # estimation of background value
     "cannysigma": np.sqrt(2),  # gaussian sigma in canny edge detection
     "cannythresh": 0.7,  # high threshold in canny edge detection
@@ -82,8 +89,8 @@ detection_parameters = {
     "downscale": 5,  # downsampling factor
 }
 
-# working directory
-WDIR = "/path/to/data"
+# output directory, relative to input_dir/..
+OUT_DIR_NAME = "images"
 
 # --- Functions
 
@@ -199,9 +206,9 @@ def extract_image_number(
     suffix: str = "ome.tiff",
 ):
     """
-    Extract the slice number from its file Zen.
+    Extract the slice number from a filename given prefix and suffix.
 
-    >>> filename = "gn90_s1.ome.tiff"
+    >>> filename = "animalid_s1.ome.tiff"
     >>> extract_image_number(filename, "_s", "ome.tiff")
     1
 
@@ -229,7 +236,7 @@ def extract_image_number(
         return -1  # error code so that the file is skipped
 
 
-def reformat_filename(expid, slicenum, out_ndig=3, out_prefix="", out_ext="ome.tiff"):
+def reformat_filename(out_prefix, slicenum, out_ndig=3, out_ext="ome.tiff"):
     """
     Generate new standardized file name based on prefix and slice number.
 
@@ -243,8 +250,6 @@ def reformat_filename(expid, slicenum, out_ndig=3, out_prefix="", out_ext="ome.t
         Slice number.
     out_ndig : int, optional
         Number of digits, filled with zeros. Default is 3.
-    out_prefix : str, optional
-        Optional prefix after "{animalid}_" and before "{slicenum}.{out_ext}".
     out_ext : str, optional
         Output file extension. Default is "ome.tiff" global variable.
 
@@ -254,17 +259,17 @@ def reformat_filename(expid, slicenum, out_ndig=3, out_prefix="", out_ext="ome.t
         New formatted file name.
 
     """
-    return f"{expid.lower()}_{out_prefix}{str(slicenum).zfill(out_ndig)}.{out_ext}"
+    return f"{out_prefix}{str(slicenum).zfill(out_ndig)}.{out_ext}"
 
 
-def make_outdir_chan(wdir, expid, ichannel, cleaned=False):
+def make_outdir_chan(output_dir, ichannel, cleaned=False):
     """
-    Create directory name wdir/expid/images/ch0{ichannel} or ch0{ichannel}_cleaned.
+    Create directory name {output_dir}/ch0{ichannel} or ch0{ichannel}_cleaned.
 
     Parameters
     ----------
-    wdir : str
-    expid : str
+    output_dir : str
+        Parent directory of generated folder names.
     ichannel : int
     cleaned : bool, optional
         If True, append _cleaned to the directory name. Default is False.
@@ -275,11 +280,9 @@ def make_outdir_chan(wdir, expid, ichannel, cleaned=False):
 
     """
     if cleaned:
-        return os.path.join(
-            wdir, expid, "images", f"ch{str(ichannel).zfill(2)}_cleaned"
-        )
+        return os.path.join(output_dir, f"ch{str(ichannel).zfill(2)}_cleaned")
     else:
-        return os.path.join(wdir, expid, "images", f"ch{str(ichannel).zfill(2)}")
+        return os.path.join(output_dir, f"ch{str(ichannel).zfill(2)}")
 
 
 def find_max_size(imgslist):
@@ -323,16 +326,12 @@ def get_max_size(imgslist):
     return finalsize
 
 
-def split_channels(wdir, expid, imgpath, mirror_lr, mirror_ud):
+def split_channels(imgpath, output_dir, mirror_lr, mirror_ud):
     """
-    Split channels of image `imgpath` and saves them under wdir/expid/images/chXX.
+    Split channels of image `imgpath` and saves them under output_dir/chXX.
 
     Parameters
     ----------
-    wdir : str
-        Working directory.
-    expid : str
-        Animal ID.
     imgpath : str
         Full path to the image to be splitted.
     mirror_lr : bool
@@ -349,7 +348,7 @@ def split_channels(wdir, expid, imgpath, mirror_lr, mirror_ud):
 
         for page in multitif.pages:  # loop through all channels
             # single-channel directory name
-            dirchan = make_outdir_chan(wdir, expid, ichan)
+            dirchan = make_outdir_chan(output_dir, ichan)
             # single-channel file name
             filechan = os.path.join(dirchan, newfilename.replace(".ome", ""))
 
@@ -653,9 +652,12 @@ def pad_image(img: np.ndarray, finalsize: tuple):
 
 
 def process_directory(
-    expid: str,
+    input_dir: str,
     nchannels: int = None,
+    detection_channel: int = 1,
     detection_parameters: dict = {},
+    in_prefix: str = "",
+    out_prefix: str = "",
     mirror_indices_lr: str | list | None = None,
     mirror_indices_ud: str | list | None = None,
     move: bool = True,
@@ -663,26 +665,33 @@ def process_directory(
     clean: bool = True,
     preview: bool = True,
     overwrite: bool = False,
+    out_dir_name: str = "images",
 ):
     """
     Main function. Rename files, split channels, find brain contours and apply them.
 
-    - Move files from WDIR/expid/ZEN_EXPORT to WDIR/expid/images/merged_original,
-    renaming the files so that they are sorted with consistent numbering;
+    - Move files from input_dir to input_dir/../images/merged_original,
+    renaming the files so that they are sorted with consistent numbering,
     - Split channels and put individual channels in chXX directories, so that they can
-    be edited in Fiji if needed;
+    be edited in Fiji if needed,
     - Find brain contours on specified channel in each slice and save it as a mask
-    image;
+    image,
     - Apply those brain contours on other channels.
 
     Parameters
     ----------
-    expid : string
-        Experiment ID.
+    input_dir : str
+        Full path to images to rename, split and find brain mask on.
     nchannels : int
         Number of channels. Required in case the script is ran after splitting channels.
+    detection_channel : int
+        Channel index on which to perform brain contour detection.
     detection_parameters : dict
         Parameters for brain detection, passed as **kwargs.
+    in_prefix : str
+        Prefix before slice number in original images.
+    out_prefix : str
+        Prefix before slice number in renamed original images.
     mirror_indices_lr : list, str or None, optional
         Images to mirror left/right. Can be a list of indices or "all" or None. Default
         is None.
@@ -697,19 +706,27 @@ def process_directory(
     preview : bool, optional
         Create brain masks preview or not. Default is True.
     overwrite : bool, optional
-        If True, apply the brain masks even if the cleaned image already exists. Default is False.
+        If True, apply the brain masks even if the cleaned image already exists. Default
+        is False.
+    out_dir_name : str, optional
+        Name of the directory where to store "merge_original", "chXX" and "chXX_cleaned"
+        folders - relative to the parent directory of `input_dir`. Default is "images".
 
     """
     # --- Preparation ---
-    wdir = os.path.abspath(WDIR)
 
     # build directories names
-    inpdir = os.path.join(wdir, expid, "ZEN_EXPORT")
-    outdir = os.path.join(wdir, expid, "images", "merged_original")
+    inpdir = os.path.abspath(input_dir)
+    # inpdir/../images
+    outdir = os.path.join(Path(input_dir).parent, out_dir_name)
+    # inpdir/../images/merged_original
+    outdir_mergor = os.path.join(outdir, "merged_original")
 
-    # create directory if it does not exist
+    # create directories if it does not exist
     if not os.path.isdir(outdir):
         os.makedirs(outdir)
+    if not os.path.isdir(outdir_mergor):
+        os.makedirs(outdir_mergor)
 
     if move or split:
         # list files, natural sorted
@@ -724,9 +741,9 @@ def process_directory(
         if nfiles == 0:  # check if there are files to process
             if move:  # there are no files to move
                 print("No files found in the input directory.")
-                sys.exit()
+                return
             else:  # look for files in output directory to split channels instead
-                fileslist = os.listdir(outdir)
+                fileslist = os.listdir(outdir_mergor)
                 list_files = [
                     filename for filename in fileslist if filename.endswith(OUT_EXT)
                 ]
@@ -734,7 +751,7 @@ def process_directory(
                 already_moved = True
                 if nfiles == 0:  # still no files, exiting
                     print("No files found.")
-                    sys.exit()
+                    return
 
         # sort out what images are going to be flipped
         elif mirror_indices_lr is None:
@@ -752,23 +769,21 @@ def process_directory(
             # get image number
             if not already_moved:
                 # filename from Zen, with defined prefix and suffix
-                ifile = extract_image_number(filename, prefix=IN_PREFIX, suffix=IN_EXT)
+                ifile = extract_image_number(filename, prefix=in_prefix, suffix=IN_EXT)
                 if ifile == -1:
                     continue
             else:
                 # filename already formatted, with standardized prefix and suffix
-                ifile = extract_image_number(
-                    filename, prefix=expid.lower() + "_" + OUT_PREFIX, suffix=IN_EXT
-                )
+                ifile = extract_image_number(filename, out_prefix, suffix=IN_EXT)
                 if ifile == -1:
                     continue
 
             # get formatted file name
             newfilename = reformat_filename(
-                expid, ifile, out_ndig=OUT_NDIG, out_prefix=OUT_PREFIX, out_ext=OUT_EXT
+                out_prefix, ifile, out_ndig=OUT_NDIG, out_ext=OUT_EXT
             )
             # corresponding full path
-            newpath = os.path.join(outdir, newfilename)
+            newpath = os.path.join(outdir_mergor, newfilename)
 
             # check if file does not exist already and move it with the new name
             if (not os.path.isfile(newpath)) and move:
@@ -790,9 +805,8 @@ def process_directory(
                     mirror_ud = False
 
                 split_channels(
-                    wdir,
-                    expid,
                     newpath,
+                    outdir,
                     mirror_lr,
                     mirror_ud,
                 )
@@ -802,21 +816,21 @@ def process_directory(
     # --- Find brain masks ---
     if clean:
         # directory of the channel on which we find the brain mask
-        channel_detection_dir = make_outdir_chan(wdir, expid, CHAN_DETECTION)
+        channel_detection_dir = make_outdir_chan(outdir, detection_channel)
 
         # masks directory
-        masks_dir = os.path.join(wdir, expid, "images", "Masks")
+        masks_dir = os.path.join(outdir, "masks")
 
         # cleaned images directory
-        cleaned_dir = make_outdir_chan(wdir, expid, CHAN_DETECTION, cleaned=True)
+        cleaned_dir = make_outdir_chan(outdir, detection_channel, cleaned=True)
 
         # create directories if they don't exist already
         if not os.path.isdir(masks_dir):
             os.mkdir(masks_dir)
         if not os.path.isdir(cleaned_dir):
             os.mkdir(cleaned_dir)
-        if (not os.path.isdir(os.path.join(masks_dir, "Previews"))) and preview:
-            os.mkdir(os.path.join(masks_dir, "Previews"))
+        if (not os.path.isdir(os.path.join(masks_dir, "previews"))) and preview:
+            os.mkdir(os.path.join(masks_dir, "previews"))
 
         # list images
         fileslist = [
@@ -861,10 +875,10 @@ def process_directory(
             pbar_channels.set_description(f"Applying masks on channel {chanid}")
 
             # channel directory
-            channel_dir = make_outdir_chan(wdir, expid, chanid)
+            channel_dir = make_outdir_chan(outdir, chanid)
 
             # cleaned image directory
-            cleaned_dir = make_outdir_chan(wdir, expid, chanid, cleaned=True)
+            cleaned_dir = make_outdir_chan(outdir, chanid, cleaned=True)
 
             # create directory if it doesn't exist already
             if not os.path.isdir(cleaned_dir):
@@ -899,14 +913,18 @@ def process_directory(
 # --- Call
 if __name__ == "__main__":
     process_directory(
-        EXPID,
-        detection_parameters=detection_parameters,
+        INPUT_DIR,
         nchannels=NCHANNELS,
-        mirror_indices_lr=img_to_mirror_lr,
-        mirror_indices_ud=img_to_mirror_ud,
-        move=reformat_tf,
-        split=split_tf,
-        clean=clean_tf,
-        preview=preview_tf,
-        overwrite=overwrite_cleaned_tf,
+        detection_channel=DETECTION_CHANNEL,
+        detection_parameters=DETECTION_PARAMETERS,
+        in_prefix=IN_PREFIX,
+        out_prefix=OUT_PREFIX,
+        mirror_indices_lr=MIRROR_LR,
+        mirror_indices_ud=MIRROR_UD,
+        move=TASKS["reformat"],
+        split=TASKS["split"],
+        clean=TASKS["clean"],
+        preview=TASKS["preview"],
+        overwrite=TASKS["overwrite_cleaned"],
+        out_dir_name=OUT_DIR_NAME,
     )

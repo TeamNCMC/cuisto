@@ -1,6 +1,6 @@
 [project]
 name = "cuisto"
-version = "2025.01.10"
+version = "2025.1.15"
 authors = [{ name = "Guillaume Le Goc", email = "g.legoc@posteo.org" }]
 description = "Quantification of objects in histological slices"
 readme = "README.md"
@@ -20,7 +20,7 @@ dependencies = [
   "ipympl",
   "ipywidgets",
   "matplotlib>=3.9.0",
-  "notebook",
+  "notebook>=7",
   "numpy>=2",
   "orjson>=3.10.3",
   "pandas[performance]>2.2.2",
@@ -43,6 +43,10 @@ doc = [
   "mkdocs-material",
   "mkdocs-jupyter",
   "mkdocs-git-revision-date-localized-plugin",
+]
+dev = [
+  "pytest",
+  "pytest-cov"
 ]
 
 [project.urls]

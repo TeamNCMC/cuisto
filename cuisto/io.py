@@ -112,13 +112,18 @@ def cat_csv_dir(directory, **kwargs) -> pd.DataFrame:
 
 
 def cat_json_dir(
-    directory: str, hemisphere_names: dict, atlas: BrainGlobeAtlas
+    directory: str,
+    hemisphere_names: dict,
+    atlas: BrainGlobeAtlas,
+    xname: str = "Atlas_X",
+    yname: str = "Atlas_Y",
+    zname: str = "Atlas_Z",
 ) -> pd.DataFrame:
     """
     Scans a directory for json files and concatenate them in a single DataFrame.
 
-    The json files must be generated with 'pipelineImportExport.groovy" from a QuPath
-    project.
+    The json files must be generated with 'pipelineImportExport.groovy" or
+    'exportFibersAtlasCoordinates.groovy' from a QuPath project.
 
     Parameters
     ----------
@@ -129,6 +134,9 @@ def cat_json_dir(
         something else (eg. "Ipsi." and "Contra.").
     atlas : BrainGlobeAtlas
         Atlas to read regions from.
+    xname, yname, zname : str, optional
+        How to name x, y and z coordinates. Default is ABBA convention, eg. Atlas_X,
+        Atlas_Y and Atlas_Z, resp. corresponding to AP, DV, ML.
 
     Returns
     -------
@@ -160,9 +168,9 @@ def cat_json_dir(
         .reset_index()
         .rename(
             columns=dict(
-                x="Atlas_X",
-                y="Atlas_Y",
-                z="Atlas_Z",
+                x=xname,
+                y=yname,
+                z=zname,
                 index="Object ID",
                 classification="Classification",
             )
@@ -177,7 +185,9 @@ def cat_json_dir(
     df["Object type"] = "Detection"
 
     # add brain regions
-    df = utils.add_brain_region(df, atlas, col="Parent")
+    df = utils.add_brain_region(
+        df, atlas, col="Parent", xname=xname, yname=yname, zname=zname
+    )
 
     return df
 

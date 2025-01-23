@@ -42,6 +42,20 @@ class Config:
         else:
             self.bg_atlas = None
 
+        # name axes to handle ABBA/Brainglobe atlases differences
+        if self.atlas["type"] in ("abba", "brain"):
+            self.Xname = "Atlas_X"  # antero-posterior (rostro-caudal)
+            self.Yname = "Atlas_Y"  # infero-superior (dorso-ventral)
+            self.Zname = "Atlas_Z"  # left-right (medio-lateral)
+        elif self.atlas["type"] in ("brainglobe", "cord"):
+            self.Xname = "Atlas_Z"  # antero-posterior (rostro-caudal)
+            self.Yname = "Atlas_Y"  # infero-superior (dorso-ventral)
+            self.Zname = "Atlas_X"  # left-right (medio-lateral)
+        else:
+            raise ValueError(
+                f"{self.atlas['type']} not supported, choose either 'abba' or 'brainglobe'."
+            )
+
         self.get_blacklist()
         self.get_leaves_list()
 
@@ -125,6 +139,6 @@ class Config:
             }
         else:
             palette = None
-            warnings.warn(f"hue={self.regions["display"]["hue"]} not supported.")
+            warnings.warn(f"hue={self.regions['display']['hue']} not supported.")
 
         return palette

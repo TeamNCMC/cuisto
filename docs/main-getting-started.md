@@ -1,7 +1,7 @@
 # Getting started
 
 ## Quick start
-1. Install QuPath, ABBA and conda.
+1. Install [QuPath](https://qupath.github.io), [ABBA](https://teamncmc.github.io/cuisto/guide-install-abba.html) and [conda](https://conda-forge.org/download/).
 2. Create an environment :
 ```
 conda create -c conda-forge -n cuisto-env python=3.12
@@ -18,7 +18,7 @@ If you want to build the doc locally :
 ```
 pip install cuisto[doc]
 ```
-5. Check the [Examples section](https://teamncmc.github.io/cuisto/main-using-notebooks.html) !
+5. Check the [Usage section](guide-use-cuisto.md#using-cuisto) and the [examples](main-using-notebooks.md).
 
 ## Slow start
 !!! tip
@@ -37,6 +37,12 @@ This is where you'll create QuPath projects, in which you'll be able to browse y
 This is the tool you'll use to register 2D histological sections to 3D atlases. See the [dedicated page](guide-install-abba.md).
 
 ### Python virtual environment manager (`conda`)
+
+!!! tip "TL;DR"
+
+    1. Install [Miniforge](https://conda-forge.org/download/), as user and adding to PATH.
+    2. Open a terminal (PowerShell in Windows) and run `conda init`
+
 The `cuisto` package is written in Python. It depends on scientific libraries (such as [NumPy](https://numpy.org/), [pandas](https://pandas.pydata.org/) and many more). Those libraries need to be installed in versions that are compatible with each other and with `cuisto`. To make sure those versions do not conflict with other Python tools you might be using (`deeplabcut`, `abba_python`, ...), we will install `cuisto` and its dependencies in a dedicated *virtual environment*.
 
 [`conda`](https://docs.conda.io/en/latest/) is a software that takes care of this. It comes with a "base" environment, from which we will create and manage other, project-specific environments. It is also used to download and install python in each of those environments, as well as third-party libraries. `conda` in itself is free and open-source and can be used freely by anyone.

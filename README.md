@@ -27,7 +27,7 @@ Steps 1-3 below need to be performed only once. If Anaconda or conda is already 
     ```
 6. (Optional) Download the latest release from [here](https://github.com/TeamNCMC/cuisto/releases/latest) (choose "Source code (zip)) and unzip it on your computer. You can copy the `scripts/` folder to get access to the QuPath and Python scripts. You can check the notebooks in `docs/demo_notebooks` as well !
 
-The `cuisto` will be then available in Python from anywhere as long as the `cuisto-env` conda environment is activated. You can get started by looking and using the [Jupyter notebooks](#using-notebooks).
+The `cuisto` package will be then available in Python from anywhere as long as the `cuisto-env` conda environment is activated. You can get started by looking and using the [Jupyter notebooks](#using-notebooks).
 
 For more complete installation instructions, see the [documentation](https://teamncmc.github.io/cuisto/main-getting-started.html#slow-start).
 
@@ -47,7 +47,7 @@ You can generate brain structures outlines coordinates in three projections (cor
 
 ## Build the doc
 To build and look at the documentation offline :
-In [step 5. above](#install), replace the `pip install .` command with :
+Download the repository, extract it and from the command line in the `cuisto-main` folder, run :
 ```bash
 pip install .[doc]
 ```
@@ -57,6 +57,9 @@ mkdocs serve
 ```
 Head to [http://localhost:8000/](http://localhost:8000/) from a web browser.
 The documentation is built with [MkDocs](https://www.mkdocs.org/) using the [Material theme](https://squidfunk.github.io/mkdocs-material/). [KaTeX](https://katex.org/) CSS and fonts are embedded instead of using a CDN, and are under a [MIT license](https://opensource.org/license/MIT).
+
+## Contributing
+
 
 ## Credits
 `cuisto` has been primarly developed by [Guillaume Le Goc](https://legoc.fr) in [Julien Bouvier's lab](https://www.bouvier-lab.com/) at [NeuroPSI](https://neuropsi.cnrs.fr/). The clever name was found by Aurélie Bodeau.

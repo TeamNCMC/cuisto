@@ -3,6 +3,9 @@ You can head to [the ABBA documentation](https://abba-documentation.readthedocs.
 
 You will find below installation instructions for the regular [ABBA Fiji plugin](#abba-fiji), which proposes only the mouse and rat brain atlases. To be able to use the [Brainglobe atlases](https://brainglobe.info/documentation/brainglobe-atlasapi/usage/atlas-details.html#available-atlases), you will need the [Python version](#abba-python). The two can be installed alongside each other.
 
+!!! danger "Important"
+    Please have a look at this [few considerations](tips-abba.md#abba-and-brainglobe-atlases) related to coordinates systems in ABBA and Brainglobe atlases and their consequences on downstream analysis.
+
 ## ABBA Fiji
 ### Install Fiji
 Install the "batteries-included" distribution of ImageJ, Fiji, from the [official website](https://fiji.sc/).  
@@ -28,7 +31,7 @@ ABBA can leverage the [elastix toolbox](https://elastix.dev/) for automatic 2D i
 2. Download the zip archive and extract it somewhere relevant.  
 3. In Fiji, in the search box, type "set and check" and launch the "Set and Check Wrappers" command. Set the paths to "elastix.exe" and "transformix.exe" you just downloaded.
 
-ABBA should be installed and functional ! You can check the [official documentation](https://abba-documentation.readthedocs.io/en/latest/index.html) for usage instructions and some tips [here](tips-abba.md).
+ABBA should be installed and functional ! You can check the [official documentation](https://abba-documentation.readthedocs.io/en/latest/index.html) for usage instructions and an opiniated guide [here](guide-register-abba.md).
 
 ## ABBA Python
 [Brainglobe](https://brainglobe.info/) is an initiative aiming at providing interoperable, model-agnostic Python-based tools for neuroanatomy. They package various published volumetric anatomical atlases of different species (check the [list](https://brainglobe.info/documentation/brainglobe-atlasapi/usage/atlas-details.html#available-atlases)), including the Allen Mouse brain atlas (CCFv3, [ref.](https://doi.org/10.1016/j.cell.2020.04.007)) and a 3D version of the Allen mouse spinal cord atlas ([ref](https://doi.org/10.1016/j.crmeth.2021.100074)).
@@ -46,7 +49,7 @@ conda create -c conda-forge -n abba_python python=3.10 openjdk=11 maven pyimagej
 ```
 3. Install the latest functional version of abba_python with pip :
 ```
-pip install abba-python==0.9.6.dev0
+pip install abba-python==0.9.11.dev0
 ```
 4. Restart the terminal and activate the new environment :
 ```
@@ -95,6 +98,6 @@ To import registered regions in your QuPath project and be able to convert objec
 
 1. In QuPath, head to `Edit > Preferences`. In the `Extension` tab, set your `QuPath user directory` to a local directory (usually `C:\Users\USERNAME\QuPath\v0.X.Y`).
 2. Create a folder named `extensions` in your QuPath user directory.
-2. Download the latest ABBA extension for QuPath from [GitHub](https://github.com/BIOP/qupath-extension-abba/releases) (choose the file `qupath-extension-abba-x.y.z.zip`).
-3. Uncompress the archive and copy all .jar files into the `extensions` folder in your QuPath user directory.
-4. Restart QuPath. Now, in `Extensions`, you should have an `ABBA` entry.
+3. Download the latest ABBA extension for QuPath from [GitHub](https://github.com/BIOP/qupath-extension-abba/releases) (choose the file `qupath-extension-abba-x.y.z.zip`).
+4. Uncompress the archive and copy all .jar files into the `extensions` folder in your QuPath user directory.
+5. Restart QuPath. Now, in `Extensions`, you should have an `ABBA` entry.

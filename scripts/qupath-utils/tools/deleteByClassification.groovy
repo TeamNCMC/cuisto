@@ -1,7 +1,7 @@
 /**
  * deleteByClassification.groovy
  *
- * Delete all objects whose class correspondond to the specified one.
+ * Delete all objects whose class correspond to the specified one.
  * To delete objects whose class is empty, set an empty string.
  */
 

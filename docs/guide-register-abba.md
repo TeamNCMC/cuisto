@@ -2,6 +2,10 @@
 
 The [ABBA documentation](https://abba-documentation.readthedocs.io/en/latest/) is quite extensive and contains guided tutorials and a video tutorial. You should therefore check it out ! Nevertheless, you will find below some quick reminders.
 
+!!! tip
+
+    Using either the regular Fiji version of ABBA or the [Python version](guide-install-abba.md#abba-python) (to have access to Brainglobe atlases) will lead to the same interface, depicted below. Nevertheless, keep in mind what kind of atlas (packaged with ABBA or Brainglobe atlas) as it needs to be configured, see more information on [this page](tips-abba.md#abba-and-brainglobe-atlases).
+
 ## Import a QuPath project
 Always use ABBA with a QuPath project, if you import the images directly it will not be possible to export the results back to QuPath. In the toolbar, head to `Import > Import QuPath Project`.
 
@@ -111,7 +115,7 @@ To do so :
 5. Add as many landmarks as needed, when you're done, find the Fiji window called "Big Warp registration" that opened at the beginning and click `OK`.
 
 !!! tip "Important remarks and tips"
-    + A landmark is a location where you said "this location correspond to this one". Therefore, BigWarp is not allowed to move this particular location. Everywhere else, it is free to transform the image without any restrictions, including the borders. Thus, it is a good idea to **delimit the coarse contour of the brain with landmarks** to constrain the registration.
+    + A landmark is a location where you said "this location correspond to this one". Therefore, BigWarp is not allowed to move this particular location. Everywhere else, it is free to transform the image without any restrictions, including the borders. Thus, it is a good idea to **delimit the coarse contour of the brain with landmarks** to constrain the deformations.
     + ++left-button++ without holding ++ctrl++ will place a landmark in the fixed image only, without pair, and BigWarp won't like it. To **delete landmarks**, head to the "Landmarks" window that lists all of them. They highlight in the viewer upon selection. Hit ++del++ to delete one. Alternatively, click on it on the viewer and hit ++del++.
 
 #### From a previous registration
@@ -145,6 +149,6 @@ From your project with an image open, the basic usage is to head to `Extensions 
 Choose to `Split Left and Right Regions` to make the two hemispheres independent, and choose the "acronym" to name the regions. The registered regions should be imported as Annotations in the image.
 
 !!! tip
-    With ABBA in regular Fiji using the CCFv3 Allen mouse brain atlas, the left and right regions are flipped, because ABBA considers the slices as backward facing. The `importAbba.groovy` script located in `scripts/qupath-utils-atlas` allows you to flip left/right regions names. This is OK because the Allen brain is symmetrical by construction.
+    In QuPath, the left and right regions are flipped, because ABBA considers the slices as facing downward. The `importAbba.groovy` script located in [`scripts/qupath-utils-atlas`](https://github.com/TeamNCMC/cuisto/tree/main/scripts/qupath-utils/atlas) allows you to flip left/right regions names. This is OK because the Allen brain is symmetrical by construction.
 
-For more complex use, check the Groovy scripts in `scripts/qupath-utils/atlas`. ABBA registration is used throughout the guides, to either work with brain regions (and count objects for instance) or to get the detections' coordinates in the atlas space.
+For batch-processing, check the Groovy scripts in [`scripts/qupath-utils/atlas`](https://github.com/TeamNCMC/cuisto/tree/main/scripts/qupath-utils/atlas). ABBA registration is used throughout the guides, to either work with brain regions (and count objects for instance) or to get the detections' coordinates in the atlas space. Remember to check a few considerations about coordinates systems conventions on [this page](tips-abba.md#abba-and-brainglobe-atlases).

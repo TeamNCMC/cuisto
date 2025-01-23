@@ -299,7 +299,7 @@ def add_hemisphere(
     hemisphere_names: dict,
     midline: float = 5700,
     col: str = "Atlas_Z",
-    atlas_type: str = "brain",
+    atlas_type: str = "abba",
 ) -> pd.DataFrame:
     """
     Add hemisphere (left/right) as a measurement for detections or annotations.
@@ -321,9 +321,10 @@ def add_hemisphere(
     col : str, optional
         Name of the column containing the Z coordinate (medio-lateral) in microns.
         Default is "Atlas_Z".
-    atlas_type : {"brain", "cord"}, optional
-        Type of atlas used for registration. Required because the brain atlas is swapped
-        between left and right while the spinal cord atlas is not. Default is "brain".
+    atlas_type : {"abba", "brainglobe"}, optional
+        Type of atlas used for registration. Required because the brain atlas provided
+        by ABBA is swapped between left and right while the brainglobe atlases are not.
+        Default is "abba".
 
     Returns
     -------
@@ -340,12 +341,12 @@ def add_hemisphere(
 
     if kind == "detection":
         # use midline
-        if atlas_type == "brain":
-            # brain atlas : beyond midline, it's left
+        if atlas_type in ("abba", "brain"):
+            # regular ABBA atlas : beyond midline, it's left
             df.loc[df[col] >= midline, "hemisphere"] = hemisphere_names["Left"]
             df.loc[df[col] < midline, "hemisphere"] = hemisphere_names["Right"]
-        elif atlas_type == "cord":
-            # cord atlas : below midline, it's left
+        elif atlas_type in ("brainglibe", "cord"):
+            # brainglobe atlas : below midline, it's left
             df.loc[df[col] <= midline, "hemisphere"] = hemisphere_names["Left"]
             df.loc[df[col] > midline, "hemisphere"] = hemisphere_names["Right"]
 
@@ -399,7 +400,12 @@ def add_channel(
 
 
 def add_brain_region(
-    df: pd.DataFrame, atlas: BrainGlobeAtlas | None, col="Parent"
+    df: pd.DataFrame,
+    atlas: BrainGlobeAtlas | None,
+    col: str = "Parent",
+    xname: str = "Atlas_X",
+    yname: str = "Atlas_Z",
+    zname: str = "Altas_Z",
 ) -> pd.DataFrame:
     """
     Add brain region to a DataFrame with `Atlas_X`, `Atlas_Y` and `Atlas_Z` columns.
@@ -417,6 +423,9 @@ def add_brain_region(
     atlas : BrainGlobeAtlas or None
     col : str, optional
         Column in which to put the regions acronyms. Default is "Parent".
+    xname, yname, zname : str, optional
+        Name of the x, y, z coordinates columns in `df`. They should correspond to what
+        is expected by brainglobe-atlasapi : x is AP, y is DV and Z is ML.
 
     Returns
     -------
@@ -435,15 +444,15 @@ def add_brain_region(
     lims = atlas.shape_um  # out of brain
 
     # set out-of-brain objects at 0 so we get "root" as their parent
-    df_in.loc[(df_in["Atlas_X"] >= lims[0]) | (df_in["Atlas_X"] < 0), "Atlas_X"] = 0
-    df_in.loc[(df_in["Atlas_Y"] >= lims[1]) | (df_in["Atlas_Y"] < 0), "Atlas_Y"] = 0
-    df_in.loc[(df_in["Atlas_Z"] >= lims[2]) | (df_in["Atlas_Z"] < 0), "Atlas_Z"] = 0
+    df_in.loc[(df_in[xname] >= lims[0]) | (df_in[xname] < 0), xname] = 0
+    df_in.loc[(df_in[yname] >= lims[1]) | (df_in[yname] < 0), yname] = 0
+    df_in.loc[(df_in[zname] >= lims[2]) | (df_in[zname] < 0), zname] = 0
 
     # build the multi index, in pixels and integers
     ixyz = (
-        df_in["Atlas_X"].divide(res[0]).astype(int),
-        df_in["Atlas_Y"].divide(res[1]).astype(int),
-        df_in["Atlas_Z"].divide(res[2]).astype(int),
+        df_in[xname].divide(res[0]).astype(int),
+        df_in[yname].divide(res[1]).astype(int),
+        df_in[zname].divide(res[2]).astype(int),
     )
     # convert i, j, k indices in raveled indices
     linear_indices = np.ravel_multi_index(ixyz, dims=atlas.annotation.shape)
@@ -556,7 +565,7 @@ def get_data_coverage(df: pd.DataFrame, col="Atlas_AP", by="animal") -> pd.DataF
     df : pd.DataFrame
         _description_
     col : str, optional
-        Key in `df`, default is "Atlas_X".
+        Key in `df`, default is "Atlas_AP".
     by : str, optional
         Key in `df` , default is "animal".
 

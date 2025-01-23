@@ -36,11 +36,13 @@ nav:
     - guide-register-abba.md
     - guide-prepare-qupath.md
     - guide-pipeline.md
+    - guide-use-cuisto.md
   - Tips:
     - tips-formats.md
-    - tips-qupath.md
     - tips-abba.md
+    - tips-qupath.md
     - tips-brain-contours.md
+    - tips-preprocessing.md
   - main-configuration-files.md
   - Examples:
     - main-using-notebooks.md
@@ -103,6 +105,8 @@ markdown_extensions:
       pygments_lang_class: true
   - pymdownx.highlight
   - pymdownx.inlinehilite
+  - pymdownx.tasklist:
+      custom_checkbox: true
   - pymdownx.snippets
   - pymdownx.keys
   - pymdownx.arithmatex:

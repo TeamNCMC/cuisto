@@ -19,7 +19,7 @@ To exclude objects near the edges of an ROI, specify the path to masks stored as
 with the same names as probabilities images (without their suffix).
 
 author : Guillaume Le Goc (g.legoc@posteo.org) @ NeuroPSI
-version : 2024.12.10
+version : 2025.1.15
 
 """
 
@@ -32,7 +32,7 @@ import pandas as pd
 import tifffile
 from tqdm import tqdm
 
-import cuisto as hq
+import cuisto
 
 pd.options.mode.copy_on_write = True  # prepare for pandas 3
 
@@ -345,6 +345,11 @@ def process_directory(
         if filename.endswith(img_suffix)
     ]
 
+    if len(images_list) == 0:
+        raise FileNotFoundError(
+            f"No file found in {images_dir}. Check 'IMAGES_DIR' and 'IMG_SUFFIX'."
+        )
+
     # write parameters
     parameters = parameters_as_dict(
         images_dir, masks_dir, segtype, channel_suffix, proba_threshold, edge_dist
@@ -356,9 +361,9 @@ def process_directory(
         write_parameters(param_file, parameters, filters, original_pixelsize)
 
     # convert parameters to pixels in probability map
-    pixelsize = hq.seg.get_pixelsize(images_list[0])  # get pixel size
+    pixelsize = cuisto.seg.get_pixelsize(images_list[0])  # get pixel size
     edge_dist = int(edge_dist / pixelsize)
-    filters = hq.seg.convert_to_pixels(filters, pixelsize)
+    filters = cuisto.seg.convert_to_pixels(filters, pixelsize)
 
     # get rescaling factor
     rescale_factor = pixelsize / original_pixelsize
@@ -387,9 +392,9 @@ def process_directory(
         img = tifffile.imread(imgpath, key=target_channel)
         if (edge_dist > 0) & (len(masks_dir) != 0):
             mask = tifffile.imread(os.path.join(masks_dir, geoname + "." + masks_ext))
-            mask = hq.seg.pad_image(mask, img.shape)  # resize mask
+            mask = cuisto.seg.pad_image(mask, img.shape)  # resize mask
             # apply mask, eroding from the edges
-            img = img * hq.seg.erode_mask(mask, edge_dist)
+            img = img * cuisto.seg.erode_mask(mask, edge_dist)
 
         # image processing
         pbar.set_description(f"{geoname}: IP...")
@@ -401,7 +406,7 @@ def process_directory(
         pbar.set_description(f"{geoname}: Segmenting...")
 
         if seg_method == "lines":
-            collection = hq.seg.segment_lines(
+            collection = cuisto.seg.segment_lines(
                 img,
                 geojson_props,
                 minsize=filters["length_low"],
@@ -409,7 +414,7 @@ def process_directory(
             )
 
         elif seg_method == "polygons":
-            collection = hq.seg.segment_polygons(
+            collection = cuisto.seg.segment_polygons(
                 img,
                 geojson_props,
                 area_min=filters["area_low"],
@@ -420,7 +425,7 @@ def process_directory(
             )
 
         elif seg_method == "points":
-            collection = hq.seg.segment_points(
+            collection = cuisto.seg.segment_points(
                 img,
                 geojson_props,
                 area_min=filters["area_low"],
@@ -462,7 +467,7 @@ if __name__ == "__main__":
 
     pbar = tqdm(channels_params)
     for param in pbar:
-        pbar.set_description(f"Segmenting {param["name"]}")
+        pbar.set_description(f"Segmenting {param['name']}")
         process_directory(
             IMAGES_DIR,
             img_suffix=IMG_SUFFIX,
