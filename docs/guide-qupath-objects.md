@@ -58,16 +58,16 @@ Briefly, this uses a watershed algorithm to find bright spots and can perform a 
     In [`scripts/qupath-utils/segmentation`](https://github.com/TeamNCMC/cuisto/tree/main/scripts/qupath-utils/segmentation), there is `watershedDetectionFilters.groovy` which uses this feature from a script. It further allows you to filter out detected cells based on shape measurements as well as fluorescence intensity in several channels and cell compartments.
 
 ### Manual counting 
-If you whish to do the counting manually, you have to follow a certain (Qu)path.
+If you wish to do the counting manually, you have to follow a certain (Qu)path.
 
-First you have to select the point tool and start clicking on every cell you want to count. It will create an unique annotation composed of every points you've created. This detail is important because, in order to make you're quantification work on `cuisto`, you must have one Detection per cell and not one Annotation gathering all your cells. But don't worry too much ! There is a way to solve this tremendous issue. 
+First you have to select the point tool and start clicking on every cell you want to count. It will create an unique annotation composed of every points you've created. This detail is important because, in order to make your quantification work on `cuisto`, you must have one Detection per cell and not one Annotation gathering all your cells. But don't worry too much ! There is a way to solve this tremendous issue. 
 
-After manually clicking on every of your cells, you must classify your Annotation by clicking on "set selected". After that, you must split your Annotation by clicking left on it on the Analysis panel and click on edit single > split. Now you've got one Annotation per cells. One less problem !  Then, you must convert you're Annotations toward Detections. To do so, there is a script in [`scripts/qupath-utils/tools/convertAnnotationsToDetections`](https://github.com/TeamNCMC/cuisto/tree/main/scripts/qupath-utils/tools/convertAnnotationsToDetections.groovy) that will nicely do it for you ! 
+After manually clicking on every of your cells, you must classify your Annotation by clicking on "set selected". After that, you must split your Annotation by clicking left on it on the Analysis panel and click on edit single > split. Now you've got one Annotation per cells. One less problem !  Then, you must convert your Annotations to Detections. To do so, there is a script in [`scripts/qupath-utils/tools/convertAnnotationsToDetections`](https://github.com/TeamNCMC/cuisto/tree/main/scripts/qupath-utils/tools/convertAnnotationsToDetections.groovy) that will nicely do it for you ! 
 
 I advise to first count every cells on your whole project, then split every Annotations on your whole project and finally use the script by selecting "Run for project". You'll win some seconds. 
 
 !!! tip
-    Splitting Annotations on every image of your project means repeating the command every time. It may become slighty annoying. Here is your salvation : runPlugin('qupath.lib.plugins.objects.SplitAnnotationsPlugin', '{}') 
+    Splitting Annotations on every image of your project means repeating the command every time. It may become slighty annoying. Here is your salvation : 'runPlugin'('qupath.lib.plugins.objects.SplitAnnotationsPlugin', '{}') 
       It's a quick script that you may easily run for your whole project in Qupath. 
 
 
