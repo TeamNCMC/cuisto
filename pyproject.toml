@@ -1,6 +1,6 @@
 [project]
 name = "cuisto"
-version = "2025.1.15"
+version = "2025.1.28"
 authors = [{ name = "Guillaume Le Goc", email = "g.legoc@posteo.org" }]
 description = "Quantification of objects in histological slices"
 readme = "README.md"
@@ -24,7 +24,6 @@ dependencies = [
   "numpy>=2",
   "orjson>=3.10.3",
   "pandas[performance]>2.2.2",
-  "paquo>=0.8.0",
   "scikit-image>0.22.0",
   "seaborn>=0.13.2",
   "shapely>=2.0.4",
