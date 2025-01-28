@@ -1404,7 +1404,7 @@
 
 
 <h1 id="the-configuration-files">The configuration files<a class="headerlink" href="#the-configuration-files" title="Permanent link">#</a></h1>
-<p>There are three configuration files : <code>altas_blacklist</code>, <code>atlas_fusion</code> and a modality-specific file, that we'll call <code>config</code> in this document. The former two are related to the atlas you're using, the latter is what is used by <code>cuisto</code> to know what and how to compute and display things. There is a fourth, optional, file, used to provide some information on a specific experiment, <code>info</code>.</p>
+<p>There are three configuration files : <code>altas_blacklist</code>, <code>atlas_fusion</code> and a modality-specific file, that we'll call <code>config</code> in this document. The former two are related to the atlas you're using, the latter is what is used by <code>cuisto</code> to know what and how to compute and display things. There is a fourth, optional, file used to provide some information on a specific experiment, <code>info</code>.</p>
 <p>The configuration files are in the TOML file format, that are basically text files formatted in a way that is easy to parse in Python. See <a href="tips-formats.html#toml-toml-files">here</a> for a basic explanation of the syntax.</p>
 <p>Most lines of each template file are commented to explain what each parameter do.</p>
 <h2 id="configtoml">config.toml<a class="headerlink" href="#configtoml" title="Permanent link">#</a></h2>
@@ -1611,10 +1611,10 @@ They rely on the concept of hue used in <a href="https://seaborn.pydata.org/tuto
 <li>If hue=hemisphere : it should be a channel name, a list of such or "all"</li>
 <li>If hue=channel : it should be a hemisphere name or "both"</li>
 </ul>
-<p><code>hue_mirror</code> : plot two hue_filter in mirror instead of discarding the others. For example, if hue=channel and hue_filter="both", plots the two hemisphere in mirror.<br />
+<p><code>hue_mirror</code> : plot two hue_filter in mirror instead of discarding the others. For example, if hue=channel and hue_filter="both", plots the two hemispheres in mirror.<br />
 <code>normalize_starter_cells</code> : normalize non-relative metrics by the number of starter cells</p>
 <p><h4>metrics</h4>
-<em>Names of metrics. The keys are used internally in cuisto as is so should NOT be modified. The values will only chang etheir names in the ouput file</em></p>
+<em>Names of metrics. The keys are used internally in cuisto as is so should NOT be modified. The values will only change etheir names in the ouput file</em></p>
 <p><code>"density µm^-2"</code> : relevant name<br />
 <code>"density mm^-2"</code> : relevant name<br />
 <code>"coverage index"</code> : relevant name<br />

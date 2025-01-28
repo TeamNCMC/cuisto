@@ -456,6 +456,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#manual-counting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manual counting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#pixel-classifier" class="md-nav__link">
     <span class="md-ellipsis">
       Pixel classifier
@@ -1368,6 +1377,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#manual-counting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manual counting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#pixel-classifier" class="md-nav__link">
     <span class="md-ellipsis">
       Pixel classifier
@@ -1573,6 +1591,22 @@
 <p class="admonition-title">Tip</p>
 <p>In <a href="https://github.com/TeamNCMC/cuisto/tree/main/scripts/qupath-utils/segmentation"><code>scripts/qupath-utils/segmentation</code></a>, there is <code>watershedDetectionFilters.groovy</code> which uses this feature from a script. It further allows you to filter out detected cells based on shape measurements as well as fluorescence intensity in several channels and cell compartments.</p>
 </div>
+<h3 id="manual-counting">Manual counting<a class="headerlink" href="#manual-counting" title="Permanent link">#</a></h3>
+<p>If you wish to do the counting manually, you have to follow a certain (Qu)path.</p>
+<p>First you have to select the <a href="https://qupath.readthedocs.io/en/stable/docs/starting/cell_counting.html#clicking-cells">Point tool</a> and start clicking on every cell you want to count. It will create an unique Annotation composed of every points you've created. This detail is important because, in order to make your quantification work with <code>cuisto</code>, you must have one Detection per cell and not one Annotation containing all your cells. But don't worry too much ! There is a way to solve this tremendous issue. </p>
+<p>After manually clicking on every of your cells, you must classify your Annotation by clicking on <code>Set selected</code> in the Annotations tab. After that, you must split your Annotation by clicking left on it and click on <code>Edit single &gt; Split</code>. Now you've got one Annotation per cells. One less problem !  Then, you must convert your Annotations to Detections. To do so, there is a script at <a href="https://github.com/TeamNCMC/cuisto/tree/main/scripts/qupath-utils/tools/convertAnnotationsToDetections.groovy"><code>scripts/qupath-utils/tools/convertAnnotationsToDetections.groovy</code></a> that will nicely do it for you. It can convert only Annotations with the specified classifications, so that atlas regions remain Annotations.</p>
+<p>I advise to first count every cells on your whole project (with the correct classifications), then split every Annotations on your whole project and finally use the script by selecting "Run for project". You'll win some seconds. </p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Splitting Annotations on every image of your project means repeating the command every time. It may become slighty annoying. Here is your salvation :<br />
+<code>runPlugin('qupath.lib.plugins.objects.SplitAnnotationsPlugin', '{}')</code>
+It's a quick script that you may easily run for your whole project in Qupath. This line can be added at the beginning of the <a href="https://github.com/TeamNCMC/cuisto/tree/main/scripts/qupath-utils/tools/convertAnnotationsToDetections.groovy"><code>scripts/qupath-utils/tools/convertAnnotationsToDetections.groovy</code></a> script.</p>
+</div>
+<p>Once you're done, remember to use the <code>cuisto</code> script <a href="https://github.com/TeamNCMC/cuisto/blob/main/scripts/qupath-utils/atlas/addAtlasCoordinates.groovy"><code>scripts/qupath-utils/atlas/addAtlasCoordinates.groovy</code></a> to get the atlas coordinates on each Detections, which is necessary if you want to get the spatial distributions with <code>cuisto</code>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you're struggling finding the command you need, remember that you can use the command list using <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-l">L</kbd></span> that may help you find the command you need by just writting it down! </p>
+</div>
 <h3 id="pixel-classifier">Pixel classifier<a class="headerlink" href="#pixel-classifier" title="Permanent link">#</a></h3>
 <p>Another very powerful and versatile way to segment cells is through machine learning. Note the term "machine" and not "deep" as it relies on statistics theory from the 1980s. QuPath provides an user-friendly interface to do that, similar to what <a href="https://www.ilastik.org/">ilastik</a> provides.</p>
 <p>The general idea is to train a model to classify every pixel as a signal or as background. You can find good resources on how to procede in the <a href="https://qupath.readthedocs.io/en/stable/docs/tutorials/pixel_classification.html">official documentation</a> and some additionnal tips and tutorials on Michael Neslon's blog (<a href="https://www.imagescientist.com/mpx-pixelclassifier">here</a> and <a href="https://www.imagescientist.com/brightfield-4-pixel-classifier">here</a>).</p>
@@ -1714,7 +1748,7 @@ Reference papers : <a href="https://doi.org/10.1101/2023.06.13.544786">doi:10.11
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 16, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 28, 2025</span>
   </span>
 
     
