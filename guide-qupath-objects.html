@@ -1599,7 +1599,7 @@
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Splitting Annotations on every image of your project means repeating the command every time. It may become slighty annoying. Here is your salvation :<br />
-<code>runPlugin('qupath.lib.plugins.objects.SplitAnnotationsPlugin', '{}')</code>
+<code>runPlugin('qupath.lib.plugins.objects.SplitAnnotationsPlugin', '{}')</code><br />
 It's a quick script that you may easily run for your whole project in Qupath. This line can be added at the beginning of the <a href="https://github.com/TeamNCMC/cuisto/tree/main/scripts/qupath-utils/tools/convertAnnotationsToDetections.groovy"><code>scripts/qupath-utils/tools/convertAnnotationsToDetections.groovy</code></a> script.</p>
 </div>
 <p>Once you're done, remember to use the <code>cuisto</code> script <a href="https://github.com/TeamNCMC/cuisto/blob/main/scripts/qupath-utils/atlas/addAtlasCoordinates.groovy"><code>scripts/qupath-utils/atlas/addAtlasCoordinates.groovy</code></a> to get the atlas coordinates on each Detections, which is necessary if you want to get the spatial distributions with <code>cuisto</code>.</p>
