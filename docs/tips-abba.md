@@ -78,7 +78,7 @@ The main `cuisto` [configuration file](main-configuration-files.md#configtoml) h
 Configure like so :
 
 - If using the "Allen Brain Atlas V3p1" atlas, set `type = "abba"`.
-- If using any Brainglobe atlases from abba_python, or the "allen_mouse_10um_java" atlas, set `type="brainglobe`.
+- If using any Brainglobe atlases from abba_python, or the "allen_mouse_10um_java" atlas, set `type="brainglobe"`.
 
 In any event, when importing atlas regions into QuPath with the ABBA extension from the scripts located in `scripts/qupath-utils/atlas`, set `mirrorLeftRight` to `true`. This ensures the regions (annotations) are correctly classified with the correct hemisphere (eg. the left hemisphere is the left part of what you see on the screen).
 

@@ -49,7 +49,7 @@ The process is the following :
 If for some images the mask is not satisfactory, note down their names and :
 
 1. Delete the mask file (not the preview !).
-2. Detele the corresponding cleaned image in each channel.
+2. Delete the corresponding cleaned image in each channel.
 3. Open ImageJ, drag & drop the corresponding single-channel original image from the channel used for detection.
 4. Manually edit it so that the brain slice is easily detected. This means deleting the bits not part of the slice, usually when those bits are close to the slice itself. One could for instance use the `Freehand selections` tool, select the parts to remove and hit ++del++.
 5. Save the image (++ctrl+s++), overwriting the original.

@@ -63,7 +63,7 @@ The template file is thoroughly commented to explain what each line does. Nevert
 ??? example "Click for a more readable parameters explanation"
     --8<-- "docs/api-config-config.md"
 
-You can check supplementary configuration file examples in the [`resources`](https://github.com/TeamNCMC/cuisto/tree/main/resources) folder, that are ones used in the [examples](main-using-notebooks.md).
+You can check supplementary configuration file examples in the [`resources`](https://github.com/TeamNCMC/cuisto/tree/main/resources) folder, that are the ones used in the [examples](main-using-notebooks.md).
 
 ## atlas_blacklist.toml
 ??? abstract "Click to see an example file"
