@@ -68,7 +68,7 @@ I advise to first count every cells on your whole project (with the correct clas
 
 !!! tip
     Splitting Annotations on every image of your project means repeating the command every time. It may become slighty annoying. Here is your salvation :  
-    `runPlugin('qupath.lib.plugins.objects.SplitAnnotationsPlugin', '{}')`
+    `runPlugin('qupath.lib.plugins.objects.SplitAnnotationsPlugin', '{}')`  
     It's a quick script that you may easily run for your whole project in Qupath. This line can be added at the beginning of the [`scripts/qupath-utils/tools/convertAnnotationsToDetections.groovy`](https://github.com/TeamNCMC/cuisto/tree/main/scripts/qupath-utils/tools/convertAnnotationsToDetections.groovy) script.
 
 Once you're done, remember to use the `cuisto` script [`scripts/qupath-utils/atlas/addAtlasCoordinates.groovy`](https://github.com/TeamNCMC/cuisto/blob/main/scripts/qupath-utils/atlas/addAtlasCoordinates.groovy) to get the atlas coordinates on each Detections, which is necessary if you want to get the spatial distributions with `cuisto`.
