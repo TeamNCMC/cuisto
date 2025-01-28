@@ -2,6 +2,7 @@
 
 [![Python Version](https://img.shields.io/pypi/pyversions/cuisto.svg)](https://pypi.org/project/cuisto)
 [![PyPI](https://img.shields.io/pypi/v/cuisto.svg)](https://pypi.org/project/cuisto/)
+[![Tests](https://img.shields.io/github/actions/workflow/status/TeamNCMC/cuisto/python-publish.yml)](https://github.com/TeamNCMC/cuisto/actions/workflows/python-publish.yml)
 
 Python package for histological quantification of objects in reference atlas regions.
 
