@@ -97,7 +97,7 @@ def pad_image(img: np.ndarray, finalsize: tuple | list) -> np.ndarray:
 
 def erode_mask(mask: np.ndarray, edge_dist: float) -> np.ndarray:
     """
-    Erode the mask outline so that is is `edge_dist` smaller from the border.
+    Erode the mask outline so that it is `edge_dist` smaller from the border.
 
     This allows discarding the edges.
 
@@ -157,7 +157,7 @@ def get_collection_from_skel(
     ----------
     skeleton : skan.Skeleton
     properties : dict
-        QuPatj objects' properties.
+        QuPath objects' properties.
     rescale_factor : float
         Rescale output coordinates by this factor.
     offset : float

@@ -475,7 +475,7 @@ def filter_df_classifications(
     Filter a DataFrame whether specified `col` column entries contain elements in
     `filter_list`. Case insensitive.
 
-    If `mode` is "keep", keep entries only if their `col` in is in the list (default).
+    If `mode` is "keep", keep entries only if their `col` is in the list (default).
     If `mode` is "remove", remove entries if their `col` is in the list.
 
     Parameters
