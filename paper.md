@@ -22,7 +22,6 @@ authors:
   - name: Julien Bouvier
     orcid: 0000-0002-1307-4426
     affiliation: 1
-=
 affiliations:
   - name: Université Paris-Saclay, CNRS, Institut des Neurosciences Paris-Saclay, 91400, Saclay, France
     index: 1
