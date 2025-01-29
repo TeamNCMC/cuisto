@@ -60,7 +60,6 @@ nav:
     - cuisto.seg: api-seg.md
   - Scripts reference:
     - segment_images: api-script-segment.md
-    - qupath_script_runner: api-script-qupath-script-runner.md
   - main-getting-help.md
   - main-citing.md
 
