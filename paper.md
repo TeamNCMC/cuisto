@@ -8,7 +8,7 @@ tags:
   - processing
   - neuroscience
 authors:
-  - firstname: Guillaume
+  - given-names: Guillaume
     surname: Le Goc
     orcid: 0000-0002-6946-1142
     affiliation: 1
@@ -20,7 +20,6 @@ affiliations:
   - name: Université Paris-Saclay, CNRS, Institut des Neurosciences Paris-Saclay, 91400, Saclay, France
   - index: 1
 ---
-# cuisto: A Python package to quantify histological data from QuPath and ABBA
 
 # Summary
 Fluorescent labeling techniques, including immunohistochemistry and endogenously fluorescent proteins, are key assets in neuroscience. Combined to genetic toolboxes, they enable the anatomical identification of specific neurons and neuronal processes, shedding light on neural networks organization and linking behavior to brain structures. Advances in imaging techniques and numerical tools have enabled the creation of volumetric, annotated, whole-brain atlases of various animal models [@wang2020; @kleven2023; @kunst2019; @lazcano2021] facilitating brain-wide mapping of labeled elements to a reference three-dimensional space. In this framework, a common task is to count, in the reference brain regions, objects of interest (be it whole cells, nuclei, axons, synaptic puncta...) detected in 2D histological slices imaged with fluorescence microscopy.
