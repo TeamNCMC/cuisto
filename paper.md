@@ -8,7 +8,7 @@ tags:
   - processing
   - neuroscience
 authors:
-    - firstname: Guillaume
+  - firstname: Guillaume
     surname: Le Goc
     orcid: 0000-0002-6946-1142
     affiliation: 1
