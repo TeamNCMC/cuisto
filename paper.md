@@ -4,8 +4,8 @@ tags:
   - Python
   - histology
   - immunochemistry
-  - image
-  - processing
+  - microscopy
+  - image analysis
   - neuroscience
 authors:
   - name:
@@ -13,6 +13,7 @@ authors:
       surname: Le Goc
     orcid: 0000-0002-6946-1142
     affiliation: 1
+    corresponding: true
   - name: Alexis d'Humières
     orcid: 0009-0006-3860-2084
     affiliation: 1
@@ -22,6 +23,7 @@ authors:
   - name: Julien Bouvier
     orcid: 0000-0002-1307-4426
     affiliation: 1
+    corresponding: true
 affiliations:
   - name: Université Paris-Saclay, CNRS, Institut des Neurosciences Paris-Saclay, 91400, Saclay, France
     index: 1
@@ -58,6 +60,6 @@ Furthermore, `cuisto` leverages the atlas coordinates of each object of interest
 It is worth mentioning that BraiAn [@chiaruttini2024], a toolbox following a similar purpose, was released during the development of the present work, but also provides a Java API for the QuPath side, while `cuisto` provides simpler, standalone QuPath scripts.
 
 # Acknowledgements
-We would like to thank the original author of QuPath, Peter Bankhead and all contributors. We also thank the original author of ABBA, Nicolas Chiaruttini, especially for his support on ABBA-Python. We thank all contributors of the Brainglobe initiative. We're grateful to member of the lab Patricia del Cerro de Pablo for her early feedbacks. This work was supported by the European Research Council (ERC CoG 101089318) and the Fondation pour la Recherche Médicale (FRM EQU202203014620).
+We would like to thank the original author of QuPath, Peter Bankhead and all contributors. We also thank the original author of ABBA, Nicolas Chiaruttini, especially for his support on ABBA-Python. We thank all contributors of the Brainglobe initiative. We're grateful to member of the lab Patricia del Cerro de Pablo for her early feedbacks. This work has received funding from the European Research Council (ERC) under the European Union's Horizon Europe research and innovation program (grant agreement No 101089318), the Fondation pour la Recherche Médicale (FRM EQU202203014620 and ECO202206015594), the CNRS and the University Paris-Saclay.
 
 # References
