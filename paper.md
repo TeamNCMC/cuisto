@@ -41,9 +41,11 @@ Yet, to our knowledge, no streamlined pipeline existed to bridge those two piece
 Specifically, guides are provided to align 2D histological slices to volumetric reference atlases with ABBA, detect objects of interest in QuPath, quantify those in the registered atlas regions (either object counting for punctual objects or cumulated length for fibers-like objects), format the data to be used by `cuisto` and finally export the data as tabular data (or json files for fibers-like objects).
 
 Subsequently, `cuisto` is used to collect the data from different subjects, pool them based on the atlas regions names and derive quantifying metrics from the raw count or cumulated length. Those metrics include, for each atlas region :
+
 - the raw measurement,
 - the areal density, e.g. the raw measurement divided by  the region area,
 - the relative density, e.g. the areal density as a fraction of the total density.
+
 Furthermore, `cuisto` leverages the atlas coordinates of each object of interest to compute and display spatial distributions in the reference atlas space.
 
 `cuisto` processing and display is configured with human-readable configuration files that support up to two hemispheres and any number of detection channels to be able to compare different biological markers. Ultimately, this package aims to be versatile : while it was designed around Brainglobe atlases, those are not mandatory and the user can use it with custom annotated regions instead -- as long as the format requirements are met.
