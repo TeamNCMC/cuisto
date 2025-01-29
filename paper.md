@@ -8,9 +8,7 @@ tags:
   - processing
   - neuroscience
 authors:
-  - name:
-      given-names: Guillaume
-      surname: Le Goc
+  - name: Guillaume Le Goc
     orcid: 0000-0002-6946-1142
     affiliation: 1
   - name: Julien Bouvier
@@ -20,6 +18,7 @@ authors:
 affiliations:
   - name: Université Paris-Saclay, CNRS, Institut des Neurosciences Paris-Saclay, 91400, Saclay, France
   - index: 1
+bibliography: paper.bib
 ---
 
 # Summary
