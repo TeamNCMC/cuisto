@@ -1,5 +1,5 @@
 ---
-title: "cuisto: A Python package to quantify histological data from QuPath and ABBA"
+title: "cuisto: A Python package to quantify neurohistological data from QuPath and ABBA"
 tags:
   - Python
   - histology
@@ -13,10 +13,16 @@ authors:
       surname: Le Goc
     orcid: 0000-0002-6946-1142
     affiliation: 1
+  - name: Alexis d'Humières
+    orcid: 0009-0006-3860-2084
+    affiliation: 1
+  - name: Antoine Lesage
+    orcid: 0009-0000-7362-3215
+    affiliation: 1
   - name: Julien Bouvier
     orcid: 0000-0002-1307-4426
     affiliation: 1
-    corresponding: true
+=
 affiliations:
   - name: Université Paris-Saclay, CNRS, Institut des Neurosciences Paris-Saclay, 91400, Saclay, France
     index: 1
@@ -53,6 +59,6 @@ Furthermore, `cuisto` leverages the atlas coordinates of each object of interest
 It is worth mentioning that BraiAn [@chiaruttini2024], a toolbox following a similar purpose, was released during the development of the present work, but also provides a Java API for the QuPath side, while `cuisto` provides simpler, standalone QuPath scripts.
 
 # Acknowledgements
-We would like to thank the original author of QuPath, Peter Bankhead and all contributors. We also thank the original author of ABBA, Nicolas Chiaruttini, especially for his support on ABBA-Python. We thank all contributors of the Brainglobe initiative, especially Adam L. Tyson and Alessandro Felder. We're grateful to members of the lab Antoine Lesage, Alexis d'Humières and Patricia del Cerro de Pablo for their early feedbacks. This work was supported by the European Research Council (ERC CoG 101089318) and the Fondation pour la Recherche Médicale (FRM EQU202203014620).
+We would like to thank the original author of QuPath, Peter Bankhead and all contributors. We also thank the original author of ABBA, Nicolas Chiaruttini, especially for his support on ABBA-Python. We thank all contributors of the Brainglobe initiative. We're grateful to member of the lab Patricia del Cerro de Pablo for her early feedbacks. This work was supported by the European Research Council (ERC CoG 101089318) and the Fondation pour la Recherche Médicale (FRM EQU202203014620).
 
 # References
