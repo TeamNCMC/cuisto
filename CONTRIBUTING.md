@@ -31,7 +31,7 @@ pip install -e .[doc,dev]
 git checkout -b your-branch-name
 ```
 6. Make your changes and test them. You can add tests in the `tests` folder and run them with `pytest`. Once done, `git add`, `git commit` and `git push` the changes.
-7. Make a Pull Request from your branch to the [cuisto repository](https://github.com/TeamNCMC/cuisto/issues).
+7. Make a Pull Request from your branch to the [cuisto repository](https://github.com/TeamNCMC/cuisto/).
 
 ## Styleguides
 ### Python code
