@@ -55,7 +55,7 @@ QuPath has a built-in cell detection feature, available in `Analyze > Cell detec
 Briefly, this uses a watershed algorithm to find bright spots and can perform a cell expansion to estimate the full cell shape based on the detected nuclei. Therefore, this works best to segment nuclei but one can expect good performance for cells as well, depending on the imaging and staining conditions.
 
 !!! tip
-    In [`scripts/qupath-utils/segmentation`](https://github.com/TeamNCMC/cuisto/tree/main/scripts/qupath-utils/segmentation), there is `watershedDetectionFilters.groovy` which uses this feature from a script. It further allows you to filter out detected cells based on shape measurements as well as fluorescence intensity in several channels and cell compartments.
+    In [`scripts/qupath-utils/segmentation`](https://github.com/TeamNCMC/cuisto/tree/main/scripts/qupath-utils/segmentation), there is a `watershedDetectionFilters.groovy` which uses this feature from a script. It further allows you to filter out detected cells based on shape measurements as well as fluorescence intensity in several channels and cell compartments.
 
 ### Manual counting 
 If you wish to do the counting manually, you have to follow a certain (Qu)path.
@@ -172,7 +172,7 @@ Existing detections, created before, will thus be classified in either "Cells: p
 One could then count the cells of each classifications in each regions (using the `addRegionsCount.groovy` script in [`scripts/qupath-utils/measurements`](https://github.com/TeamNCMC/cuisto/tree/main/scripts/qupath-utils/measurements)). After [export](guide-prepare-qupath.md#qupath-export), this data can be used with `cuisto`. The data used in the [Cells distributions example](demo_notebooks/cells_distributions.ipynb) was generated using this method.
 
 !!! tip
-    The function `classifyDetectionsByCentroid("pixel_classifier_name")` can be used in a Groovy script to batch-process the project.
+    The built-in function `classifyDetectionsByCentroid("pixel_classifier_name")` can be used in a Groovy script to batch-process the project.
 
 ### Third-party extensions
 QuPath being open-source and extensible, there are third-party extensions that implement popular deep learning segmentation algorithms directly in QuPath. They can be used to find objects of interest as detections in the QuPath project and thus integrate nicely with `cuisto` to quantify them afterwards.
