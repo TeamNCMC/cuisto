@@ -622,7 +622,7 @@ def process_directory(
     original_pixelsize: float = 1.0,
     target_channel: int = 0,
     proba_threshold: float = 0.0,
-    max_pix_value: float = 255,
+    max_pixel_value: float = 255,
     qupath_class: str = "Object",
     qupath_color: list = [0, 0, 0],
     qupath_type: str = "Detection",
@@ -744,7 +744,7 @@ def process_directory(
         pbar.set_description(f"{geoname}: IP...")
 
         # threshold probability and binarization
-        img = img >= proba_threshold * max_pix_value
+        img = img >= proba_threshold * max_pixel_value
 
         # segmentation
         pbar.set_description(f"{geoname}: Segmenting...")

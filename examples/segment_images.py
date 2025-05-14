@@ -1,5 +1,6 @@
 """
-Example to show how to configure and use the `seg` module of the `cuisto` package.
+Example to show how to configure and use the `segmentation` module of the `cuisto`
+package.
 
 For fiber-like objects, binarize and skeletonize the image, then use `skan` to extract
 branches coordinates.
@@ -10,8 +11,8 @@ Finally, export the coordinates as collections in geojson files, importable in Q
 Supports any number of channel of interest within the same image. One file output file
 per channel will be created.
 
-This script uses `cuisto.seg`. It is designed to work on probability maps generated
-from a pixel classifier in QuPath, but *might* work on raw images.
+This script uses `cuisto.segmentation`. It is designed to work on probability maps
+generated from a pixel classifier in QuPath, but *might* work on raw images.
 
 Usage : fill-in the Parameters section of the script and run it. Explanation is given as
 a docstring below each parameter.

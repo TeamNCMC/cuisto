@@ -48,7 +48,7 @@ def outlines_to_group(
     ----------
     grp : h5py group
         Group in hdf5 file
-    structure : str
+    acronym : str
         Subgroup name
     outlines : list
         List of 2D ndarrays
