@@ -534,8 +534,8 @@ def nice_joint_plot(
     if not ax:
         ax = plt.gca()
 
-    # plot outline
-    if outline_kws["atlas"] and outline_kws["structures"]:
+    # plot outline if structures are specified
+    if outline_kws["structures"]:
         file_not_found = atlas.check_outlines_file(
             outline_kws["outline_file"], outline_kws["atlas"]
         )

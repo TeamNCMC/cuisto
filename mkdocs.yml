@@ -58,6 +58,7 @@ nav:
     - cuisto.utils: api-utils.md
     - cuisto.io: api-io.md
     - cuisto.seg: api-seg.md
+    - cuisto.atlas: api-atlas.md
   - Scripts reference:
     - segment_images: api-script-segment.md
   - main-getting-help.md
