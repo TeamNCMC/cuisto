@@ -12,7 +12,7 @@ import pandas as pd
 import seaborn as sns
 from matplotlib import patches
 
-from cuisto import utils
+from cuisto import atlas, utils
 
 
 def add_injection_patch(X: list, ax: plt.Axes, **kwargs) -> plt.Axes:
@@ -114,6 +114,7 @@ def draw_structure_outline(
     outline_file: str = "",
     ax: plt.Axes | None = None,
     microns: bool = False,
+    atlas: str | None = None,
     **kwargs,
 ) -> plt.Axes:
     """
@@ -133,6 +134,8 @@ def draw_structure_outline(
         Axes where to plot the outlines. If None, get current axes (the default).
     microns : bool, optional
         If False (default), converts the coordinates in mm.
+    atlas
+        Needs to be here to properly get kwargs for pyplot.plot()
     **kwargs : passed to pyplot.plot()
 
     Returns
@@ -532,7 +535,23 @@ def nice_joint_plot(
         ax = plt.gca()
 
     # plot outline
-    draw_structure_outline(ax=ax, **outline_kws)
+    if outline_kws["atlas"] and outline_kws["structures"]:
+        file_not_found = atlas.check_outlines_file(
+            outline_kws["outline_file"], outline_kws["atlas"]
+        )
+        if file_not_found:
+            msg = (
+                "[Info] The brain structure outlines file does not exist, no outlines "
+                "will be drawn.\n"
+                "You can generate it using cuisto.atlas.generate_outlines(), on a "
+                "computer with lots of RAM. Some of them are already generated, links "
+                "are available in the documentation.\n"
+                "Alternatively, set 'outline_structures' to an empty list in the "
+                "configuration file."
+            )
+            print(msg)
+        else:
+            draw_structure_outline(ax=ax, **outline_kws)
 
     # plot joint distribution
     sns.histplot(
@@ -568,7 +587,7 @@ def nice_heatmap(
     **kwargs,
 ) -> list[plt.Axes] | plt.Axes:
     """
-    Nice plots of 2D distribution of boutons as a heatmap per animal.
+    Nice plots of 2D distribution of objects as a heatmap per animal.
 
     Parameters
     ----------
@@ -788,6 +807,7 @@ def plot_2D_distributions(df: pd.DataFrame, cfg):
         vmax=cfg.distributions["display"]["cmap_lim"][1],
     )
     outline_kws = dict(
+        atlas=cfg.atlas["name"],
         structures=cfg.atlas["outline_structures"],
         outline_file=cfg.files["outlines"],
         linewidth=1.5,
