@@ -2,7 +2,7 @@
 Perform quantification of objects in registered and segmented histological slices.
 """
 
-from . import compute, display, io, process, utils, seg
+from . import compute, display, io, process, segmentation, utils
 from .config import Config
 
-__all__ = ["Config", "compute", "display", "io", "process", "utils", "seg"]
+__all__ = ["Config", "compute", "display", "io", "process", "utils", "segmentation"]
