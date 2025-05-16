@@ -4,7 +4,7 @@ Functions for segmentating probability map stored as an image.
 
 """
 
-import datetime
+from datetime import datetime
 import os
 import uuid
 from pathlib import Path
