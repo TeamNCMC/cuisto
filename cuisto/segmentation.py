@@ -14,9 +14,9 @@ import numpy as np
 import pandas as pd
 import shapely
 import tifffile
-import tqdm
 from skan import Skeleton, summarize
 from skimage import measure, morphology
+from tqdm import tqdm
 
 pd.options.mode.copy_on_write = True  # prepare for pandas 3
 
