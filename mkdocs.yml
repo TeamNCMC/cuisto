@@ -57,7 +57,7 @@ nav:
     - cuisto.display: api-display.md
     - cuisto.utils: api-utils.md
     - cuisto.io: api-io.md
-    - cuisto.seg: api-seg.md
+    - cuisto.segmentation: api-segmentation.md
     - cuisto.atlas: api-atlas.md
   - Scripts reference:
     - segment_images: api-script-segment.md
@@ -76,6 +76,7 @@ plugins:
     default_handler: python
     handlers:
       python:
+        paths: [., cuisto, examples, scripts]
         import:
         - https://docs.python.org/3/objects.inv
         - https://numpy.org/doc/stable/objects.inv

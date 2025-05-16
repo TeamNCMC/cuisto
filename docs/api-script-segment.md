@@ -1,1 +1,1 @@
-:::scripts.segmentation.segment_images
+:::examples.segment_images
