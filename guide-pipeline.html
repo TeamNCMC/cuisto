@@ -1114,12 +1114,12 @@
   
   
     <li class="md-nav__item">
-      <a href="api-seg.html" class="md-nav__link">
+      <a href="api-segmentation.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    cuisto.seg
+    cuisto.segmentation
     
   </span>
   
@@ -1338,10 +1338,10 @@
 <p>In the event you can't or don't want to follow the pipeline depicted below, but still want to be able to batch-process animals, check the <a href="#batch-process-animals">last section</a>.</p>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">#</a></h2>
 <p>This is especially useful to perform quantification for several animals at once, where you'll only need to specify the root directory and the animals identifiers that should be pooled together, instead of having to manually specify each detections and annotations files.</p>
-<p>Three main scripts (see the <a href="https://github.com/TeamNCMC/cuisto/tree/main/scripts"><code>scripts</code> folder</a>) and function are used within the pipeline :</p>
+<p>Three main parts are used within the pipeline :</p>
 <ul>
 <li><a href="https://github.com/TeamNCMC/cuisto/blob/main/scripts/qupath-utils/segmentation/exportPixelClassifierProbabilities.groovy"><code>exportPixelClassifierProbabilities.groovy</code></a> to create prediction maps of objects of interest</li>
-<li><a href="https://github.com/TeamNCMC/cuisto/blob/main/scripts/segmentation/segment_images.py"><code>segment_image.py</code></a> to segment those maps and create <a href="tips-formats.html#json-and-geojson-files">geojson files</a> to be imported back to QuPath as detections</li>
+<li>The <a href="api-segmentation.html"><code>cuisto.segmentation</code> module</a> to segment those maps and create <a href="tips-formats.html#json-and-geojson-files">geojson files</a> to be imported back to QuPath as detections</li>
 <li><a href="https://github.com/TeamNCMC/cuisto/blob/main/scripts/qupath-utils/workflow/pipelineImportExport.groovy"><code>pipelineImportExport.groovy</code></a> to :<ul>
 <li>clear all objects</li>
 <li>import ABBA regions</li>
@@ -1396,7 +1396,7 @@ The structure expected by the groovy all-in-one script and <code>cuisto</code> b
 <li>Subsequent <code>animalid0</code> should be <strong>lower case</strong>.</li>
 <li><code>animalid0_qupath</code> can be named as you wish in practice, but should be the QuPath project.</li>
 <li><code>animalid0_segmentation</code> should be called <em>exactly</em> like this -- replacing <code>animalid0</code> with the actual animal ID. It will be created automatically with the <a href="https://github.com/TeamNCMC/cuisto/blob/main/scripts/qupath-utils/segmentation/exportPixelClassifierProbabilities.groovy"><code>exportPixelClassifierProbabilities.groovy</code></a> script.</li>
-<li><code>segtag</code> corresponds to the type of segmentation (cells, fibers...). It is specified in the <a href="https://github.com/TeamNCMC/cuisto/blob/main/scripts/qupath-utils/segmentation/exportPixelClassifierProbabilities.groovy"><code>exportPixelClassifierProbabilities.groovy</code></a> script. It could be anything, but to recognize if the objects are polygons (and should be counted per regions) or polylines (and the cumulated length should be measured), there are some hardcoded keywords in the <a href="https://github.com/TeamNCMC/cuisto/blob/main/scripts/segmentation/segment_images.py"><code>segment_image.py</code></a> and <a href="https://github.com/TeamNCMC/cuisto/blob/main/scripts/qupath-utils/workflow/pipelineImportExport.groovy"><code>pipelineImportExport.groovy</code></a> scripts :<ul>
+<li><code>segtag</code> corresponds to the type of segmentation (cells, fibers...). It is specified in the <a href="https://github.com/TeamNCMC/cuisto/blob/main/scripts/qupath-utils/segmentation/exportPixelClassifierProbabilities.groovy"><code>exportPixelClassifierProbabilities.groovy</code></a> script. It could be anything, but to recognize if the objects are polygons (and should be counted per regions) or polylines (and the cumulated length should be measured), there are some hardcoded keywords in the <a href="api-segmentation.html"><code>cuisto.segmentation</code> module</a> and the <a href="https://github.com/TeamNCMC/cuisto/blob/main/scripts/qupath-utils/workflow/pipelineImportExport.groovy"><code>pipelineImportExport.groovy</code></a> script :<ul>
 <li>Cells-like when you need measurements related to its shape (area, circularity...) : <code>cells</code>, <code>cell</code>, <code>polygons</code>, <code>polygon</code></li>
 <li>Cells-like when you consider them as punctual : <code>synapto</code>, <code>synaptophysin</code>, <code>syngfp</code>, <code>boutons</code>, <code>points</code></li>
 <li>Fibers-like (polylines) : <code>fibers</code>, <code>fiber</code>, <code>axons</code>, <code>axon</code></li>
@@ -1405,7 +1405,7 @@ The structure expected by the groovy all-in-one script and <code>cuisto</code> b
 <li><code>annotations</code> contains the atlas regions measurements as <a href="tips-formats.html#csv-csv-tsv-files">TSV</a> files.</li>
 <li><code>detections</code> contains the objects atlas coordinates and measurements as <a href="tips-formats.html#csv-csv-tsv-files">CSV</a> files (for punctal objects) or <a href="tips-formats.html#json-and-geojson-files">JSON</a> (for polylines objects).</li>
 <li><code>geojson</code> contains objects stored as <a href="tips-formats.html#json-and-geojson-files">geojson</a> files. They could be generated with the pixel classifier prediction map segmentation.</li>
-<li><code>probabilities</code> contains the prediction maps to be segmented by the <a href="https://github.com/TeamNCMC/cuisto/blob/main/scripts/segmentation/segment_images.py"><code>segment_image.py</code></a> script.</li>
+<li><code>probabilities</code> contains the prediction maps to be segmented by the <a href="api-segmentation.html"><code>cuisto.segmentation</code> module</a>.</li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1420,7 +1420,7 @@ The structure expected by the groovy all-in-one script and <code>cuisto</code> b
 <li><a href="guide-qupath-objects.html#qupath-project">Create</a> a QuPath project.</li>
 <li><a href="guide-register-abba.html">Register</a> your images on an atlas with ABBA and export the registration back to QuPath.</li>
 <li><a href="guide-qupath-objects.html#pixel-classifier">Use</a> a pixel classifier and export the prediction maps with the <a href="https://github.com/TeamNCMC/cuisto/blob/main/scripts/qupath-utils/segmentation/exportPixelClassifierProbabilities.groovy"><code>exportPixelClassifierProbabilities.groovy</code></a> script. You need to get a pixel classifier or <a href="guide-qupath-objects.html#train-a-model">create one</a>.</li>
-<li><a href="guide-qupath-objects.html#probability-map-segmentation">Segment</a> those maps with the <a href="api-script-segment.html"><code>segment_images.py</code> script</a> to generate the <a href="tips-formats.html#json-and-geojson-files">geojson files</a> containing the objects of interest.</li>
+<li><a href="guide-qupath-objects.html#probability-map-segmentation">Segment</a> those maps with the <a href="api-segmentation.html"><code>segmentation</code> module</a> (see <a href="https://github.com/TeamNCMC/cuisto/blob/main/examples/segment_images.py">an example</a>) to generate the <a href="tips-formats.html#json-and-geojson-files">geojson files</a> containing the objects of interest.</li>
 <li><a href="tips-qupath.html#custom-scripts">Run</a> the <a href="https://github.com/TeamNCMC/cuisto/blob/main/scripts/qupath-utils/workflow/pipelineImportExport.groovy"><code>pipelineImportExport.groovy</code></a> script on your QuPath project.</li>
 <li>Set up your <a href="main-configuration-files.html">configuration files</a>.</li>
 <li>Then, analysing your data with any number of animals should be as easy as executing those lines in Python (either from IPython directly or in a script to easily run it later) :</li>
@@ -1680,7 +1680,7 @@ The structure expected by the groovy all-in-one script and <code>cuisto</code> b
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 13, 2025 18:36:31">May 13, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 14, 2025 18:51:16">May 14, 2025</span>
   </span>
 
     
