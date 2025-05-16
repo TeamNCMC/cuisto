@@ -229,9 +229,9 @@ def download_file(url: str, filename: str) -> bool:
     Parameters
     ----------
     url : str
-        _description_
+        Full URL to address the HTTP request.
     filename : str
-        _description_
+        Path to the destination file.
 
     Returns
     -------
