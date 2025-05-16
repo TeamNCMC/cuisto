@@ -625,7 +625,7 @@ def process_directory(
     max_pixel_value: float = 255,
     qupath_class: str = "Object",
     qupath_color: list = [0, 0, 0],
-    qupath_type: str = "Detection",
+    qupath_type: str = "detection",
     channel_suffix: str = "",
     edge_dist: float = 0.0,
     filters: dict = {},
