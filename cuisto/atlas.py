@@ -9,9 +9,13 @@ import os
 
 import h5py
 import numpy as np
+import requests
 from brainglobe_atlasapi import BrainGlobeAtlas
 from skimage import measure
 from tqdm import tqdm
+
+AVAILABLE_ATLAS = ["allen_mouse_10um", "allen_cord_20um"]
+URL_BASE = "https://github.com/TeamNCMC/brain-structures/raw/main/"
 
 
 def get_structure_contour(mask: np.ndarray, axis: int = 2) -> list:
@@ -121,36 +125,40 @@ def generate_outlines(atlas_name: str, output_file: str | None = None):
 
 def check_outlines_file(filename: str, atlas_name: str) -> bool:
     """
-    Check if the outline file exists, if not, it will be generated if `generate` is
-    True.
+    Check if the outline file exists, if not, attempt to download it.
 
     Parameters
     ----------
     filename : str
         Full path to the file to check.
+    atlas_name : str
+        Brainglobe atlas name.
 
     Returns
     -------
     file_not_found : bool
-        True if the file does not exist.
+        True if the file does not exist and could not be downloaded.
 
     """
-    if not os.path.isfile(filename):
-        # file does not exist, check the default one
+    if not filename:
+        # empty file name, check the default one
         filename = get_default_filename(atlas_name)
-        if not os.path.isfile(filename):
-            file_not_found = True
+    
+    if not os.path.isfile(filename):
+        print("The outlines file does not exist, attempting to download it...")
+        result = download_outline(filename, atlas_name)
+        if result:
+            # :)
+            print(f"Outlines file downloaded at {filename}.")
+            file_not_found = False
         else:
-            msg = (
-                f"The outlines file was not found but exists at {filename}.\n"
-                "Set this path in the [files] section of the configuration file."
-            )
-            print(msg)
+            # we already said it was not downloaded (not available or request failed)
             file_not_found = True
     else:
+        # file exists
         file_not_found = False
 
-    return file_not_found
+    return file_not_found, filename
 
 
 def get_default_filename(atlas_name: str) -> str:
@@ -175,3 +183,68 @@ def get_default_filename(atlas_name: str) -> str:
         print(f"[Info] Outline file not specified, creating the {local_dir} directory.")
         local_dir.mkdir()
     return str(local_dir / (atlas_name + "_outlines.h5"))
+
+
+def download_outline(filename: str, atlas_name: str) -> bool:
+    """
+    Download outline file if available.
+
+    Parameters
+    ----------
+    filename : str
+        Full path to the destination file.
+    atlas_name : str
+        Brainglobe atlas name.
+
+    Returns
+    -------
+    result : bool
+        True if the file was downloaded, False otherwise.
+
+    """
+    # check the outlines is available
+    if atlas_name not in AVAILABLE_ATLAS:
+        print(
+            f"Unfortunately, the structures outlines for {atlas_name} was not"
+            " pre-generated."
+        )
+        return False
+
+    # check filename
+    if not filename:
+        # empty filename, set the default one
+        filename = get_default_filename(atlas_name)
+
+    # build URL
+    url = URL_BASE + atlas_name + "_outlines.h5"
+    result = download_file(url, filename)
+
+    return result
+
+
+def download_file(url: str, filename: str) -> bool:
+    """
+    Download a file.
+
+    Parameters
+    ----------
+    url : str
+        _description_
+    filename : str
+        _description_
+
+    Returns
+    -------
+    tf : bool
+        True if the file was downloaded, False otherwise.
+
+    """
+
+    response = requests.get(url)
+    if response.ok:
+        with open(filename, "wb") as fid:
+            fid.write(response.content)
+        return True
+    else:
+        print("The outlines file could not be downloaded.")
+        return False

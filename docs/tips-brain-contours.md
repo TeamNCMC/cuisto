@@ -11,17 +11,15 @@ from cuisto import atlas
 atlas.generate_outlines("allen_mouse_10um", "/path/to/output/file.h5")
 ```
 
-!!! info inline end
-    If the file `/path/to/output/file.h5` already exists, nothing will happen.
+!!! danger
+    Note that while the output file is relatively small (<100MB), it requires a lot of RAM. Make sure to use a powerful workstation (>32GB RAM) to avoid crashing your computer.
 
-The [`cuisto.display`](api-display.md) module can use this file to draw structures outlines projected in three point of view (coronal, sagittal and top-view). The structures drawn are defined in the [configuration file](main-configuration-files.md#configtoml) in the `[atlas]` section. If no atlas is specified, no outlines will be shown, nor if the `outline_structures` parameter is empty. The latter can be used to disable structure contours drawing.
+The [`cuisto.display`](api-display.md) module can use this file to draw structures outlines projected in three point of view (coronal, sagittal and top-view). The structures drawn are defined in the [configuration file](main-configuration-files.md#configtoml) in the `[atlas]` section. If the `outline_structures` parameter is empty, no outlines will be shown -- this can be used to disable structure contours drawing.
 
 The path to the hdf5 file should be specified in the `[files]` section of the [configuration file](main-configuration-files.md#configtoml).
 
 !!! tip
-    You can download the outline file for :
-
-    - `allen_mouse_10um` here : [https://arcus.neuropsi.cnrs.fr/s/TYX95k4QsBSbxD5](https://arcus.neuropsi.cnrs.fr/s/TYX95k4QsBSbxD5)
-    - `allen_cord_20um` here : [https://arcus.neuropsi.cnrs.fr/s/EoAfMkESzJZG74Q](https://arcus.neuropsi.cnrs.fr/s/EoAfMkESzJZG74Q)
+    If the parameter `outlines` in the `[files]` section is left empty, it will be looked up in the default directory, `$HOME/.cuisto/{atlas_name}_outlines.h5`.
+    If the file does not exist, it will be attempted to download it from the [brain-structures](https://github.com/TeamNCMC/brain-structures/) repository, though to date, only `allen_mouse_10um` and `allen_cord_20um` are available. 
 
 Alternatively it is possible to directly plot density maps without `cuisto`, using [`brainglobe-heatmap`](https://brainglobe.info/documentation/brainglobe-heatmap/index.html#brainglobe-heatmap). An example is shown [here](demo_notebooks/density_map.ipynb).

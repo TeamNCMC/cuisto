@@ -536,16 +536,17 @@ def nice_joint_plot(
 
     # plot outline if structures are specified
     if outline_kws["structures"]:
-        file_not_found = atlas.check_outlines_file(
+        file_not_found, filename = atlas.check_outlines_file(
             outline_kws["outline_file"], outline_kws["atlas"]
         )
+        # update filename if it fellback on the default one
+        outline_kws["outline_file"] = filename
         if file_not_found:
             msg = (
-                "[Info] The brain structure outlines file does not exist, no outlines "
-                "will be drawn.\n"
+                "[Info] The brain structure outlines file does not exist and could not "
+                "be downloaded, no outlines will be drawn.\n"
                 "You can generate it using cuisto.atlas.generate_outlines(), on a "
-                "computer with lots of RAM. Some of them are already generated, links "
-                "are available in the documentation.\n"
+                "computer with lots of RAM.\n"
                 "Alternatively, set 'outline_structures' to an empty list in the "
                 "configuration file."
             )
