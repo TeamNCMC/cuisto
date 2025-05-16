@@ -1,5 +1,11 @@
 This file might no be up to date nor complete. Please check the Releases page for more information on versions.
 
+## Version 2025.05.16
+- Moved the `segment_images.py` script into the `cuisto.segmentation` module
+- Moved the atlas structures outlines generation script into the `cuisto.atlas` module
+- THe `cuisto.atlas` can download pre-generated outlines
+- Outlines drawing can be disabled by setting 'structures' to an empty array
+
 ## Version 2024.12.19
 - Renamed the package to cuisto (because histoquant is already the name of a commercial software).
 

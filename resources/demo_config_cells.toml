@@ -82,5 +82,5 @@ log_scale = false  # use log. scale for metrics, won't work with invert=true
 [files]  # full path to information TOML files
 blacklist = "../../resources/demo_atlas_blacklist_brain.toml"
 fusion = "../../resources/demo_atlas_fusion_brain.toml"
-outlines = "D:/projects/histo/data/atlases/allen_mouse_10um_outlines.h5"  # download and change the path
+outlines = ""  # download and change the path or leave empty if the outlines are available to download
 infos = "../../resources/demo_info_cells.toml"  # not used if show_injection=false
