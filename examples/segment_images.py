@@ -8,14 +8,19 @@ For polygon-like objects, binarize the image and detect objects and extract cont
 coordinates.
 For points, treat that as polygons then extract the centroids instead of contours.
 Finally, export the coordinates as collections in geojson files, importable in QuPath.
-Supports any number of channel of interest within the same image. One file output file
-per channel will be created.
+Supports any number of channel of interest within the same image.
+One output file per iamge, per channel will be created.
 
 This script uses `cuisto.segmentation`. It is designed to work on probability maps
 generated from a pixel classifier in QuPath, but *might* work on raw images.
 
 Usage : fill-in the Parameters section of the script and run it. Explanation is given as
 a docstring below each parameter.
+
+Masks can be used to exclude objects detected too close to the edges, you can disable
+that by setting the EDGE_DIST parameter to 0 (then you can just ignore the masks-related
+parameters).
+
 A "geojson" folder will be created in the parent directory of `IMAGES_DIR`.
 To exclude objects near the edges of an ROI, specify the path to masks stored as images
 with the same names as probabilities images (without their suffix).
@@ -35,8 +40,9 @@ MASKS_DIR = "path/to/corresponding/masks"
 string to disable this feature)."""
 MASKS_EXT = "tiff"
 """Masks files extension."""
-SEGTYPE = "boutons"
-"""Type of segmentation."""
+SEGTYPE = "cells"
+"""Type of segmentation, must match one the hardcoded keywords to associate it to
+'fibers', 'points' or polygon'. See `cuisto.segmentation` doc."""
 IMG_SUFFIX = "_Probabilities.tiff"
 """Images suffix, including extension. Masks must be the same name without the suffix."""
 ORIGINAL_PIXELSIZE = 0.4500
@@ -98,7 +104,7 @@ FILTERS = {
 """
 
 QUPATH_TYPE = "detection"
-""" QuPath object type."""
+""" QuPath object type: 'annotation' or 'detection'"""
 MAX_PIX_VALUE = 255
 """Maximum pixel possible value to adjust `proba_threshold`."""
 
@@ -133,8 +139,10 @@ if __name__ == "__main__":
             original_pixelsize=ORIGINAL_PIXELSIZE,
             target_channel=param["target_channel"],
             proba_threshold=param["proba_threshold"],
+            max_pixel_value=MAX_PIX_VALUE,
             qupath_class=param["qp_class"],
             qupath_color=param["qp_color"],
+            qupath_type=QUPATH_TYPE,
             channel_suffix=make_suffix(param["name"]),
             edge_dist=EDGE_DIST,
             filters=FILTERS.copy(),

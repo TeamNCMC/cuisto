@@ -657,7 +657,7 @@ def process_directory(
         Name of the QuPath classification.
     qupath_color : list of three elements
         Color associated to that classification in RGB.
-    qupath_type : {"Detection", "Annotation"}
+    qupath_type : {"detection", "annotation"}
         QuPath type of object.
     channel_suffix : str
         Channel name, will be used as a suffix in output geojson files.
