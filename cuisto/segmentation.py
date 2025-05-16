@@ -4,9 +4,9 @@ Functions for segmentating probability map stored as an image.
 
 """
 
-from datetime import datetime
 import os
 import uuid
+from datetime import datetime
 from pathlib import Path
 
 import geojson
