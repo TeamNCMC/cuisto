@@ -27,6 +27,7 @@ dependencies = [
   "numpy>=2",
   "orjson>=3.10.3",
   "pandas[performance]>2.2.2",
+  "requests",
   "scikit-image>0.22.0",
   "seaborn>=0.13.2",
   "shapely>=2.0.4",
