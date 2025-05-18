@@ -1,8 +1,4 @@
 # Introduction
-
-!!! info
-    The documentation is under construction.
-
 `cuisto` is a Python package aiming at quantifying histological data.
 
 After [ABBA](https://abba-documentation.readthedocs.io/en/latest/) registration of 2D histological slices and [QuPath](https://qupath.readthedocs.io/en/stable/) objects' detection, `cuisto` is used to :
@@ -12,7 +8,7 @@ After [ABBA](https://abba-documentation.readthedocs.io/en/latest/) registration 
 + compute averages and sem across animals,
 + display all the above.
 
-This documentation contains `cuisto` [installation instructions](main-getting-started.md), ABBA [installation instructions](guide-install-abba.md), guides to [prepare images](guide-create-pyramids.md) for the pipeline, [detect objects](guide-qupath-objects.md) with QuPath, [register 2D slices on a 3D atlas](guide-register-abba.md) with ABBA, and [`cuisto` usage](guide-use-cuisto.md#using-cuisto) along with [examples](main-using-notebooks.md).
+This documentation contains `cuisto` [installation instructions](guide-installation.md#install-cuisto), ABBA [installation instructions](guide-install-abba.md), guides to [prepare images](guide-create-pyramids.md) for the pipeline, [detect objects](guide-qupath-objects.md) with QuPath, [register 2D slices on a 3D atlas](guide-register-abba.md) with ABBA, and [`cuisto` usage](guide-use-cuisto.md#using-cuisto) along with [examples](main-using-notebooks.md).
 
 In theory, `cuisto` should work with any measurements table with the [required columns](guide-prepare-qupath.md#qupath-requirements), but has been designed with ABBA and QuPath in mind.
 
