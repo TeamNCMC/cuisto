@@ -14,7 +14,7 @@
       
       
       
-        <link rel="next" href="main-getting-started.html">
+        <link rel="next" href="main-quick-start.html">
       
       
       <link rel="icon" href="assets/images/favicon.png">
@@ -355,12 +355,12 @@
   
   
     <li class="md-nav__item">
-      <a href="main-getting-started.html" class="md-nav__link">
+      <a href="main-quick-start.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Getting started
+    Quick start
     
   </span>
   
@@ -407,6 +407,29 @@
             Guides
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="guide-installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1335,22 +1358,22 @@
 
 
 <h1 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">#</a></h1>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>The documentation is under construction.</p>
-</div>
-<p><code>cuisto</code> is a Python package aiming at quantifying histological data.</p>
-<p>After <a href="https://abba-documentation.readthedocs.io/en/latest/">ABBA</a> registration of 2D histological slices and <a href="https://qupath.readthedocs.io/en/stable/">QuPath</a> objects' detection, <code>cuisto</code> is used to :</p>
+<p><code>cuisto</code> is an <a href="https://github.com/TeamNCMC/cuisto">open-source</a> Python package aiming at facilitating the quantification of histological data, eg. the characterization of objects of interest in 2D images such as cells or neuronal processes revealed by immunohistochemistry or endogenously fluorescent proteins in brain slices.</p>
+<p>It leverages <a href="https://qupath.readthedocs.io/en/stable/">QuPath</a> measurements export to collate data from different slices and subjects, derive quantifying metrics within regions of interest, compute spatial distributions and generate graphs, featuring human-readable <a href="main-configuration-files.html">configuration files</a> to easily customize <code>cuisto</code> behavior to best match your use-case.</p>
+<p><img alt="Examples of graphs generated with cuisto" src="images/cuisto-showcase.svg" /></p>
+<p>In theory, <code>cuisto</code> should work with any measurements table with the <a href="guide-prepare-qupath.html#qupath-requirements">required columns</a>, but has been designed with QuPath in mind, especially used alongisde <a href="https://abba-documentation.readthedocs.io/en/latest/">ABBA</a> to align 2D images on a reference brain atlas.</p>
+<p>For atlas-related features, including ontology-based blacklisting and structures contours drawing for heatmaps, <code>cuisto</code> relies on the <a href="https://brainglobe.info/documentation/brainglobe-atlasapi/index.html">Brainglobe Atlas API</a>, thus supporting all <a href="https://brainglobe.info/documentation/brainglobe-atlasapi/usage/atlas-details.html#available-atlases">atlases packaged</a> in Brainglobe. </p>
+<p>After <a href="guide-register-abba.html">ABBA registration</a> of 2D histological slices and QuPath <a href="guide-qupath-objects.html">objects' detection</a>, <code>cuisto</code> is used to :</p>
 <ul>
 <li>compute metrics, such as objects density in each brain regions,</li>
 <li>compute objects distributions in three three axes (rostro-caudal, dorso-ventral and medio-lateral),</li>
 <li>compute averages and sem across animals,</li>
 <li>display all the above.</li>
 </ul>
-<p>This documentation contains <code>cuisto</code> <a href="main-getting-started.html">installation instructions</a>, ABBA <a href="guide-install-abba.html">installation instructions</a>, guides to <a href="guide-create-pyramids.html">prepare images</a> for the pipeline, <a href="guide-qupath-objects.html">detect objects</a> with QuPath, <a href="guide-register-abba.html">register 2D slices on a 3D atlas</a> with ABBA, and <a href="guide-use-cuisto.html#using-cuisto"><code>cuisto</code> usage</a> along with <a href="main-using-notebooks.html">examples</a>.</p>
-<p>In theory, <code>cuisto</code> should work with any measurements table with the <a href="guide-prepare-qupath.html#qupath-requirements">required columns</a>, but has been designed with ABBA and QuPath in mind.</p>
-<p>Due to the IT environment of the laboratory, this documentation is very Windows-oriented but most of it should be applicable to Linux and MacOS as well by slightly adapting terminal commands.</p>
+<p><code>cuisto</code> processing abilities revolve around two <a href="https://qupath.readthedocs.io/en/stable/docs/concepts/objects.html#annotations-detections">QuPath core concepts</a>, Annotations (regions of interest) and Detections (objects of interest). The repository hosting the <code>cuisto</code> package provides <a href="https://github.com/TeamNCMC/cuisto/tree/main/scripts/qupath-utils">QuPath utility scripts</a> to help you process and format the data within QuPath before export.</p>
 <p><img alt="Histological slices analysis pipeline" src="images/cuisto-pipeline.svg" /></p>
+<p>This documentation covers the whole process depicted above, including <code>cuisto</code> <a href="guide-installation.html#install-cuisto">installation instructions</a>, ABBA <a href="guide-install-abba.html">installation instructions</a>, guides to <a href="guide-create-pyramids.html">prepare images</a> for the pipeline, <a href="guide-qupath-objects.html">detect objects</a> with QuPath, <a href="guide-register-abba.html">register 2D slices on a 3D atlas</a> with ABBA, and <a href="guide-use-cuisto.html#using-cuisto"><code>cuisto</code> usage</a> along with <a href="main-using-notebooks.html">examples</a>.</p>
+<p>Due to the IT environment of the laboratory, this documentation is very Windows-oriented but most of it should be applicable to Linux and MacOS as well by slightly adapting terminal commands.</p>
 <h2 id="documentation-navigation">Documentation navigation<a class="headerlink" href="#documentation-navigation" title="Permanent link">#</a></h2>
 <p>The documentation outline is on the left panel, you can click on items to browse it. In each page, you'll get the table of contents on the right panel.</p>
 <h2 id="useful-external-resources">Useful external resources<a class="headerlink" href="#useful-external-resources" title="Permanent link">#</a></h2>
@@ -1359,7 +1382,7 @@
 <li>QuPath documentation : <a href="https://qupath.readthedocs.io/en/stable/">https://qupath.readthedocs.io/en/stable/</a></li>
 <li>Aligning Big Brain and Atlases (ABBA) documentation : <a href="https://abba-documentation.readthedocs.io/en/latest/">https://abba-documentation.readthedocs.io/en/latest/</a></li>
 <li>Brainglobe : <a href="https://brainglobe.info/">https://brainglobe.info/</a></li>
-<li>BraiAn, a similar but published and way more feature-packed project : <a href="https://silvalab.codeberg.page/BraiAn/">https://silvalab.codeberg.page/BraiAn/</a></li>
+<li>BraiAn, a similar project featuring a dedicated QuPath extension : <a href="https://silvalab.codeberg.page/BraiAn/">https://silvalab.codeberg.page/BraiAn/</a></li>
 <li>Image.sc community forum : <a href="https://forum.image.sc/">https://forum.image.sc/</a></li>
 <li><em>Introduction to Bioimage Analysis</em>, an interactive book written by QuPath's creator : <a href="https://bioimagebook.github.io/index.html">https://bioimagebook.github.io/index.html</a></li>
 </ul>
@@ -1388,7 +1411,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 16, 2025 16:31:54">January 16, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 18, 2025 15:22:55">May 18, 2025</span>
   </span>
 
     
@@ -1435,13 +1458,13 @@
         
         
           
-          <a href="main-getting-started.html" class="md-footer__link md-footer__link--next" aria-label="Next: Getting started">
+          <a href="main-quick-start.html" class="md-footer__link md-footer__link--next" aria-label="Next: Quick start">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Getting started
+                Quick start
               </div>
             </div>
             <div class="md-footer__button md-icon">
