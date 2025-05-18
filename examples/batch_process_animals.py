@@ -20,6 +20,7 @@ import tarfile
 import sys
 from pathlib import Path
 
+import matplotlib.pyplot as plt
 import pandas as pd
 import requests
 from tqdm import tqdm
@@ -53,6 +54,7 @@ if dl_example:
             fid.write(response.content)
         with tarfile.open(tarname) as tar:
             tar.extractall(tarname.parent, filter="data")
+
     else:
         msg = (
             "Download failed. Download manually here : "
@@ -64,6 +66,18 @@ if dl_example:
     # set paths
     input_dir = default_destination / "example"
     config_file = input_dir / "config_multi.toml"
+    # we need to overwrite the paths to the other configuration files
+    with open(config_file, "r") as fid:
+        data_config = fid.readlines()
+    data_config[-4] = (
+        "blacklist = '" + str(input_dir / "demo_atlas_blacklist_brain.toml") + "'\n"
+    )
+    data_config[-3] = (
+        "fusion = '" + str(input_dir / "demo_atlas_fusion_brain.toml") + "'\n"
+    )
+    with open(config_file, "w") as fid:
+        fid.writelines(data_config)
+
 
 # --- Preparation
 
@@ -87,6 +101,7 @@ for animal in pbar:
         index_col="Object ID",
         sep="\t",
     )
+
     # read detections only to plot spatial distributions, otherwise set
     # df_detections = pd.DataFrame()
     # uncomment out for cells
@@ -95,6 +110,7 @@ for animal in pbar:
     #     index_col="Object ID",
     #     sep="\t",
     # )
+    
     # comment out for non-fibers
     df_detections = cuisto.io.cat_json_dir(
         os.path.join(input_dir, f"{animal}_detections"),
@@ -129,3 +145,5 @@ cuisto.display.plot_1D_distributions(
     dfs_distributions, cfg, df_coordinates=df_coordinates
 )
 cuisto.display.plot_2D_distributions(df_coordinates, cfg)
+
+plt.show()
