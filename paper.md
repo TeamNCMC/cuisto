@@ -59,6 +59,8 @@ Furthermore, `cuisto` leverages the atlas coordinates of each object of interest
 
 It is worth mentioning that BraiAn [@chiaruttini2024], a toolbox following a similar purpose, was released during the development of the present work, but also provides a Java API for the QuPath side, while `cuisto` provides simpler, standalone QuPath scripts.
 
+The documentation and the examples provide toy data, derived from datasets acquired on mice models. All procedures were approved by the French Ethical Committee (“Comité d’éthique en Expérimentation Animale”, CEEA #59, authorization 2020-022410231878) and conducted in accordance with EU Directive 2010/63/EU.
+
 # Acknowledgements
 We would like to thank the original author of QuPath, Peter Bankhead and all contributors. We also thank the original author of ABBA, Nicolas Chiaruttini, especially for his support on ABBA-Python. We thank all contributors of the Brainglobe initiative. We're grateful to member of the lab Patricia del Cerro de Pablo for her early feedbacks. This work has received funding from the European Research Council (ERC) under the European Union's Horizon Europe research and innovation program (grant agreement No 101089318), the Fondation pour la Recherche Médicale (FRM EQU202203014620 and ECO202206015594), the CNRS and the University Paris-Saclay.
 
