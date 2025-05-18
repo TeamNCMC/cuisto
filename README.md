@@ -8,6 +8,8 @@ Python package for histological quantification of objects in reference atlas reg
 
 `cuisto` uses data exported from [QuPath](https://qupath.github.io) used with [ABBA](https://abba-documentation.readthedocs.io/en/latest/) to pool data and derive, average and display metrics.
 
+![Graphs generated with cuisto](docs/images/cuisto-showcase.svg)
+
 Check the full documentation : [https://teamncmc.github.io/cuisto](https://teamncmc.github.io/cuisto)
 
 ## Install
@@ -30,21 +32,22 @@ Steps 1-3 below need to be performed only once. If Anaconda or conda is already 
 
 The `cuisto` package will be then available in Python from anywhere as long as the `cuisto-env` conda environment is activated. You can get started by looking and using the [Jupyter notebooks](#using-notebooks).
 
-For more complete installation instructions, see the [documentation](https://teamncmc.github.io/cuisto/main-getting-started.html#slow-start).
+For more detailed installation instructions, see the [documentation](https://teamncmc.github.io/cuisto/guide-installation.html).
 
-## Update
+### Update
 To update, simply activate your environment (`conda activate cuisto-env`) and run :
 ```bash
 pip install cuisto --upgrade
 ```
 
+## Usage
+See the [Quick start](https://teamncmc.github.io/cuisto/main-quick-start.html) section in the documentation.
+
 ## Using notebooks
-Some Jupyter notebooks are available in the "docs/demo_notebooks" folder. You can open them in an IDE (such as [vscode](https://code.visualstudio.com/), select the "cuisto-env" environment as kernel in the top right) or in the Jupyter web interface (`jupyter notebook` in the terminal, with the "cuisto-env" environment activated).
+Some Jupyter notebooks are available in the [`docs/demo_notebooks`](https://github.com/TeamNCMC/cuisto/tree/main/docs/demo_notebooks) folder. You can open them in an IDE (such as [vscode](https://code.visualstudio.com/) with the Jupyter extension, select the "cuisto-env" environment as kernel in the top right) or in the Jupyter web interface (`jupyter notebook` in the terminal, with the "cuisto-env" environment activated).
 
 ## Brain structures
-You can generate brain structures outlines coordinates in three projections (coronal, sagittal, top-view) with the script in scripts/atlas/generate_atlas_outline.py. They are used to overlay brain regions outlines in 2D projection density maps. It might take a while so you can also grab a copy of those files here:
-+ allen mouse 10µm : https://arcus.neuropsi.cnrs.fr/s/TYX95k4QsBSbxD5
-+ allen cord 20um : https://arcus.neuropsi.cnrs.fr/s/EoAfMkESzJZG74Q
+You can generate brain structures outlines coordinates in three projections (coronal, sagittal, top-view) with the [`cuisto.atlas`](https://teamncmc.github.io/cuisto/api-atlas.html) module (see usage example [here](https://teamncmc.github.io/cuisto/tips-brain-contours.html)). They are used to overlay brain regions outlines in 2D projection density maps. It requires a lot of RAM to generate them and might take a while. Those files have been pre-generated for some atlases, they are available in the separate [brain-structures](https://github.com/TeamNCMC/brain-structures) repository. They are automatically downloaded (if available) before plotting.
 
 ## Build the doc
 To build and look at the documentation offline :
