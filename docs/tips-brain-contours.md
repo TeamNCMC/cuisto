@@ -14,7 +14,7 @@ atlas.generate_outlines("allen_mouse_10um", "/path/to/output/file.h5")
 !!! danger
     Note that while the output file is relatively small (<100MB), it requires a lot of RAM. Make sure to use a powerful workstation (>32GB RAM) to avoid crashing your computer.
 
-The [`cuisto.display`](api-display.md) module can use this file to draw structures outlines projected in three point of view (coronal, sagittal and top-view). The structures drawn are defined in the [configuration file](main-configuration-files.md#configtoml) in the `[atlas]` section. If the `outline_structures` parameter is empty, no outlines will be shown -- this can be used to disable structure contours drawing.
+The [`cuisto.display`](api-display.md) module can use this file to draw structures outlines projected in three points of view (coronal, sagittal and top-view). The structures drawn are defined in the [configuration file](main-configuration-files.md#configtoml) in the `[atlas]` section. If the `outline_structures` parameter is empty, no outlines will be shown -- this can be used to disable structure contours drawing.
 
 The path to the hdf5 file should be specified in the `[files]` section of the [configuration file](main-configuration-files.md#configtoml).
 

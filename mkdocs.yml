@@ -28,8 +28,9 @@ theme:
 
 nav:
   - index.md
-  - main-getting-started.md
+  - main-quick-start.md
   - Guides:
+    - guide-installation.md
     - guide-install-abba.md
     - guide-create-pyramids.md
     - guide-qupath-objects.md
