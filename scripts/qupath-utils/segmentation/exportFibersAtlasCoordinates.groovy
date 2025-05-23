@@ -20,10 +20,18 @@
 
 print('Exporting fibers coordinates...')
 
+def pixelToAtlasTransform =
+    AtlasTools
+    .getAtlasToPixelTransform(getCurrentImageData())
+    .inverse() // pixel to atlas = inverse of atlas to pixel
+
 // Parameters
 def folderPrefix = 'id_'  // output folder name, "segmentation" will be appended
 def segTag = 'fibers'  // type of segmentation
 def atlas = 'CCFv3'  // stored in the file for reference
+def swapXZFlag = true  // invert X and Z coordinates, should be true if CCFv3 Fiji
+def mirrorLeftRight = true // invert left and right, should be true if CCfv3 Fiji
+def midline = 5.70  // mediolateral midline in mm (5.70 for CCFv3)
 
 // Build file name
 def projectParentDir = new File(buildFilePath(PROJECT_BASE_DIR)).getParent()
