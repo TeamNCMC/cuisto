@@ -37,8 +37,8 @@ example_url = "https://github.com/TeamNCMC/cuisto/raw/main/resources/example.tar
 # full path to where are the TSV files and {animal}_detections folders
 # dl_example = False
 # animals = ("animalid0", "animalid1")
-# input_dir = /path/to/your/data
-# config_file = /path/to/your/config.toml
+# input_dir = "~/.cuisto/example"
+# config_file = "~/.cuisto/config_multi.toml"
 
 # Download example data into cuisto default folder. Remove this block if using your data
 if dl_example:
