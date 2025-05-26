@@ -27,25 +27,62 @@ with the same names as probabilities images (without their suffix).
 
 """
 
+import requests
 from tqdm import tqdm
 
 from cuisto import segmentation
 
+### Configure the example to fetch data online. See after this block for the actual
+# segmentation option
+
+# --- Set up the example
+# Configure so that toy data is fetched online. You can safely remove this
+# part when running on your own data
+dl_example = True
+example_url = "https://github.com/TeamNCMC/cuisto/raw/main/resources/example-seg.tar.gz"
+
+# Download example data into cuisto default folder. Remove this block if using your data
+if dl_example:
+    import tarfile
+    import sys
+    from pathlib import Path
+
+    default_destination = Path.home() / ".cuisto"
+    print(f"Downloading example data to {default_destination}...")
+    if not default_destination.exists():
+        default_destination.mkdir()
+
+    # response = requests.get(example_url)
+    if True:#response.ok:
+        tarname = default_destination / "example-seg.tar.gz"
+        # with open(tarname, "wb") as fid:
+            # fid.write(response.content)
+        with tarfile.open(tarname) as tar:
+            tar.extractall(tarname.parent, filter="data")
+
+    else:
+        msg = (
+            "Download failed. Download manually here : "
+            "https://github.com/TeamNCMC/cuisto/tree/main/resources"
+        )
+        print(msg)
+        sys.exit()
+### Remove the block above to run on your own data
 
 # --- Parameters
-IMAGES_DIR = "/path/to/images"
+IMAGES_DIR = default_destination / "example-seg" / "probabilities"
 """Full path to the images to segment."""
 MASKS_DIR = "path/to/corresponding/masks"
 """Full path to the masks, to exclude objects near the brain edges (set to None or empty
 string to disable this feature)."""
 MASKS_EXT = "tiff"
 """Masks files extension."""
-SEGTYPE = "cells"
+SEGTYPE = "fibers"
 """Type of segmentation, must match one the hardcoded keywords to associate it to
 'fibers', 'points' or polygon'. See `cuisto.segmentation` doc."""
-IMG_SUFFIX = "_Probabilities.tiff"
+IMG_SUFFIX = "_Probabilities.ome.tiff"
 """Images suffix, including extension. Masks must be the same name without the suffix."""
-ORIGINAL_PIXELSIZE = 0.4500
+ORIGINAL_PIXELSIZE = 5.476
 """Original images pixel size in microns. This is in case the pixel classifier uses
 a lower resolution, yielding smaller probability maps, so output objects coordinates
 need to be rescaled to the full size images. The pixel size is written in the "Image"
@@ -55,22 +92,22 @@ CHANNELS_PARAMS = [
     {
         "name": "cy5",
         "target_channel": 0,
-        "proba_threshold": 0.85,
-        "qp_class": "Fibers: Cy5",
+        "proba_threshold": 0.65,
+        "qp_class": "Fibers: marker1",
         "qp_color": [164, 250, 120],
     },
     {
         "name": "dsred",
         "target_channel": 1,
         "proba_threshold": 0.65,
-        "qp_class": "Fibers: DsRed",
+        "qp_class": "Fibers: marker2",
         "qp_color": [224, 153, 18],
     },
     {
         "name": "egfp",
         "target_channel": 2,
-        "proba_threshold": 0.85,
-        "qp_class": "Fibers: EGFP",
+        "proba_threshold": 0.75,
+        "qp_class": "Fibers: marker3",
         "qp_color": [135, 11, 191],
     },
 ]
