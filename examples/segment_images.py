@@ -25,6 +25,10 @@ A "geojson" folder will be created in the parent directory of `IMAGES_DIR`.
 To exclude objects near the edges of an ROI, specify the path to masks stored as images
 with the same names as probabilities images (without their suffix).
 
+The first block downloads toy data to showcase usage. You can drag & drop the prediction
+map into QuPath, run this script and drag & drop the resulting geojson files to see the
+results. Remove that block to use with your own data.
+
 """
 
 import requests
@@ -52,8 +56,8 @@ if dl_example:
     if not default_destination.exists():
         default_destination.mkdir()
 
-    # response = requests.get(example_url)
-    if True:#response.ok:
+    response = requests.get(example_url)
+    if response.ok:
         tarname = default_destination / "example-seg.tar.gz"
         # with open(tarname, "wb") as fid:
             # fid.write(response.content)
@@ -80,9 +84,9 @@ MASKS_EXT = "tiff"
 SEGTYPE = "fibers"
 """Type of segmentation, must match one the hardcoded keywords to associate it to
 'fibers', 'points' or polygon'. See `cuisto.segmentation` doc."""
-IMG_SUFFIX = "_Probabilities.ome.tiff"
+IMG_SUFFIX = "_Probabilities.tiff"
 """Images suffix, including extension. Masks must be the same name without the suffix."""
-ORIGINAL_PIXELSIZE = 5.476
+ORIGINAL_PIXELSIZE = 0.5476 * 2
 """Original images pixel size in microns. This is in case the pixel classifier uses
 a lower resolution, yielding smaller probability maps, so output objects coordinates
 need to be rescaled to the full size images. The pixel size is written in the "Image"
@@ -92,21 +96,21 @@ CHANNELS_PARAMS = [
     {
         "name": "cy5",
         "target_channel": 0,
-        "proba_threshold": 0.65,
+        "proba_threshold": 0.6,
         "qp_class": "Fibers: marker1",
         "qp_color": [164, 250, 120],
     },
     {
         "name": "dsred",
         "target_channel": 1,
-        "proba_threshold": 0.65,
+        "proba_threshold": 0.6,
         "qp_class": "Fibers: marker2",
         "qp_color": [224, 153, 18],
     },
     {
         "name": "egfp",
         "target_channel": 2,
-        "proba_threshold": 0.75,
+        "proba_threshold": 0.6,
         "qp_class": "Fibers: marker3",
         "qp_color": [135, 11, 191],
     },
