@@ -24,24 +24,30 @@
 
 from pathlib import Path
 
+import matplotlib.pyplot as plt
 import pandas as pd
 
 import cuisto
 
 # Full path to your configuration file, edited according to your need beforehand
-wdir = Path(__file__).parent.parent
-config_file = wdir / "resources" / "demo_config_cells.toml"
+wdir = Path(__file__).parent.parent / "resources"
+config_file = wdir / "demo_config_cells.toml"
 
 # - Files
 # animal identifier
 animal = "animalid0"
 # set the full path to the annotations tsv file from QuPath
-annotations_file = "../../resources/cells_measurements_annotations.tsv"
+annotations_file = wdir / "cells_measurements_annotations.tsv"
 # set the full path to the detections tsv file from QuPath
-detections_file = "../../resources/cells_measurements_detections.tsv"
+detections_file = wdir / "cells_measurements_detections.tsv"
 
 # get configuration
 cfg = cuisto.config.Config(config_file)
+# update configuration file paths (so that this example can self-run)
+cfg.files["blacklist"] = wdir / "demo_atlas_blacklist_brain.toml"
+cfg.files["fusion"] = wdir / "demo_atlas_fusion_brain.toml"
+cfg.files["infos"] = wdir / "demo_info_cells.toml"
+cfg.get_blacklist()
 
 # read data
 df_annotations = pd.read_csv(annotations_file, index_col="Object ID", sep="\t")
@@ -87,3 +93,5 @@ fig_distrib = cuisto.display.plot_1D_distributions(
 
 # plot heatmap (all types of cells pooled)
 fig_heatmap = cuisto.display.plot_2D_distributions(df_coordinates, cfg)
+
+plt.show()

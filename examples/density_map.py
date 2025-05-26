@@ -15,6 +15,8 @@
 # Find this script as a notebook in the documentation :
 # https://teamncmc.github.io/cuisto/demo_notebooks/density_map.html
 
+from pathlib import Path
+
 import brainglobe_heatmap as bgh
 import matplotlib.pyplot as plt
 import numpy as np
@@ -22,7 +24,8 @@ import pandas as pd
 import seaborn as sns
 
 # path to the exported measurements from QuPath
-filename = "../resources/cells_measurements_detections.tsv"
+wdir = Path(__file__).parent.parent / "resources"
+filename = wdir / "cells_measurements_detections.tsv"
 
 # Settings
 # atlas to use
@@ -160,3 +163,5 @@ plt.xticks([])
 plt.yticks([])
 plt.plot([0.5, 1.5], [0.5, 0.5], "k", linewidth=3)
 plt.text(0.5, 0.4, "1 mm")
+
+plt.show()
