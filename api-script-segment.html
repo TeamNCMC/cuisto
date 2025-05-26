@@ -1546,6 +1546,9 @@ parameters).</p>
 <p>A "geojson" folder will be created in the parent directory of <code>IMAGES_DIR</code>.
 To exclude objects near the edges of an ROI, specify the path to masks stored as images
 with the same names as probabilities images (without their suffix).</p>
+<p>The first block downloads toy data to showcase usage. You can drag &amp; drop the prediction
+map into QuPath, run this script and drag &amp; drop the resulting geojson files to see the
+results. Remove that block to use with your own data.</p>
 
 
 
@@ -1568,7 +1571,7 @@ with the same names as probabilities images (without their suffix).</p>
 
 
 <h2 id="examples.segment_images.CHANNELS_PARAMS" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">CHANNELS_PARAMS</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;cy5&#39;</span><span class="p">,</span> <span class="s1">&#39;target_channel&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;proba_threshold&#39;</span><span class="p">:</span> <span class="mf">0.85</span><span class="p">,</span> <span class="s1">&#39;qp_class&#39;</span><span class="p">:</span> <span class="s1">&#39;Fibers: Cy5&#39;</span><span class="p">,</span> <span class="s1">&#39;qp_color&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">164</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">120</span><span class="p">]},</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;dsred&#39;</span><span class="p">,</span> <span class="s1">&#39;target_channel&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;proba_threshold&#39;</span><span class="p">:</span> <span class="mf">0.65</span><span class="p">,</span> <span class="s1">&#39;qp_class&#39;</span><span class="p">:</span> <span class="s1">&#39;Fibers: DsRed&#39;</span><span class="p">,</span> <span class="s1">&#39;qp_color&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">224</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">18</span><span class="p">]},</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;egfp&#39;</span><span class="p">,</span> <span class="s1">&#39;target_channel&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;proba_threshold&#39;</span><span class="p">:</span> <span class="mf">0.85</span><span class="p">,</span> <span class="s1">&#39;qp_class&#39;</span><span class="p">:</span> <span class="s1">&#39;Fibers: EGFP&#39;</span><span class="p">,</span> <span class="s1">&#39;qp_color&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">135</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">191</span><span class="p">]}]</span></code>
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">CHANNELS_PARAMS</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;cy5&#39;</span><span class="p">,</span> <span class="s1">&#39;target_channel&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;proba_threshold&#39;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span> <span class="s1">&#39;qp_class&#39;</span><span class="p">:</span> <span class="s1">&#39;Fibers: marker1&#39;</span><span class="p">,</span> <span class="s1">&#39;qp_color&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">164</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">120</span><span class="p">]},</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;dsred&#39;</span><span class="p">,</span> <span class="s1">&#39;target_channel&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;proba_threshold&#39;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span> <span class="s1">&#39;qp_class&#39;</span><span class="p">:</span> <span class="s1">&#39;Fibers: marker2&#39;</span><span class="p">,</span> <span class="s1">&#39;qp_color&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">224</span><span class="p">,</span> <span class="mi">153</span><span class="p">,</span> <span class="mi">18</span><span class="p">]},</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;egfp&#39;</span><span class="p">,</span> <span class="s1">&#39;target_channel&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;proba_threshold&#39;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span> <span class="s1">&#39;qp_class&#39;</span><span class="p">:</span> <span class="s1">&#39;Fibers: marker3&#39;</span><span class="p">,</span> <span class="s1">&#39;qp_color&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">135</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">191</span><span class="p">]}]</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
@@ -1649,7 +1652,7 @@ with the same names as probabilities images (without their suffix).</p>
 
 
 <h2 id="examples.segment_images.IMAGES_DIR" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">IMAGES_DIR</span> <span class="o">=</span> <span class="s1">&#39;/path/to/images&#39;</span></code>
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">IMAGES_DIR</span> <span class="o">=</span> <span class="n">default_destination</span> <span class="o">/</span> <span class="s1">&#39;example-seg&#39;</span> <span class="o">/</span> <span class="s1">&#39;probabilities&#39;</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
@@ -1760,7 +1763,7 @@ string to disable this feature).</p>
 
 
 <h2 id="examples.segment_images.ORIGINAL_PIXELSIZE" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">ORIGINAL_PIXELSIZE</span> <span class="o">=</span> <span class="mf">0.45</span></code>
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">ORIGINAL_PIXELSIZE</span> <span class="o">=</span> <span class="mf">0.5476</span> <span class="o">*</span> <span class="mi">2</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
@@ -1807,7 +1810,7 @@ tab in QuPath.</p>
 
 
 <h2 id="examples.segment_images.SEGTYPE" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">SEGTYPE</span> <span class="o">=</span> <span class="s1">&#39;cells&#39;</span></code>
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">SEGTYPE</span> <span class="o">=</span> <span class="s1">&#39;fibers&#39;</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
