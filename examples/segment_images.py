@@ -59,8 +59,8 @@ if dl_example:
     response = requests.get(example_url)
     if response.ok:
         tarname = default_destination / "example-seg.tar.gz"
-        # with open(tarname, "wb") as fid:
-            # fid.write(response.content)
+        with open(tarname, "wb") as fid:
+            fid.write(response.content)
         with tarfile.open(tarname) as tar:
             tar.extractall(tarname.parent, filter="data")
 
