@@ -4,6 +4,7 @@ Contains the Config class.
 
 """
 
+import os
 import tomllib
 import warnings
 
@@ -62,9 +63,10 @@ class Config:
     def get_blacklist(self):
         """Wraps cuisto.utils.get_blacklist."""
 
-        self.atlas["blacklist"] = utils.get_blacklist(
-            self.files["blacklist"], self.bg_atlas
-        )
+        if os.path.isfile(self.files["blacklist"]):
+            self.atlas["blacklist"] = utils.get_blacklist(
+                self.files["blacklist"], self.bg_atlas
+            )
 
     def get_leaves_list(self):
         """Wraps utils.get_leaves_list."""
