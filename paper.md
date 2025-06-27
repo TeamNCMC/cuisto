@@ -57,7 +57,7 @@ Furthermore, `cuisto` leverages the atlas coordinates of each object of interest
 
 `cuisto` processing and display is configured with human-readable configuration files that support up to two hemispheres and any number of detection channels to be able to compare different biological markers. Ultimately, this package aims to be versatile: while it was designed around BrainGlobe atlases, those are not mandatory and the user can use it with custom annotated regions instead — as long as the format requirements are met.
 
-It is worth mentioning that BraiAn [@chiaruttini2024], a toolbox following a similar purpose, was released during the development of the present work, but also provides a Java API for the QuPath side, while `cuisto` provides simpler, standalone QuPath scripts.
+It is worth mentioning that BraiAn [@chiaruttini2025], a toolbox following a similar purpose, was released during the development of the present work, but also provides a Java API for the QuPath side, while `cuisto` provides simpler, standalone QuPath scripts.
 
 The documentation and the examples provide toy data, derived from datasets acquired on mice models. All procedures were approved by the French Ethical Committee (“Comité d’éthique en Expérimentation Animale”, CEEA #59, authorization 2020-022410231878) and conducted in accordance with EU Directive 2010/63/EU.
 
