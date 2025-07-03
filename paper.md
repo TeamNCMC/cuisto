@@ -50,7 +50,7 @@ Specifically, guides are provided to align 2D histological slices to volumetric 
 Subsequently, `cuisto` is used to collect the data from different subjects, pool them based on the atlas region names, and derive quantifying metrics from the raw count or cumulative length. Those metrics include, for each atlas region:
 
 - the raw measurement,
-- the areal density, i.e. the raw measurement divided by  the region area,
+- the areal density, i.e. the raw measurement divided by  the region area, and
 - the relative density, i.e. the areal density as a fraction of the total density.
 
 Furthermore, `cuisto` leverages the atlas coordinates of each object of interest to compute and display spatial distributions in the reference atlas space. 2D projection heatmaps are also generated and overlaid on the atlas region contours.
