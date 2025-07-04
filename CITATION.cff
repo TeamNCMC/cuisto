@@ -1,0 +1,50 @@
+cff-version: "1.2.0"
+authors:
+- family-names: Le Goc
+  given-names: Guillaume
+  orcid: "https://orcid.org/0000-0002-6946-1142"
+- family-names: d'Humières
+  given-names: Alexis
+  orcid: "https://orcid.org/0009-0006-3860-2084"
+- family-names: Lesage
+  given-names: Antoine
+  orcid: "https://orcid.org/0009-0000-7362-3215"
+- family-names: Bouvier
+  given-names: Julien
+  orcid: "https://orcid.org/0000-0002-1307-4426"
+contact:
+- family-names: Bouvier
+  given-names: Julien
+  orcid: "https://orcid.org/0000-0002-1307-4426"
+doi: 10.5281/zenodo.15684283
+message: If you use this software, please cite our article in the
+  Journal of Open Source Software.
+preferred-citation:
+  authors:
+  - family-names: Le Goc
+    given-names: Guillaume
+    orcid: "https://orcid.org/0000-0002-6946-1142"
+  - family-names: d'Humières
+    given-names: Alexis
+    orcid: "https://orcid.org/0009-0006-3860-2084"
+  - family-names: Lesage
+    given-names: Antoine
+    orcid: "https://orcid.org/0009-0000-7362-3215"
+  - family-names: Bouvier
+    given-names: Julien
+    orcid: "https://orcid.org/0000-0002-1307-4426"
+  date-published: 2025-07-03
+  doi: 10.21105/joss.07906
+  issn: 2475-9066
+  issue: 111
+  journal: Journal of Open Source Software
+  publisher:
+    name: Open Journals
+  start: 7906
+  title: "cuisto: A Python package to quantify neurohistological data
+    from QuPath and ABBA"
+  type: article
+  url: "https://joss.theoj.org/papers/10.21105/joss.07906"
+  volume: 10
+title: "cuisto: A Python package to quantify neurohistological data from
+  QuPath and ABBA"
