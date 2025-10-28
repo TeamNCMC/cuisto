@@ -13,6 +13,10 @@
  *
  * Note that the sterotaxic conversion is only an empirical approximation.
  */
+def pixelToAtlasTransform = 
+    AtlasTools
+    .getAtlasToPixelTransform(getCurrentImageData())
+    .inverse() // pixel to atlas = inverse of atlas to pixel
 
 getDetectionObjects().forEach(detection -> {
     RealPoint atlasCoordinates = new RealPoint(3)
@@ -24,9 +28,9 @@ getDetectionObjects().forEach(detection -> {
     def y_ccfv3 = atlasCoordinates.getDoublePosition(1)
     def z_ccfv3 = atlasCoordinates.getDoublePosition(2)
 
-    ml.putMeasurement('Atlas_X', x_ccfv3)
-    ml.putMeasurement('Atlas_Y', y_ccfv3)
-    ml.putMeasurement('Atlas_Z', z_ccfv3)
+    ml.put('Atlas_X', x_ccfv3)
+    ml.put('Atlas_Y', y_ccfv3)
+    ml.put('Atlas_Z', z_ccfv3)
 
     // Step 1: center the CCF on Bregma
     def x_stereo = x_ccfv3 - 5.40 //The position is already in millimeter
@@ -44,9 +48,9 @@ getDetectionObjects().forEach(detection -> {
     y_stereo = y_stereo * 0.9434
 
     // Step 4: add measurements
-    ml.putMeasurement('AP', x_stereo)
-    ml.putMeasurement('DV', y_stereo)
-    ml.putMeasurement('ML', z_stereo)
+    ml.put('AP', x_stereo)
+    ml.put('DV', y_stereo)
+    ml.put('ML', z_stereo)
 })
 
 import net.imglib2.RealPoint
