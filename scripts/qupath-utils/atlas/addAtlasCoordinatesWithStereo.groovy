@@ -41,7 +41,7 @@ getDetectionObjects().forEach(detection -> {
     def angleCorrection = 5.0 / 180.0 * Math.PI
     def rot_x_stereo = x_stereo * Math.cos(angleCorrection) - y_stereo * Math.sin(angleCorrection)
     def rot_y_stereo = x_stereo * Math.sin(angleCorrection) + y_stereo * Math.cos(angleCorrection)
-    x_stereo = rot_x_stereo
+    x_stereo = rot_x_stereo * -1
     y_stereo = rot_y_stereo
 
     // Step 3: squeeze the DV axis
