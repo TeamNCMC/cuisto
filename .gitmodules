@@ -1,0 +1,3 @@
+[submodule "brain-structures"]
+	path = brain-structures
+	url = https://github.com/TeamNCMC/brain-structures.git
