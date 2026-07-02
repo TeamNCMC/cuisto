@@ -1,0 +1,45 @@
+[project]
+name = "pyramid-creator"
+version = "2024.12.18.1"
+authors = [{ name = "Guillaume Le Goc", email = "g.legoc@posteo.org" }]
+description = "Create pyramidal OME-TIFF from regular OME-TIFF images using QuPath or Python backend."
+readme = "README.md"
+requires-python = ">=3.12"
+
+license = { text = "MIT" }
+
+classifiers = ["Programming Language :: Python :: 3.12"]
+
+dependencies = [
+  "tqdm",
+  "typer",
+]
+
+[project.optional-dependencies]
+python_backend = [
+  "numpy>=2",
+  "scikit-image>0.22.0",
+  "tifffile[codecs]>=2024.4.24",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/TeamNCMC/pyramid-creator"
+"Source Code" = "https://github.com/TeamNCMC/pyramid-creator"
+"Bug Tracker" = "https://github.com/TeamNCMC/pyramid-creator/issues"
+
+[project.scripts]
+pyramid-creator = "pyramid_creator.pyramid_creator:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+include = [
+    "pyramid_creator",
+    "pyramid_creator/scripts/createPyramids.groovy"
+]
+
+[tool.ruff]
+line-length = 88
+extend-include = ["*.ipynb"]
